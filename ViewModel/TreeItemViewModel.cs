@@ -50,7 +50,7 @@ namespace FolderBrowswerDialog.ViewModel
         }
 
         /// <summary>
-        /// Return true if <paramref name="Children"/> collection has been populated, false otherwise.
+        /// Represents the state of the <paramref name="Children"/> collection.
         /// </summary>
         public bool IsPopulated
         {
@@ -65,6 +65,8 @@ namespace FolderBrowswerDialog.ViewModel
             get { return m_IsExpanded; }
             set
             {
+                const bool v_Expand = true;
+                
                 if (value != m_IsExpanded)
                 {
                     m_IsExpanded = value;
@@ -76,8 +78,14 @@ namespace FolderBrowswerDialog.ViewModel
                 {
                     foreach (TreeItemViewModel child in r_Children)
                     {
-                        child.IsExpanded = false;
+                        child.IsExpanded = !v_Expand;
                     }
+                }
+
+                //Expand all unexpanded predeccesors
+                if (m_IsExpanded && r_Parent != null)
+                {
+                    r_Parent.IsExpanded = v_Expand;
                 }
 
                 if (m_IsExpanded && !IsPopulated)
@@ -125,8 +133,11 @@ namespace FolderBrowswerDialog.ViewModel
 
         #region Methods
         /// <summary>
-        /// Virtual method to load the children of the current <typeparamref name="TreeItemViewModel"/>. 
+        /// Populates the <paramref name="Children"/> collection with <typeparamref name="TreeItemViewModel"/> type objects.
         /// </summary>
+        /// <remarks>
+        /// override with you logics to populate the collection only when the <typeparamref name="TreeItemViewModel"/> is expanded.
+        /// </remarks>
         protected virtual void Populate()
         {
         }
@@ -149,7 +160,7 @@ namespace FolderBrowswerDialog.ViewModel
         }
 
         /// <summary>
-        /// Event triggred every time a property is changed
+        /// Notifies when a property is changed
         /// </summary> 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion INotifyPropertyChanged Members

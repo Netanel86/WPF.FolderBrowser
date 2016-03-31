@@ -29,6 +29,11 @@ namespace FolderBrowswerDialog.ViewModel
             get { return r_Directory != null ? r_Directory.FullName : this.m_DirectoryName ; }
         }
 
+        public bool IsDummy 
+        {
+            get { return r_Directory == null; } 
+        }
+
         public bool IsEmpty
         {
             get { return r_Directory.GetDirectories().Length == 0; }
@@ -54,18 +59,29 @@ namespace FolderBrowswerDialog.ViewModel
             }
         }
 
-        public DirectoryItemViewModel(DirectoryTreeViewModel i_Root,DirectoryInfo i_Directory, DirectoryItemViewModel i_ParentDirectory)
-            :base(i_ParentDirectory, false)
+        public DirectoryItemViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_Directory, DirectoryItemViewModel i_ParentDirectory)
+            : base(i_ParentDirectory, false)
         {
+            checkIfNull(i_Root, "i_Root");
+            checkIfNull(i_Directory, "i_Directory");
+
             r_Root = i_Root;
             r_Directory = i_Directory;
+
             if (HasAccess && !IsEmpty)
             {
                 this.Children.Add(this.DummyItem);
             }
-
         }
-        
+
+        private void checkIfNull(object i_Parameter, string i_ParameterName)
+        {
+            if (i_Parameter == null)
+            {
+                throw new ArgumentNullException(i_ParameterName);
+            }
+        }
+
         /// <summary>
         /// Root dummy <typeparamref name="DirectoryItemViewModel"/> constructor
         /// </summary>
@@ -77,6 +93,8 @@ namespace FolderBrowswerDialog.ViewModel
         public DirectoryItemViewModel(DirectoryTreeViewModel i_Root, string i_RootDummyName)
             : base(null, false)
         {
+            checkIfNull(i_Root, "i_Root");
+
             r_Root = i_Root;
             m_DirectoryName = i_RootDummyName;
         }
@@ -84,7 +102,7 @@ namespace FolderBrowswerDialog.ViewModel
         protected override void Populate()
         {
             this.Children.Clear();
-            if (HasAccess)
+            if (HasAccess && r_Directory.GetDirectories().Length > 0)
             {
                 foreach (DirectoryInfo subDirectory in r_Directory.GetDirectories())
                 {
@@ -96,19 +114,27 @@ namespace FolderBrowswerDialog.ViewModel
             }
         }
 
-        public bool MatchPath(string i_PathSearchString)
+        public bool MatchDirectoryName(string i_DirectoryToMatch)
         {
             const bool v_Match = true;
-            return r_Directory.FullName.CompareTo(i_PathSearchString) > -1 ? v_Match : !v_Match;
+            const bool v_IgnoreCase = true;
+            
+            //populate the item before searching deeper.
+            if (!this.IsPopulated)
+            {
+                this.Populate();
+            }
+
+            return !this.IsDummy && String.Compare(r_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
         }
-        
+
         protected override void OnPropertyChanged(string i_Property)
         {
             base.OnPropertyChanged(i_Property);
 
             if (i_Property.CompareTo("IsSelected") == 0)
             {
-               r_Root.SearchText = this.FullPath;
+               r_Root.PathText = this.FullPath;
             }
         }
 

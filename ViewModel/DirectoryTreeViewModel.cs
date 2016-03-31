@@ -7,81 +7,113 @@ using System.Text;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Threading;
 
 namespace FolderBrowswerDialog.ViewModel
 {
     public class DirectoryTreeViewModel : INotifyPropertyChanged
     {
+        private readonly ICommand m_FindDirectoryCommand;
+        
+        private readonly ObservableCollection<DirectoryItemViewModel> r_RootItems;
+
+        private readonly DirectoryItemViewModel r_MyComputer;
+
+        private string m_PathText = String.Empty;
+
+        public string PathText 
+        {
+            get { return m_PathText; }
+            set 
+            { 
+                m_PathText = value;
+                m_FindDirectoryCommand.CanExecute(value);
+                this.OnPropertyChanged(this, new PropertyChangedEventArgs("PathText"));
+            }
+        }
+
         public DirectoryItemViewModel SelectedItem
         {
             get { return RootItems.FirstOrDefault(i => i.IsSelected); }
         }
-        
-        private readonly ObservableCollection<DirectoryItemViewModel> r_RootItems;
-        
-        private DirectoryItemViewModel m_MyComputer;
-
-        public string SearchText 
-        {
-            get { return m_SearchText; }
-            set 
-            { 
-                m_SearchText = value;
-                m_SearchCommand.CanExecute(value);
-                this.OnPropertyChanged(this, new PropertyChangedEventArgs("SearchText"));
-            }
-        }
-        private string m_SearchText = String.Empty;
 
         public ObservableCollection<DirectoryItemViewModel> RootItems
         {
             get { return r_RootItems; }
         }
-        
-        public IEnumerable<DirectoryItemViewModel> m_MatchingPaths;
+
+        public ICommand FindDirectoryCommand
+        {
+            get { return m_FindDirectoryCommand; }
+        }
         
         public DirectoryTreeViewModel(DriveInfo[] i_SystemDrives)
         {
             r_RootItems = new ObservableCollection<DirectoryItemViewModel>();
-            m_MyComputer = new DirectoryItemViewModel(this, "My Computer");
-            m_SearchCommand = new RelayCommand(SearchForDirectory, canexecute);
+            r_MyComputer = new DirectoryItemViewModel(this, "My Computer");
+            m_FindDirectoryCommand = new RelayCommand(initiateSearch, canStartSearch);
             
             foreach (DriveInfo drive in i_SystemDrives)
             {
                 if (drive.DriveType != DriveType.CDRom)
                 {
-                    m_MyComputer.Children.Add(new DirectoryItemViewModel(this, drive.RootDirectory, null));
+                    r_MyComputer.Children.Add(new DirectoryItemViewModel(this, drive.RootDirectory, r_MyComputer));
                 }
             }
 
-            r_RootItems.Add(m_MyComputer);
+            r_RootItems.Add(r_MyComputer);
         }
-        
-        public IEnumerable<DirectoryItemViewModel> SearchForPath(string i_PathSearchString, DirectoryItemViewModel folder)
+
+        private bool canStartSearch(object obj)
         {
-            if (folder.MatchPath(i_PathSearchString))
+            return this.PathText != String.Empty;
+        }
+        private void initiateSearch(object obj)
+        {
+            if (Directory.Exists(this.m_PathText))
             {
-                yield return folder;
-            }
-            
-            foreach (DirectoryItemViewModel sub in folder.Children)
-            {
-                foreach (DirectoryItemViewModel match in SearchForPath(i_PathSearchString, sub))
+                string path = Path.GetFullPath(this.PathText);
+                List<string> subpaths = path.Split('\\').ToList();
+                subpaths[0] += "\\";
+                DirectoryItemViewModel found = findDirectoryTreeItem(subpaths, r_MyComputer);
+                if (found.Parent != null && !found.Parent.IsExpanded)
                 {
-                    yield return match;
+                    found.Parent.IsExpanded = true;
+                }
+
+                found.IsSelected = true;
+            }
+            else
+            {
+                MessageBox.Show(
+                    "The specified path does not exists.",
+                    "Try Again",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                    );
+            }
+        }
+        private DirectoryItemViewModel findDirectoryTreeItem(List<string> i_PathElements, DirectoryItemViewModel i_Directory)
+        {
+            if (i_PathElements.Count != 0)
+            {
+                foreach (DirectoryItemViewModel subdir in i_Directory.Children)
+                {
+                    if (subdir.MatchDirectoryName(i_PathElements[0]))
+                    {
+                        i_PathElements.RemoveAt(0);
+                        return findDirectoryTreeItem(i_PathElements, subdir);
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
             }
 
+            return i_Directory;
         }
-
-        public void SearchForDirectory(object obj)
-        {
-
-        }
-        private bool canexecute(object obj)
-        {
-            return this.SearchText != String.Empty;
-        }
+ 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
@@ -89,70 +121,6 @@ namespace FolderBrowswerDialog.ViewModel
             {
                 this.PropertyChanged(sender, args);
             }
-        }
-
-        public ICommand SearchCommand 
-        { 
-            get { return m_SearchCommand; } 
-        }
-        private readonly ICommand m_SearchCommand;
-    }
-
-    public class RelayCommand : ICommand
-    {
-        private Predicate<object> m_CanExecute;
-        private Action<object> m_Execute;
-        
-        private bool m_CanExecuteCurrentState;
-
-        public RelayCommand(Action<object> i_Execute, Predicate<object> i_CanExecute)
-        {
-            if(i_Execute == null )
-            {
-                throw new ArgumentNullException("i_Execute");
-            }
-
-            if(i_CanExecute == null )
-            {
-                throw new ArgumentNullException("i_CanExecute");
-            }
-            
-            m_CanExecute = i_CanExecute;
-            m_Execute = i_Execute;
-        }
-
-        public RelayCommand(Action<object> i_Execute)
-            : this(i_Execute, x => true)
-        { }
-
-        public bool CanExecute(object parameter)
-        {
-            if (this.m_CanExecute != null)
-            {
-                bool canExecute = this.m_CanExecute(parameter);
-                if (m_CanExecuteCurrentState != canExecute)
-                {
-                    m_CanExecuteCurrentState = canExecute;
-                    OnCanExecuteChanged();
-                }
-            }
-
-            return m_CanExecuteCurrentState;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        protected void OnCanExecuteChanged()
-        {
-            if (this.CanExecuteChanged != null)
-            {
-                this.CanExecuteChanged(this, EventArgs.Empty);
-            }
-        }
-
-        public void Execute(object parameter)
-        {
-            this.m_Execute(parameter);
         }
     }
 }
