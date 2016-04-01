@@ -9,13 +9,63 @@ using System.Collections.ObjectModel;
 
 namespace FolderBrowswerDialog.ViewModel
 {
-    public class DirectoryItemViewModel : TreeItemViewModel
+    public class DriveViewModel : BasicDirectoryViewModel
     {
-        private static readonly string sr_DriveIconImage = "Icons\\drive-icon.png";
-        private static readonly string sr_FolderClosedIconImage = "Icons\\folder-close-blue-icon.png";
-        private static readonly string sr_FolderOpenIconImage = "Icons\\folder-open-blue-icon.png";
-        private static readonly string sr_MyComputerIconImage = "Icons\\my-computer-icon-2.png";
+        public string DriveLetter 
+        {
+            get { return r_Directory.Name; }
+        }
 
+        public DriveViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_DriveDirectory, DummyDirectoryViewModel i_ParentDirectory)
+            : base(i_Root, i_DriveDirectory, i_ParentDirectory)
+        {
+            this.Image = Properties.ImagePaths.DriveIcon;
+            
+        }
+    }
+    
+    public class FolderViewModel : BasicDirectoryViewModel
+    {
+        public string FolderName
+        {
+            get { return r_Directory.Name; }
+        }
+
+        public FolderViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_Directory, BasicDirectoryViewModel i_ParentDirectory)
+            : base(i_Root,i_Directory,i_ParentDirectory)
+        {
+            this.Image = Properties.ImagePaths.FolderClosedIcon;
+        }
+
+        protected override void OnPropertyChanged(string i_Property)
+        {
+            base.OnPropertyChanged(i_Property);
+
+            if (i_Property.CompareTo("IsExpanded") == 0)
+            {
+                this.Image = this.IsExpanded ? Properties.ImagePaths.FolderOpenIcon : Properties.ImagePaths.FolderClosedIcon;
+            }
+        }
+    }
+
+    public class DummyDirectoryViewModel : TreeItemViewModel
+    {
+        public string Image { get; set; }
+        private string m_DummyName;
+        public string DummyName 
+        {
+            get { return m_DummyName; } 
+        }
+        public DummyDirectoryViewModel(string i_DummyName)
+            :base(null,false)
+        {
+            this.Image = Properties.ImagePaths.MyComputerIcon;
+            m_DummyName = i_DummyName;
+        }
+    }
+    
+    public class BasicDirectoryViewModel : TreeItemViewModel
+    {
         private string m_Image = String.Empty;
         public string Image
         {
@@ -30,30 +80,12 @@ namespace FolderBrowswerDialog.ViewModel
                 }
             }
         }
-
-        private readonly DirectoryTreeViewModel r_Root;
-
-        private readonly DirectoryInfo r_Directory;
-
-        private string m_DirectoryName = String.Empty;
-        public string DirectoryName
+        public string Path
         {
-            get
-            {
-                return r_Directory != null ? r_Directory.Name : m_DirectoryName;
-            }
+            get { return r_Directory.FullName; }
         }
-
-        public string DirectoryPath
-        {
-            get { return r_Directory != null ? r_Directory.FullName : this.m_DirectoryName; }
-        }
-
-        public bool IsRoot
-        {
-            get { return r_Directory == null; }
-        }
-
+        protected readonly DirectoryInfo r_Directory;
+        protected readonly DirectoryTreeViewModel r_Root;
         public bool IsEmpty
         {
             get { return r_Directory.GetDirectories().Length == 0; }
@@ -79,11 +111,12 @@ namespace FolderBrowswerDialog.ViewModel
             }
         }
 
-        public DirectoryItemViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_Directory, DirectoryItemViewModel i_ParentDirectory)
+        public BasicDirectoryViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_Directory, TreeItemViewModel i_ParentDirectory)
             : base(i_ParentDirectory, false)
         {
-            checkIfNull(i_Root, "i_Root");
-            checkIfNull(i_Directory, "i_Directory");
+            CheckIfNull(i_Root, "i_Root");
+            CheckIfNull(i_Directory, "i_Directory");
+            CheckIfNull(i_ParentDirectory, "i_ParentDirectory");
 
             r_Root = i_Root;
             r_Directory = i_Directory;
@@ -92,48 +125,29 @@ namespace FolderBrowswerDialog.ViewModel
             {
                 this.Children.Add(this.DummyItem);
             }
-
-            this.Image = i_ParentDirectory.IsRoot ? sr_DriveIconImage : sr_FolderClosedIconImage;
-        }
-
-        private void checkIfNull(object i_Parameter, string i_ParameterName)
-        {
-            if (i_Parameter == null)
-            {
-                throw new ArgumentNullException(i_ParameterName);
-            }
-        }
-
-        /// <summary>
-        /// Root dummy <typeparamref name="DirectoryItemViewModel"/> constructor
-        /// </summary>
-        /// <remarks>
-        /// used to create a root object, where both <paramref name="Parent"/>
-        /// and Directory members are null
-        /// </remarks>
-        /// <param name="i_RootDummyName">Name representing the Root object</param>
-        public DirectoryItemViewModel(DirectoryTreeViewModel i_Root, string i_RootDummyName)
-            : base(null, false)
-        {
-            checkIfNull(i_Root, "i_Root");
-
-            r_Root = i_Root;
-            m_DirectoryName = i_RootDummyName;
-            this.Image = sr_MyComputerIconImage;
         }
 
         protected override void Populate()
         {
             this.Children.Clear();
-            if (HasAccess && r_Directory.GetDirectories().Length > 0)
+            if (this.HasAccess)
             {
                 foreach (DirectoryInfo subDirectory in r_Directory.GetDirectories())
                 {
                     if ((subDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {
-                        this.Children.Add(new DirectoryItemViewModel(r_Root, subDirectory, this));
+                        this.Children.Add(new FolderViewModel(r_Root, subDirectory, this));
                     }
                 }
+            }
+
+        }
+
+        protected void CheckIfNull(object i_Parameter, string i_ParameterName)
+        {
+            if (i_Parameter == null)
+            {
+                throw new ArgumentNullException(i_ParameterName);
             }
         }
 
@@ -148,7 +162,7 @@ namespace FolderBrowswerDialog.ViewModel
                 this.Populate();
             }
 
-            return !this.IsRoot && String.Compare(r_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
+            return String.Compare(r_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
         }
 
         protected override void OnPropertyChanged(string i_Property)
@@ -157,14 +171,8 @@ namespace FolderBrowswerDialog.ViewModel
 
             if (i_Property.CompareTo("IsSelected") == 0)
             {
-                r_Root.PathText = this.DirectoryPath;
-            }
-
-            if (!this.IsRoot && i_Property.CompareTo("IsExpanded") == 0)
-            {
-                this.Image = this.IsExpanded ? sr_FolderOpenIconImage : sr_FolderClosedIconImage;
+                r_Root.PathText = this.Path;
             }
         }
-
     }
 }
