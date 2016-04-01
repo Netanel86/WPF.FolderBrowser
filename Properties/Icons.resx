@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DriveIcon" xml:space="preserve">
-    <value>Icons\drive-icon.png</value>
+    <value>Icons/drive-icon.png</value>
   </data>
   <data name="FolderClosedIcon" xml:space="preserve">
-    <value>Icons\folder-close-blue-icon.png</value>
+    <value>Icons/folder-close-blue-icon.png</value>
   </data>
   <data name="FolderOpenIcon" xml:space="preserve">
-    <value>Icons\folder-open-blue-icon.png</value>
+    <value>Icons/folder-open-blue-icon.png</value>
   </data>
   <data name="MyComputerIcon" xml:space="preserve">
-    <value>Icons\my-computer-icon-2.png</value>
+    <value>Icons/my-computer-icon-2.png</value>
   </data>
 </root>

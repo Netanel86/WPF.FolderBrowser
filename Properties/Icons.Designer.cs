@@ -22,14 +22,14 @@ namespace FolderBrowswerDialog.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ImagePaths {
+    internal class Icons {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ImagePaths() {
+        internal Icons() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace FolderBrowswerDialog.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FolderBrowswerDialog.Properties.ImagePaths", typeof(ImagePaths).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FolderBrowswerDialog.Properties.Icons", typeof(Icons).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace FolderBrowswerDialog.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons\drive-icon.png.
+        ///   Looks up a localized string similar to Icons/drive-icon.png.
         /// </summary>
         internal static string DriveIcon {
             get {
@@ -70,7 +70,7 @@ namespace FolderBrowswerDialog.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons\folder-close-blue-icon.png.
+        ///   Looks up a localized string similar to Icons/folder-close-blue-icon.png.
         /// </summary>
         internal static string FolderClosedIcon {
             get {
@@ -79,7 +79,7 @@ namespace FolderBrowswerDialog.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons\folder-open-blue-icon.png.
+        ///   Looks up a localized string similar to Icons/folder-open-blue-icon.png.
         /// </summary>
         internal static string FolderOpenIcon {
             get {
@@ -88,7 +88,7 @@ namespace FolderBrowswerDialog.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons\my-computer-icon-2.png.
+        ///   Looks up a localized string similar to Icons/my-computer-icon-2.png.
         /// </summary>
         internal static string MyComputerIcon {
             get {

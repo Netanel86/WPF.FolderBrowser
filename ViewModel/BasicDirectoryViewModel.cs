@@ -1,69 +1,11 @@
 ﻿using System;
-using System.Windows;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
 
 namespace FolderBrowswerDialog.ViewModel
 {
-    public class DriveViewModel : BasicDirectoryViewModel
-    {
-        public string DriveLetter 
-        {
-            get { return r_Directory.Name; }
-        }
-
-        public DriveViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_DriveDirectory, DummyDirectoryViewModel i_ParentDirectory)
-            : base(i_Root, i_DriveDirectory, i_ParentDirectory)
-        {
-            this.Image = Properties.ImagePaths.DriveIcon;
-            
-        }
-    }
-    
-    public class FolderViewModel : BasicDirectoryViewModel
-    {
-        public string FolderName
-        {
-            get { return r_Directory.Name; }
-        }
-
-        public FolderViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_Directory, BasicDirectoryViewModel i_ParentDirectory)
-            : base(i_Root,i_Directory,i_ParentDirectory)
-        {
-            this.Image = Properties.ImagePaths.FolderClosedIcon;
-        }
-
-        protected override void OnPropertyChanged(string i_Property)
-        {
-            base.OnPropertyChanged(i_Property);
-
-            if (i_Property.CompareTo("IsExpanded") == 0)
-            {
-                this.Image = this.IsExpanded ? Properties.ImagePaths.FolderOpenIcon : Properties.ImagePaths.FolderClosedIcon;
-            }
-        }
-    }
-
-    public class DummyDirectoryViewModel : TreeItemViewModel
-    {
-        public string Image { get; set; }
-        private string m_DummyName;
-        public string DummyName 
-        {
-            get { return m_DummyName; } 
-        }
-        public DummyDirectoryViewModel(string i_DummyName)
-            :base(null,false)
-        {
-            this.Image = Properties.ImagePaths.MyComputerIcon;
-            m_DummyName = i_DummyName;
-        }
-    }
-    
     public class BasicDirectoryViewModel : TreeItemViewModel
     {
         private string m_Image = String.Empty;
