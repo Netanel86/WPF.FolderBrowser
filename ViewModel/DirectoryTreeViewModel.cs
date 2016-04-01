@@ -99,10 +99,6 @@ namespace FolderBrowswerDialog.ViewModel
                         i_PathElements.RemoveAt(0);
                         return findDirectoryTreeItem(i_PathElements, subdir);
                     }
-                    else
-                    {
-                        continue;
-                    }
                 }
             }
 
