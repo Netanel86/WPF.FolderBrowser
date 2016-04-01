@@ -24,7 +24,10 @@
             
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type local:DirectoryItemViewModel}" ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="16" Height="16" Margin="3,0" Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="{Binding DirectoryName}"/>
+                    </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>

@@ -11,8 +11,28 @@ namespace FolderBrowswerDialog.ViewModel
 {
     public class DirectoryItemViewModel : TreeItemViewModel
     {
+        private static readonly string sr_DriveIconImage = "Icons\\drive-icon.png";
+        private static readonly string sr_FolderClosedIconImage = "Icons\\folder-close-blue-icon.png";
+        private static readonly string sr_FolderOpenIconImage = "Icons\\folder-open-blue-icon.png";
+        private static readonly string sr_MyComputerIconImage = "Icons\\my-computer-icon-2.png";
+
+        private string m_Image = String.Empty;
+        public string Image
+        {
+            get { return m_Image; }
+
+            set
+            {
+                if (m_Image.CompareTo(value) != 0)
+                {
+                    m_Image = value;
+                    this.OnPropertyChanged("Image");
+                }
+            }
+        }
+
         private readonly DirectoryTreeViewModel r_Root;
-        
+
         private readonly DirectoryInfo r_Directory;
 
         private string m_DirectoryName = String.Empty;
@@ -24,22 +44,22 @@ namespace FolderBrowswerDialog.ViewModel
             }
         }
 
-        public string FullPath
+        public string DirectoryPath
         {
-            get { return r_Directory != null ? r_Directory.FullName : this.m_DirectoryName ; }
+            get { return r_Directory != null ? r_Directory.FullName : this.m_DirectoryName; }
         }
 
-        public bool IsDummy 
+        public bool IsRoot
         {
-            get { return r_Directory == null; } 
+            get { return r_Directory == null; }
         }
 
         public bool IsEmpty
         {
             get { return r_Directory.GetDirectories().Length == 0; }
         }
-        
-        public bool HasAccess 
+
+        public bool HasAccess
         {
             get
             {
@@ -72,6 +92,8 @@ namespace FolderBrowswerDialog.ViewModel
             {
                 this.Children.Add(this.DummyItem);
             }
+
+            this.Image = i_ParentDirectory.IsRoot ? sr_DriveIconImage : sr_FolderClosedIconImage;
         }
 
         private void checkIfNull(object i_Parameter, string i_ParameterName)
@@ -97,8 +119,9 @@ namespace FolderBrowswerDialog.ViewModel
 
             r_Root = i_Root;
             m_DirectoryName = i_RootDummyName;
+            this.Image = sr_MyComputerIconImage;
         }
-        
+
         protected override void Populate()
         {
             this.Children.Clear();
@@ -108,7 +131,7 @@ namespace FolderBrowswerDialog.ViewModel
                 {
                     if ((subDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {
-                        this.Children.Add(new DirectoryItemViewModel(r_Root,subDirectory,this));
+                        this.Children.Add(new DirectoryItemViewModel(r_Root, subDirectory, this));
                     }
                 }
             }
@@ -118,14 +141,14 @@ namespace FolderBrowswerDialog.ViewModel
         {
             const bool v_Match = true;
             const bool v_IgnoreCase = true;
-            
+
             //populate the item before searching deeper.
             if (!this.IsPopulated)
             {
                 this.Populate();
             }
 
-            return !this.IsDummy && String.Compare(r_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
+            return !this.IsRoot && String.Compare(r_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
         }
 
         protected override void OnPropertyChanged(string i_Property)
@@ -134,7 +157,12 @@ namespace FolderBrowswerDialog.ViewModel
 
             if (i_Property.CompareTo("IsSelected") == 0)
             {
-               r_Root.PathText = this.FullPath;
+                r_Root.PathText = this.DirectoryPath;
+            }
+
+            if (!this.IsRoot && i_Property.CompareTo("IsExpanded") == 0)
+            {
+                this.Image = this.IsExpanded ? sr_FolderOpenIconImage : sr_FolderClosedIconImage;
             }
         }
 
