@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Windows.Controls;
-using FolderBrowswerDialog.ViewModel;
+using FolderBrowserDialog.ViewModel;
 
-namespace FolderBrowswerDialog.View
+namespace FolderBrowserDialog.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

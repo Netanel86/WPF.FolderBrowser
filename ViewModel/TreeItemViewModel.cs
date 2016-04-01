@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace FolderBrowswerDialog.ViewModel
+namespace FolderBrowserDialog.ViewModel
 {
     /// <summary>
     /// A basic <typeparamref name="TreeViewItem"/> view model

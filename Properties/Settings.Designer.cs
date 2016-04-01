@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FolderBrowswerDialog.Properties
+namespace FolderBrowserDialog.Properties
 {
 
 
