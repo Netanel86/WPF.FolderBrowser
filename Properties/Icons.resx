@@ -127,6 +127,9 @@
     <value>Icons/folder-open-blue-icon.png</value>
   </data>
   <data name="MyComputerIcon" xml:space="preserve">
-    <value>Icons/my-computer-icon-2.png</value>
+    <value>Icons/my-computer-icon.png</value>
+  </data>
+  <data name="NetworkDriveIcon" xml:space="preserve">
+    <value>Icons/drive-network-icon.png</value>
   </data>
 </root>

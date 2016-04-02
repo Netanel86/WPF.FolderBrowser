@@ -22,7 +22,7 @@ namespace FolderBrowserDialog.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Icons {
+    public class Icons {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace FolderBrowserDialog.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FolderBrowserDialog.Properties.Icons", typeof(Icons).Assembly);
@@ -51,7 +51,7 @@ namespace FolderBrowserDialog.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace FolderBrowserDialog.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Icons/drive-icon.png.
         /// </summary>
-        internal static string DriveIcon {
+        public static string DriveIcon {
             get {
                 return ResourceManager.GetString("DriveIcon", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace FolderBrowserDialog.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Icons/folder-close-blue-icon.png.
         /// </summary>
-        internal static string FolderClosedIcon {
+        public static string FolderClosedIcon {
             get {
                 return ResourceManager.GetString("FolderClosedIcon", resourceCulture);
             }
@@ -81,18 +81,27 @@ namespace FolderBrowserDialog.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Icons/folder-open-blue-icon.png.
         /// </summary>
-        internal static string FolderOpenIcon {
+        public static string FolderOpenIcon {
             get {
                 return ResourceManager.GetString("FolderOpenIcon", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons/my-computer-icon-2.png.
+        ///   Looks up a localized string similar to Icons/my-computer-icon.png.
         /// </summary>
-        internal static string MyComputerIcon {
+        public static string MyComputerIcon {
             get {
                 return ResourceManager.GetString("MyComputerIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icons/drive-network-icon.png.
+        /// </summary>
+        public static string NetworkDriveIcon {
+            get {
+                return ResourceManager.GetString("NetworkDriveIcon", resourceCulture);
             }
         }
     }

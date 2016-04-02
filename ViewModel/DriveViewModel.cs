@@ -1,11 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
+﻿using System.IO;
 
 namespace FolderBrowserDialog.ViewModel
 {
@@ -16,11 +9,10 @@ namespace FolderBrowserDialog.ViewModel
             get { return r_Directory.Name; }
         }
 
-        public DriveViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_DriveDirectory, DummyDirectoryViewModel i_ParentDirectory)
-            : base(i_Root, i_DriveDirectory, i_ParentDirectory)
+        public DriveViewModel(DirectoryTreeViewModel i_Root, DriveInfo i_DriveDirectory, DummyDirectoryViewModel i_ParentDirectory)
+            : base(i_Root, i_DriveDirectory.RootDirectory, i_ParentDirectory)
         {
-            this.Image = Properties.Icons.DriveIcon;
-            
+            this.Image = i_DriveDirectory.DriveType == DriveType.Network ? Properties.Icons.NetworkDriveIcon : Properties.Icons.DriveIcon;
         }
     }
 }

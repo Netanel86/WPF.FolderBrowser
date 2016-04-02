@@ -45,14 +45,14 @@ namespace FolderBrowserDialog.ViewModel
         public DirectoryTreeViewModel(DriveInfo[] i_SystemDrives)
         {
             r_RootItems = new ObservableCollection<DummyDirectoryViewModel>();
-            r_MyComputer = new DummyDirectoryViewModel("My Computer");
+            r_MyComputer = new DummyDirectoryViewModel(Properties.Resources.TextItemMyComputer);
             m_FindDirectoryCommand = new RelayCommand(initiateSearch, canStartSearch);
             
             foreach (DriveInfo drive in i_SystemDrives)
             {
                 if (drive.DriveType != DriveType.CDRom)
                 {
-                    r_MyComputer.Children.Add(new DriveViewModel(this, drive.RootDirectory, r_MyComputer));
+                    r_MyComputer.Children.Add(new DriveViewModel(this, drive, r_MyComputer));
                 }
             }
 
