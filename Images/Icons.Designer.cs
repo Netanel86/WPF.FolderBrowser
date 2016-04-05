@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FolderBrowserDialog.Properties {
+namespace FolderBrowserDialog.Images {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FolderBrowserDialog.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FolderBrowserDialog.Properties.Icons", typeof(Icons).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FolderBrowserDialog.Images.Icons", typeof(Icons).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,74 @@ namespace FolderBrowserDialog.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons/drive-icon.png.
+        ///   Looks up a localized string similar to \Images\img_folder_explorer_32pxl.png.
         /// </summary>
-        public static string DriveIcon {
+        public static string ButtonFind {
             get {
-                return ResourceManager.GetString("DriveIcon", resourceCulture);
+                return ResourceManager.GetString("ButtonFind", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons/folder-close-blue-icon.png.
+        ///   Looks up a localized string similar to \Images\img_hard_drive_32pxl.png.
         /// </summary>
-        public static string FolderClosedIcon {
+        public static string TreeViewItemDrive {
             get {
-                return ResourceManager.GetString("FolderClosedIcon", resourceCulture);
+                return ResourceManager.GetString("TreeViewItemDrive", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons/folder-open-blue-icon.png.
+        ///   Looks up a localized string similar to \Images\img_yellow_folder_closed_32pxl.png.
         /// </summary>
-        public static string FolderOpenIcon {
+        public static string TreeViewItemFolderClosed {
             get {
-                return ResourceManager.GetString("FolderOpenIcon", resourceCulture);
+                return ResourceManager.GetString("TreeViewItemFolderClosed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons/my-computer-icon.png.
+        ///   Looks up a localized string similar to \Images\img_folder_noaccess_32pxl.png.
         /// </summary>
-        public static string MyComputerIcon {
+        public static string TreeViewItemFolderNoAccess {
             get {
-                return ResourceManager.GetString("MyComputerIcon", resourceCulture);
+                return ResourceManager.GetString("TreeViewItemFolderNoAccess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons/drive-network-icon.png.
+        ///   Looks up a localized string similar to \Images\img_yellow_folder_open_32pxl.png.
         /// </summary>
-        public static string NetworkDriveIcon {
+        public static string TreeViewItemFolderOpen {
             get {
-                return ResourceManager.GetString("NetworkDriveIcon", resourceCulture);
+                return ResourceManager.GetString("TreeViewItemFolderOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \Images\img_my_computer_32pxl.png.
+        /// </summary>
+        public static string TreeViewItemMyComputer {
+            get {
+                return ResourceManager.GetString("TreeViewItemMyComputer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \Images\img_hard_drive_network_32pxl.png.
+        /// </summary>
+        public static string TreeViewItemNetworkDrive {
+            get {
+                return ResourceManager.GetString("TreeViewItemNetworkDrive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \Images\img_hard_drive_system_32pxl.png.
+        /// </summary>
+        public static string TreeViewItemSystemDrive {
+            get {
+                return ResourceManager.GetString("TreeViewItemSystemDrive", resourceCulture);
             }
         }
     }

@@ -117,19 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DriveIcon" xml:space="preserve">
-    <value>Icons/drive-icon.png</value>
+  <data name="ButtonFind" xml:space="preserve">
+    <value />
   </data>
-  <data name="FolderClosedIcon" xml:space="preserve">
-    <value>Icons/folder-close-blue-icon.png</value>
+  <data name="LabelPath" xml:space="preserve">
+    <value />
   </data>
-  <data name="FolderOpenIcon" xml:space="preserve">
-    <value>Icons/folder-open-blue-icon.png</value>
+  <data name="TitleFolderBrowserDialog" xml:space="preserve">
+    <value />
   </data>
-  <data name="MyComputerIcon" xml:space="preserve">
-    <value>Icons/my-computer-icon.png</value>
-  </data>
-  <data name="NetworkDriveIcon" xml:space="preserve">
-    <value>Icons/drive-network-icon.png</value>
+  <data name="TreeViewItemMyComputer" xml:space="preserve">
+    <value />
   </data>
 </root>

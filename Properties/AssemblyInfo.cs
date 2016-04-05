@@ -7,8 +7,8 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FolderBrowserDialog")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Folder Browser Dialog")]
+[assembly: AssemblyDescription("Simple browser for directory selection")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FolderBrowserDialog")]

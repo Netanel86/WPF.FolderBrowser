@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TextButtonFind" xml:space="preserve">
-    <value />
+  <data name="ButtonFind" xml:space="preserve">
+    <value>\Images\img_folder_explorer_32pxl.png</value>
   </data>
-  <data name="TextItemMyComputer" xml:space="preserve">
-    <value />
+  <data name="TreeViewItemDrive" xml:space="preserve">
+    <value>\Images\img_hard_drive_32pxl.png</value>
+  </data>
+  <data name="TreeViewItemFolderClosed" xml:space="preserve">
+    <value>\Images\img_yellow_folder_closed_32pxl.png</value>
+  </data>
+  <data name="TreeViewItemFolderNoAccess" xml:space="preserve">
+    <value>\Images\img_folder_noaccess_32pxl.png</value>
+  </data>
+  <data name="TreeViewItemFolderOpen" xml:space="preserve">
+    <value>\Images\img_yellow_folder_open_32pxl.png</value>
+  </data>
+  <data name="TreeViewItemMyComputer" xml:space="preserve">
+    <value>\Images\img_my_computer_32pxl.png</value>
+  </data>
+  <data name="TreeViewItemNetworkDrive" xml:space="preserve">
+    <value>\Images\img_hard_drive_network_32pxl.png</value>
+  </data>
+  <data name="TreeViewItemSystemDrive" xml:space="preserve">
+    <value>\Images\img_hard_drive_system_32pxl.png</value>
   </data>
 </root>

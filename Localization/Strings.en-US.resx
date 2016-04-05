@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TextButtonFind" xml:space="preserve">
+  <data name="ButtonFind" xml:space="preserve">
     <value>_Find</value>
   </data>
-  <data name="TextItemMyComputer" xml:space="preserve">
+  <data name="LabelPath" xml:space="preserve">
+    <value>_Path:</value>
+  </data>
+  <data name="TitleFolderBrowserDialog" xml:space="preserve">
+    <value>Folder Browser</value>
+  </data>
+  <data name="TreeViewItemMyComputer" xml:space="preserve">
     <value>My Computer</value>
   </data>
 </root>

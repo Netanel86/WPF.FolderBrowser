@@ -13,14 +13,14 @@ namespace FolderBrowserDialog.ViewModel
     /// <remarks>
     /// inherit, use to bind <typeparamref name="TreeViewItem"/> with your own view model.
     /// </remarks>
-    public class TreeItemViewModel : INotifyPropertyChanged
+    public class TreeViewItemModel : ViewModelBase
     {
         #region Members
-        private static readonly TreeItemViewModel sr_DummyItem = new TreeItemViewModel();
+        private static readonly TreeViewItemModel sr_DummyItem = new TreeViewItemModel();
         
-        private readonly ObservableCollection<TreeItemViewModel> r_Children;
+        private readonly ObservableCollection<TreeViewItemModel> r_Children;
         
-        private readonly TreeItemViewModel r_Parent;
+        private readonly TreeViewItemModel r_Parent;
         
         private bool m_IsExpanded;
         
@@ -31,12 +31,12 @@ namespace FolderBrowserDialog.ViewModel
         /// <summary>
         /// Dummy Item for managing your own lazy loading logics.
         /// </summary>
-        protected TreeItemViewModel DummyItem { get { return sr_DummyItem; } }
+        protected TreeViewItemModel DummyItem { get { return sr_DummyItem; } }
 
         /// <summary>
         /// Collection of children populating the current <typeparamref name="TreeItemViewModel"/>. 
         /// </summary>
-        public ObservableCollection<TreeItemViewModel> Children
+        public ObservableCollection<TreeViewItemModel> Children
         {
             get { return r_Children; }
         }
@@ -44,7 +44,7 @@ namespace FolderBrowserDialog.ViewModel
         /// <summary>
         /// The Parent object of the current <typeparamref name="TreeItemViewModel"/>.
         /// </summary>
-        public TreeItemViewModel Parent
+        public TreeViewItemModel Parent
         {
             get { return r_Parent; }
         }
@@ -76,7 +76,7 @@ namespace FolderBrowserDialog.ViewModel
                 //Unexpand all expanded children
                 if (!m_IsExpanded && IsPopulated)
                 {
-                    foreach (TreeItemViewModel child in r_Children)
+                    foreach (TreeViewItemModel child in r_Children)
                     {
                         child.IsExpanded = !v_Expand;
                     }
@@ -113,17 +113,17 @@ namespace FolderBrowserDialog.ViewModel
         #endregion Properties
 
         #region Constructors
-        private TreeItemViewModel() { }
+        private TreeViewItemModel() { }
 
         /// <summary>
         /// Initializes a new instance of <typeparamref name="TreeItemViewModel"/>
         /// </summary>
         /// <param name="i_Parent"><typeparamref name="TreeItemViewModel"/> Parent object, null if there is none</param>
         /// <param name="i_AutoLazyLoad">true/false for using implemented lazy load, use false for self implementation</param>
-        protected TreeItemViewModel(TreeItemViewModel i_Parent, bool i_AutoLazyLoad)
+        protected TreeViewItemModel(TreeViewItemModel i_Parent, bool i_AutoLazyLoad)
         {
             r_Parent = i_Parent;
-            r_Children = new ObservableCollection<TreeItemViewModel>();
+            r_Children = new ObservableCollection<TreeViewItemModel>();
             if (i_AutoLazyLoad)
             {
                 r_Children.Add(sr_DummyItem);
@@ -143,26 +143,6 @@ namespace FolderBrowserDialog.ViewModel
         }
         #endregion Methods
 
-        #region INotifyPropertyChanged Members
-        /// <summary>
-        /// Method is called every time a property is changed
-        /// </summary>
-        /// <param name="i_Property">the name of the updated property</param>
-        /// <remarks>
-        /// override to add user customized logics whenever a property changes.
-        /// </remarks>
-        protected virtual void OnPropertyChanged(string i_Property)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(i_Property));
-            }
-        }
 
-        /// <summary>
-        /// Notifies when a property is changed
-        /// </summary> 
-        public event PropertyChangedEventHandler PropertyChanged;
-        #endregion INotifyPropertyChanged Members
     }
 }

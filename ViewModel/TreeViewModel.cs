@@ -3,21 +3,20 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Threading;
+using FolderBrowserDialog.Localization;
 
 namespace FolderBrowserDialog.ViewModel
 {
-        public class DirectoryTreeViewModel : INotifyPropertyChanged
+    public class TreeViewModel : ViewModelBase
     {
         private readonly ICommand m_FindDirectoryCommand;
         
-        private readonly ObservableCollection<DummyDirectoryViewModel> r_RootItems;
+        private readonly ObservableCollection<DummyDirectoryModel> r_RootItems;
 
-        private readonly DummyDirectoryViewModel r_MyComputer;
+        private readonly DummyDirectoryModel r_MyComputer;
 
         private string m_PathText = String.Empty;
 
@@ -28,11 +27,11 @@ namespace FolderBrowserDialog.ViewModel
             { 
                 m_PathText = value;
                 m_FindDirectoryCommand.CanExecute(value);
-                this.OnPropertyChanged(this, new PropertyChangedEventArgs("PathText"));
+                this.OnPropertyChanged("PathText");
             }
         }
 
-        public ObservableCollection<DummyDirectoryViewModel> RootItems
+        public ObservableCollection<DummyDirectoryModel> RootItems
         {
             get { return r_RootItems; }
         }
@@ -42,27 +41,21 @@ namespace FolderBrowserDialog.ViewModel
             get { return m_FindDirectoryCommand; }
         }
         
-        public DirectoryTreeViewModel(DriveInfo[] i_SystemDrives)
+        public TreeViewModel()
         {
-            r_RootItems = new ObservableCollection<DummyDirectoryViewModel>();
-            r_MyComputer = new DummyDirectoryViewModel(Properties.Resources.TextItemMyComputer);
-            m_FindDirectoryCommand = new RelayCommand(initiateSearch, canStartSearch);
-            
-            foreach (DriveInfo drive in i_SystemDrives)
+            r_RootItems = new ObservableCollection<DummyDirectoryModel>();
+            r_MyComputer = new DummyDirectoryModel(Strings.TreeViewItemMyComputer);
+            m_FindDirectoryCommand = new RelayCommand(initiateSearch, x => !String.IsNullOrEmpty(this.PathText));
+            foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
                 if (drive.DriveType != DriveType.CDRom)
                 {
-                    r_MyComputer.Children.Add(new DriveViewModel(this, drive, r_MyComputer));
+                    r_MyComputer.Children.Add(new DriveModel(this, drive, r_MyComputer));
                 }
             }
-
             r_RootItems.Add(r_MyComputer);
         }
 
-        private bool canStartSearch(object obj)
-        {
-            return this.PathText != String.Empty;
-        }
         private void initiateSearch(object obj)
         {
             if (Directory.Exists(this.m_PathText))
@@ -70,7 +63,7 @@ namespace FolderBrowserDialog.ViewModel
                 string path = Path.GetFullPath(this.PathText);
                 List<string> subpaths = path.Split('\\').ToList();
                 subpaths[0] += "\\";
-                BasicDirectoryViewModel found = findDirectoryTreeItem(subpaths, r_MyComputer);
+                DirectoryModelBase found = findDirectoryTreeItem(subpaths, r_MyComputer);
                 if (found.Parent != null && !found.Parent.IsExpanded)
                 {
                     found.Parent.IsExpanded = true;
@@ -88,11 +81,11 @@ namespace FolderBrowserDialog.ViewModel
                     );
             }
         }
-        private BasicDirectoryViewModel findDirectoryTreeItem(List<string> i_PathElements, TreeItemViewModel i_Directory)
+        private DirectoryModelBase findDirectoryTreeItem(List<string> i_PathElements, TreeViewItemModel i_Directory)
         {
             if (i_PathElements.Count != 0)
             {
-                foreach (BasicDirectoryViewModel subdir in i_Directory.Children)
+                foreach (DirectoryModelBase subdir in i_Directory.Children)
                 {
                     if (subdir.MatchDirectoryName(i_PathElements[0]))
                     {
@@ -102,16 +95,7 @@ namespace FolderBrowserDialog.ViewModel
                 }
             }
 
-            return i_Directory as BasicDirectoryViewModel;
-        }
- 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(sender, args);
-            }
+            return i_Directory as DirectoryModelBase;
         }
     }
 }

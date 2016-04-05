@@ -3,22 +3,31 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FolderBrowserDialog.Localization;
 
 namespace FolderBrowserDialog.ViewModel
 {
-    public class BasicDirectoryViewModel : TreeItemViewModel
+    public class DirectoryModelBase : TreeViewItemModel
     {
-        private string m_Image = String.Empty;
-        public string Image
+
+        private string m_ImagePath = String.Empty;
+        public string ImagePath
         {
-            get { return m_Image; }
+            get 
+            {
+                if (m_ImagePath == String.Empty)
+                {
+                    this.LoadImage();
+                }
+                return m_ImagePath; 
+            }
 
             set
             {
-                if (m_Image.CompareTo(value) != 0)
+                if (m_ImagePath.CompareTo(value) != 0)
                 {
-                    m_Image = value;
-                    this.OnPropertyChanged("Image");
+                    m_ImagePath = value;
+                    this.OnPropertyChanged("ImagePath");
                 }
             }
         }
@@ -27,33 +36,36 @@ namespace FolderBrowserDialog.ViewModel
             get { return r_Directory.FullName; }
         }
         protected readonly DirectoryInfo r_Directory;
-        protected readonly DirectoryTreeViewModel r_Root;
+        protected readonly TreeViewModel r_Root;
         public bool IsEmpty
         {
             get { return r_Directory.GetDirectories().Length == 0; }
         }
 
+        private bool m_HasAccess = true;
         public bool HasAccess
         {
             get
             {
-                const bool v_HasAccess = true;
-                bool access = !v_HasAccess;
-                try
+                const bool v_Access = true;
+                if (m_HasAccess == v_Access)
                 {
-                    access = r_Directory.GetDirectories() != null ? v_HasAccess : !v_HasAccess;
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    access = !v_HasAccess;
-                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                    try
+                    {
+                        m_HasAccess = r_Directory.GetDirectories() != null ? v_Access : !v_Access;
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        m_HasAccess = !v_Access;
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                    }
                 }
 
-                return access;
+                return m_HasAccess;
             }
         }
 
-        public BasicDirectoryViewModel(DirectoryTreeViewModel i_Root, DirectoryInfo i_Directory, TreeItemViewModel i_ParentDirectory)
+        public DirectoryModelBase(TreeViewModel i_Root, DirectoryInfo i_Directory, TreeViewItemModel i_ParentDirectory)
             : base(i_ParentDirectory, false)
         {
             CheckIfNull(i_Root, "i_Root");
@@ -78,11 +90,15 @@ namespace FolderBrowserDialog.ViewModel
                 {
                     if ((subDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {
-                        this.Children.Add(new FolderViewModel(r_Root, subDirectory, this));
+                        this.Children.Add(new FolderModel(r_Root, subDirectory, this));
                     }
                 }
             }
 
+        }
+
+        protected virtual void LoadImage()
+        {
         }
 
         protected void CheckIfNull(object i_Parameter, string i_ParameterName)
@@ -111,7 +127,7 @@ namespace FolderBrowserDialog.ViewModel
         {
             base.OnPropertyChanged(i_Property);
 
-            if (i_Property.CompareTo("IsSelected") == 0)
+            if (this.HasAccess && i_Property.CompareTo("IsSelected") == 0)
             {
                 r_Root.PathText = this.Path;
             }

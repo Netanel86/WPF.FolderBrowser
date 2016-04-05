@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:FolderBrowserDialog.View"
-        Title="MainWindow" Height="350" Width="450">
+        Title="MainWindow" Height="350" Width="350"
+        ResizeMode="NoResize">
     <Grid>
         <local:FolderBrowserDialogControl />
     </Grid>

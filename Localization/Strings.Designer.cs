@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FolderBrowserDialog.Properties {
+namespace FolderBrowserDialog.Localization {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace FolderBrowserDialog.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Strings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace FolderBrowserDialog.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FolderBrowserDialog.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FolderBrowserDialog.Localization.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,18 +63,36 @@ namespace FolderBrowserDialog.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string TextButtonFind {
+        public static string ButtonFind {
             get {
-                return ResourceManager.GetString("TextButtonFind", resourceCulture);
+                return ResourceManager.GetString("ButtonFind", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string TextItemMyComputer {
+        public static string LabelPath {
             get {
-                return ResourceManager.GetString("TextItemMyComputer", resourceCulture);
+                return ResourceManager.GetString("LabelPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TitleFolderBrowserDialog {
+            get {
+                return ResourceManager.GetString("TitleFolderBrowserDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TreeViewItemMyComputer {
+            get {
+                return ResourceManager.GetString("TreeViewItemMyComputer", resourceCulture);
             }
         }
     }
