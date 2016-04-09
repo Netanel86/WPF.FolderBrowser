@@ -127,7 +127,7 @@ namespace FolderBrowserDialog.ViewModel
         {
             base.OnPropertyChanged(i_Property);
 
-            if (this.HasAccess && i_Property.CompareTo("IsSelected") == 0)
+            if (this.HasAccess && i_Property.CompareTo("IsSelected") == 0 && this.IsSelected)
             {
                 r_Root.PathText = this.Path;
             }

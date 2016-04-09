@@ -1,20 +1,21 @@
 ﻿<Window x:Class="FolderBrowserDialog.View.FolderBrowserDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:FolderBrowserDialog.ViewModel"
+        xmlns:vm="clr-namespace:FolderBrowserDialog.ViewModel"
+        xmlns:ctrls="clr-namespace:FolderBrowserDialog.Controls"
         xmlns:c="clr-namespace:FolderBrowserDialog"
         Height="350" Width="350"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     
     <Window.Resources>
-        <local:TreeViewModel x:Key="TreeViewModel"/>
-        
+        <vm:TreeViewModel x:Key="TreeViewModel"/>
     </Window.Resources>
     
     <Window.Title>
         <Binding Source="{StaticResource TreeViewModel}" Path="Strings.TitleFolderBrowserDialog"/>
     </Window.Title>
+    
     <Window.Icon>
         <Binding Source="{StaticResource TreeViewModel}" Path="Icons.ButtonFind"/>
     </Window.Icon>
@@ -31,7 +32,7 @@
                     <KeyBinding Key="Enter" Command="{Binding FindDirectoryCommand}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <Button Style="{StaticResource ImageButtonStyle}" Height="20" Width="20" Margin="5,0,0,0" Content="{Binding Icons.ButtonFind}" Command="{Binding FindDirectoryCommand}" />
+            <ctrls:PulseButton ToolTip="{Binding Strings.ButtonFind}" Icon="{Binding Icons.ButtonFind}" Command="{Binding FindDirectoryCommand}" Height="20" Width="20" Margin="5,0,0,0" />
         </StackPanel>
         
         <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" DockPanel.Dock="Bottom">
@@ -54,21 +55,21 @@
             </TreeView.ItemContainerStyle>
             
             <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type local:DummyDirectoryModel}" ItemsSource="{Binding Children}">
+                <HierarchicalDataTemplate DataType="{x:Type vm:DummyDirectoryModel}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
                         <TextBlock Text="{Binding DummyName}"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type local:DriveModel}" ItemsSource="{Binding Children}">
+                <HierarchicalDataTemplate DataType="{x:Type vm:DriveModel}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
                         <TextBlock Text="{Binding DriveLetter}"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type local:FolderModel}" ItemsSource="{Binding Children}">
+                <HierarchicalDataTemplate DataType="{x:Type vm:FolderModel}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Text="{Binding FolderName}"/>

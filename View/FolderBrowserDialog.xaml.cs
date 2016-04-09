@@ -13,8 +13,6 @@ namespace FolderBrowserDialog.View
         public FolderBrowserDialog()
         {
             InitializeComponent();
-            //DirectoryTree.DataContext =  new DirectoryTreeViewModel();
-            //base.DataContext = new TreeViewModel();
         }
     }
 }
