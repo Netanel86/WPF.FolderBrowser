@@ -126,6 +126,9 @@
   <data name="TitleFolderBrowserDialog" xml:space="preserve">
     <value />
   </data>
+  <data name="ToolTipFind" xml:space="preserve">
+    <value />
+  </data>
   <data name="TreeViewItemMyComputer" xml:space="preserve">
     <value />
   </data>

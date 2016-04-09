@@ -90,6 +90,15 @@ namespace FolderBrowserDialog.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ToolTipFind {
+            get {
+                return ResourceManager.GetString("ToolTipFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string TreeViewItemMyComputer {
             get {
                 return ResourceManager.GetString("TreeViewItemMyComputer", resourceCulture);

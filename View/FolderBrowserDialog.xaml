@@ -32,12 +32,19 @@
                     <KeyBinding Key="Enter" Command="{Binding FindDirectoryCommand}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <ctrls:PulseButton ToolTip="{Binding Strings.ButtonFind}" Icon="{Binding Icons.ButtonFind}" Command="{Binding FindDirectoryCommand}" Height="20" Width="20" Margin="5,0,0,0" />
+            <ctrls:PulseButton Icon="{Binding Icons.ButtonFind}" Command="{Binding FindDirectoryCommand}" Height="20" Width="20" Margin="5,0,0,0">
+                <Button.ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="{Binding Strings.ButtonFind}" />
+                        <TextBlock Text="{Binding Strings.ToolTipFind}"/>
+                    </StackPanel>
+                </Button.ToolTip>
+            </ctrls:PulseButton>
         </StackPanel>
         
         <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" DockPanel.Dock="Bottom">
             <Button Content="Cancel" Padding="8,0" Margin="0,0,5,0" />
-            <Button Content="OK" Padding="8,0" />
+            <Button Content="OK" Padding="8,0"/>
         </StackPanel>
         
         <TreeView ItemsSource="{Binding RootItems}">
