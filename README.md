@@ -1,13 +1,14 @@
 # README #
 
-Under Devolpment
+A Simple WPF Folder Browser Dialog for use in .NET 4.0 applications.
+
+Under Development
 
 ### What is this repository for? ###
 
 * Quick summary 
- A Simple WPF Folder Browser Dialog for use in .Net application.
- Project is implemented to concur with MVVM design rules.
+	Project is implemented to concur with MVVM design rules.
 
 * Version 0.0.0.1
-Basic UI is up and running.
-Not functional yet, still in development.
+	Basic UI Path Tree, Search box, Animated controls.
+	Not functional yet, still in development.

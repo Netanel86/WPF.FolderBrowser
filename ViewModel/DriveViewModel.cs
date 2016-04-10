@@ -10,8 +10,8 @@ namespace FolderBrowserDialog.ViewModel
             get { return r_Directory.Name; }
         }
 
-        public DriveModel(TreeViewModel i_Root, DriveInfo i_DriveInfo, DummyDirectoryModel i_ParentDirectory)
-            : base(i_Root, i_DriveInfo.RootDirectory, i_ParentDirectory)
+        public DriveModel(DriveInfo i_DriveInfo, DummyDirectoryModel i_ParentDirectory)
+            : base(i_DriveInfo.RootDirectory, i_ParentDirectory)
         {
             this.m_DriveInfo = i_DriveInfo;
         }
@@ -20,11 +20,11 @@ namespace FolderBrowserDialog.ViewModel
         {
             if (System.Environment.SystemDirectory.Contains(m_DriveInfo.Name))
             {
-                this.ImagePath = Icons.TreeViewItemSystemDrive;
+                this.ImagePath = Icons.TreeViewItemDriveSystem;
             }
             else
             {
-                this.ImagePath = m_DriveInfo.DriveType == DriveType.Network ? Icons.TreeViewItemNetworkDrive : Icons.TreeViewItemDrive;
+                this.ImagePath = m_DriveInfo.DriveType == DriveType.Network ? Icons.TreeViewItemDriveNetwork: Icons.TreeViewItemDrive;
             }
         }
     }

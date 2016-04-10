@@ -34,7 +34,7 @@ namespace FolderBrowserDialog.ViewModel
         protected TreeViewItemModel DummyItem { get { return sr_DummyItem; } }
 
         /// <summary>
-        /// Collection of children populating the current <typeparamref name="TreeItemViewModel"/>. 
+        /// Collection of children populating the current <typeparamref name="TreeViewItemModel"/>. 
         /// </summary>
         public ObservableCollection<TreeViewItemModel> Children
         {
@@ -42,7 +42,7 @@ namespace FolderBrowserDialog.ViewModel
         }
 
         /// <summary>
-        /// The Parent object of the current <typeparamref name="TreeItemViewModel"/>.
+        /// The Parent object of the current <typeparamref name="TreeViewItemModel"/>.
         /// </summary>
         public TreeViewItemModel Parent
         {
@@ -58,7 +58,7 @@ namespace FolderBrowserDialog.ViewModel
         }
 
         /// <summary>
-        /// Represents the Expanded state of the <typeparamref name="TreeItemView"/> 
+        /// Represents the Expanded state of the <typeparamref name="TreeViewItemModel"/> 
         /// </summary>
         public bool IsExpanded
         {
@@ -96,7 +96,7 @@ namespace FolderBrowserDialog.ViewModel
         }
 
         /// <summary>
-        /// Represents the Selected state of the <typeparamref name="TreeItemView"/> 
+        /// Represents the Selected state of the <typeparamref name="TreeViewItemModel"/> 
         /// </summary>
         public bool IsSelected
         {
@@ -142,7 +142,5 @@ namespace FolderBrowserDialog.ViewModel
         {
         }
         #endregion Methods
-
-
     }
 }

@@ -7,9 +7,13 @@ using FolderBrowserDialog.Localization;
 
 namespace FolderBrowserDialog.ViewModel
 {
+    public interface ISelectedObserver
+    {
+        void NotifyIsSelected(DirectoryModelBase i_Directory);
+    }
     public class DirectoryModelBase : TreeViewItemModel
     {
-
+        private ISelectedObserver m_SelectedObserver;
         private string m_ImagePath = String.Empty;
         public string ImagePath
         {
@@ -36,7 +40,6 @@ namespace FolderBrowserDialog.ViewModel
             get { return r_Directory.FullName; }
         }
         protected readonly DirectoryInfo r_Directory;
-        protected readonly TreeViewModel r_Root;
         public bool IsEmpty
         {
             get { return r_Directory.GetDirectories().Length == 0; }
@@ -65,14 +68,12 @@ namespace FolderBrowserDialog.ViewModel
             }
         }
 
-        public DirectoryModelBase(TreeViewModel i_Root, DirectoryInfo i_Directory, TreeViewItemModel i_ParentDirectory)
+        public DirectoryModelBase(DirectoryInfo i_Directory, TreeViewItemModel i_ParentDirectory)
             : base(i_ParentDirectory, false)
         {
-            CheckIfNull(i_Root, "i_Root");
             CheckIfNull(i_Directory, "i_Directory");
             CheckIfNull(i_ParentDirectory, "i_ParentDirectory");
 
-            r_Root = i_Root;
             r_Directory = i_Directory;
 
             if (HasAccess && !IsEmpty)
@@ -90,7 +91,9 @@ namespace FolderBrowserDialog.ViewModel
                 {
                     if ((subDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {
-                        this.Children.Add(new FolderModel(r_Root, subDirectory, this));
+                        FolderModel folder = new FolderModel(subDirectory, this);
+                        folder.AddSelectedObserver(m_SelectedObserver); 
+                        this.Children.Add(folder);
                     }
                 }
             }
@@ -109,6 +112,11 @@ namespace FolderBrowserDialog.ViewModel
             }
         }
 
+        public void AddSelectedObserver(ISelectedObserver i_Observer)
+        {
+            this.m_SelectedObserver = i_Observer;
+        }
+        
         public bool MatchDirectoryName(string i_DirectoryToMatch)
         {
             const bool v_Match = true;
@@ -127,9 +135,12 @@ namespace FolderBrowserDialog.ViewModel
         {
             base.OnPropertyChanged(i_Property);
 
-            if (this.HasAccess && i_Property.CompareTo("IsSelected") == 0 && this.IsSelected)
+            if (i_Property.CompareTo("IsSelected") == 0)
             {
-                r_Root.PathText = this.Path;
+                if (this.IsSelected && m_SelectedObserver != null)
+                {
+                    m_SelectedObserver.NotifyIsSelected(this);
+                }
             }
         }
     }

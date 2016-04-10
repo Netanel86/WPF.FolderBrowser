@@ -123,6 +123,12 @@
   <data name="LabelPath" xml:space="preserve">
     <value>_Path:</value>
   </data>
+  <data name="MenuNewFolder" xml:space="preserve">
+    <value>New Folder</value>
+  </data>
+  <data name="MenuRename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
   <data name="TitleFolderBrowserDialog" xml:space="preserve">
     <value>Folder Browser</value>
   </data>

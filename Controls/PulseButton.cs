@@ -30,7 +30,7 @@ namespace FolderBrowserDialog.Controls
     /// Add the button resource dictionary in the required Resource scope:
     /// <ResourceDictionary Source="/YourPath/PulseButton.xaml" />
     /// Exmaple to use the button in your view:
-    /// <ButtonNamespace:PulseButton Icon="{Binding MyIconPath}" Command="{Binding MyCommand}" Height="20" Width="20" Margin="5,0,0,0" />
+    /// <ButtonNamespace:PulseButton Icon="{Binding MyIconPath}" Command="{Binding MyCommand}" Height="20" Width="20" .../>
     /// </example>
     public class PulseButton : Button
     {
@@ -67,17 +67,17 @@ namespace FolderBrowserDialog.Controls
             DependencyProperty.Register("ScaleMax", typeof(double), typeof(PulseButton));
         #endregion Dependency Properties
         
-        #region Members
-        private const double v_ScaleMaxDefault = 1.3;
+        #region Constant Members
+        private const double k_ScaleMaxDefault = 1.3;
        
-        private const double v_ScaleMinDefault = 1;
-        #endregion Members
+        private const double k_ScaleMinDefault = 1;
+        #endregion Constant Members
 
         #region Constructors
         public PulseButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PulseButton), new FrameworkPropertyMetadata(typeof(PulseButton)));
-            this.ScaleMax = v_ScaleMaxDefault;
+            this.ScaleMax = k_ScaleMaxDefault;
             
         }
         #endregion Constructors
@@ -110,13 +110,13 @@ namespace FolderBrowserDialog.Controls
         private void initializeStoryBoard()
         {
             m_StoryBoard = new Storyboard();
-            ScaleTransform scaleTransform = new ScaleTransform(v_ScaleMinDefault, v_ScaleMinDefault);
+            ScaleTransform scaleTransform = new ScaleTransform(k_ScaleMinDefault, k_ScaleMinDefault);
             base.RenderTransform = scaleTransform;
             base.RenderTransformOrigin = new Point(0.5, 0.5);
 
             DoubleAnimation animationX = new DoubleAnimation()
             {
-                From = v_ScaleMinDefault,
+                From = k_ScaleMinDefault,
                 To = this.ScaleMax,
                 AutoReverse = true,
                 RepeatBehavior = RepeatBehavior.Forever,
@@ -126,7 +126,7 @@ namespace FolderBrowserDialog.Controls
 
             DoubleAnimation animationY = new DoubleAnimation()
             {
-                From = v_ScaleMinDefault,
+                From = k_ScaleMinDefault,
                 To = this.ScaleMax,
                 AutoReverse = true,
                 RepeatBehavior = RepeatBehavior.Forever,

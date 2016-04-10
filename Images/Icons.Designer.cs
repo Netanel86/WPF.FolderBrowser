@@ -79,11 +79,38 @@ namespace FolderBrowserDialog.Images {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \Images\img_hard_drive_network_32pxl.png.
+        /// </summary>
+        public static string TreeViewItemDriveNetwork {
+            get {
+                return ResourceManager.GetString("TreeViewItemDriveNetwork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \Images\img_hard_drive_system_32pxl.png.
+        /// </summary>
+        public static string TreeViewItemDriveSystem {
+            get {
+                return ResourceManager.GetString("TreeViewItemDriveSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \Images\img_yellow_folder_closed_32pxl.png.
         /// </summary>
         public static string TreeViewItemFolderClosed {
             get {
                 return ResourceManager.GetString("TreeViewItemFolderClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \Images\img_folder_new_32pxl.png.
+        /// </summary>
+        public static string TreeViewItemFolderNew {
+            get {
+                return ResourceManager.GetString("TreeViewItemFolderNew", resourceCulture);
             }
         }
         
@@ -115,20 +142,11 @@ namespace FolderBrowserDialog.Images {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \Images\img_hard_drive_network_32pxl.png.
+        ///   Looks up a localized string similar to \Images\img_rename_32pxl.png.
         /// </summary>
-        public static string TreeViewItemNetworkDrive {
+        public static string TreeViewItemRename {
             get {
-                return ResourceManager.GetString("TreeViewItemNetworkDrive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \Images\img_hard_drive_system_32pxl.png.
-        /// </summary>
-        public static string TreeViewItemSystemDrive {
-            get {
-                return ResourceManager.GetString("TreeViewItemSystemDrive", resourceCulture);
+                return ResourceManager.GetString("TreeViewItemRename", resourceCulture);
             }
         }
     }

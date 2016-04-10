@@ -10,8 +10,23 @@ using FolderBrowserDialog.Localization;
 
 namespace FolderBrowserDialog.ViewModel
 {
-    public class TreeViewModel : ViewModelBase
+    public class TreeViewModel : ViewModelBase , ISelectedObserver
     {
+
+        private DirectoryModelBase m_SelectedItem;
+        public DirectoryModelBase SelectedItem
+        {
+            get { return m_SelectedItem; }
+            set 
+            {
+                if (m_SelectedItem != value)
+                {
+                    m_SelectedItem = value;
+                    this.OnPropertyChanged("SelectedItem");
+                }
+            }
+        }
+        
         private readonly ICommand m_FindDirectoryCommand;
         
         private readonly ObservableCollection<DummyDirectoryModel> r_RootItems;
@@ -45,12 +60,15 @@ namespace FolderBrowserDialog.ViewModel
         {
             r_RootItems = new ObservableCollection<DummyDirectoryModel>();
             r_MyComputer = new DummyDirectoryModel(Strings.TreeViewItemMyComputer);
-            m_FindDirectoryCommand = new RelayCommand(initiateSearch, x => !String.IsNullOrEmpty(this.PathText));
+            m_FindDirectoryCommand = new RelayCommand(initiateSearch, (x) => !String.IsNullOrEmpty(this.PathText));
+            
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
                 if (drive.DriveType != DriveType.CDRom)
                 {
-                    r_MyComputer.Children.Add(new DriveModel(this, drive, r_MyComputer));
+                    DriveModel driveM = new DriveModel(drive, r_MyComputer);
+                    driveM.AddSelectedObserver(this as ISelectedObserver);
+                    r_MyComputer.Children.Add(driveM);
                 }
             }
             r_RootItems.Add(r_MyComputer);
@@ -96,6 +114,16 @@ namespace FolderBrowserDialog.ViewModel
             }
 
             return i_Directory as DirectoryModelBase;
+        }
+
+        public void NotifyIsSelected(DirectoryModelBase i_Directory)
+        {
+            if (i_Directory.HasAccess)
+            {
+                this.PathText = i_Directory.Path;
+            }
+
+            this.SelectedItem = i_Directory;
         }
     }
 }

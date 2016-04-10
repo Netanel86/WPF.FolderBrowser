@@ -9,8 +9,8 @@ namespace FolderBrowserDialog.ViewModel
             get { return r_Directory.Name; }
         }
 
-        public FolderModel(TreeViewModel i_Root, DirectoryInfo i_Directory, DirectoryModelBase i_ParentDirectory)
-            : base(i_Root, i_Directory, i_ParentDirectory)
+        public FolderModel(DirectoryInfo i_Directory, DirectoryModelBase i_ParentDirectory)
+            : base(i_Directory, i_ParentDirectory)
         {}
 
         protected override void LoadImage()

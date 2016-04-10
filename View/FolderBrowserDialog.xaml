@@ -1,8 +1,10 @@
 ﻿<Window x:Class="FolderBrowserDialog.View.FolderBrowserDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:si="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:vm="clr-namespace:FolderBrowserDialog.ViewModel"
-        xmlns:ctrls="clr-namespace:FolderBrowserDialog.Controls"
+        xmlns:ctrl="clr-namespace:FolderBrowserDialog.Controls"
         xmlns:c="clr-namespace:FolderBrowserDialog"
         Height="350" Width="350"
         WindowStartupLocation="CenterScreen"
@@ -32,47 +34,54 @@
                     <KeyBinding Key="Enter" Command="{Binding FindDirectoryCommand}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <ctrls:PulseButton Icon="{Binding Icons.ButtonFind}" Command="{Binding FindDirectoryCommand}" Height="20" Width="20" Margin="5,0,0,0">
+            <ctrl:PulseButton Icon="{Binding Icons.ButtonFind}" Command="{Binding FindDirectoryCommand}" Height="20" Width="20" Margin="5,0,0,0">
                 <Button.ToolTip>
                     <StackPanel>
                         <TextBlock FontWeight="Bold" Text="{Binding Strings.ButtonFind}" />
                         <TextBlock Text="{Binding Strings.ToolTipFind}"/>
                     </StackPanel>
                 </Button.ToolTip>
-            </ctrls:PulseButton>
+            </ctrl:PulseButton>
         </StackPanel>
         
         <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" DockPanel.Dock="Bottom">
             <Button Content="Cancel" Padding="8,0" Margin="0,0,5,0" />
             <Button Content="OK" Padding="8,0"/>
         </StackPanel>
-        
+
         <TreeView ItemsSource="{Binding RootItems}">
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
-                    <Setter Property="FontWeight" Value="Normal"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="FontWeight" Value="Bold" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>    
-            </TreeView.ItemContainerStyle>
-            
+
             <TreeView.Resources>
+                <ContextMenu x:Key="TreeViewItemContext">
+                    <MenuItem Header="{Binding Strings.MenuNewFolder}">
+                        <MenuItem.Icon>
+                            <Image Source="{Binding Icons.TreeViewItemFolderNew}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="{Binding Strings.MenuRename}">
+                        <MenuItem.Icon>
+                            <Image Source="{Binding Icons.TreeViewItemRename}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+
                 <HierarchicalDataTemplate DataType="{x:Type vm:DummyDirectoryModel}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
                         <TextBlock Text="{Binding DummyName}"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
-
+                
                 <HierarchicalDataTemplate DataType="{x:Type vm:DriveModel}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
                         <TextBlock Text="{Binding DriveLetter}"/>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                <si:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </StackPanel>
                 </HierarchicalDataTemplate>
 
@@ -80,9 +89,28 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Text="{Binding FolderName}"/>
-                    </StackPanel>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                <si:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
+
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                    <Setter Property="FontWeight" Value="Normal"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource TreeViewItemContext}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+           </TreeView.ItemContainerStyle>
         </TreeView>
     </DockPanel>
 </Window>

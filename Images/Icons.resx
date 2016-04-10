@@ -123,8 +123,17 @@
   <data name="TreeViewItemDrive" xml:space="preserve">
     <value>\Images\img_hard_drive_32pxl.png</value>
   </data>
+  <data name="TreeViewItemDriveNetwork" xml:space="preserve">
+    <value>\Images\img_hard_drive_network_32pxl.png</value>
+  </data>
+  <data name="TreeViewItemDriveSystem" xml:space="preserve">
+    <value>\Images\img_hard_drive_system_32pxl.png</value>
+  </data>
   <data name="TreeViewItemFolderClosed" xml:space="preserve">
     <value>\Images\img_yellow_folder_closed_32pxl.png</value>
+  </data>
+  <data name="TreeViewItemFolderNew" xml:space="preserve">
+    <value>\Images\img_folder_new_32pxl.png</value>
   </data>
   <data name="TreeViewItemFolderNoAccess" xml:space="preserve">
     <value>\Images\img_folder_noaccess_32pxl.png</value>
@@ -135,10 +144,7 @@
   <data name="TreeViewItemMyComputer" xml:space="preserve">
     <value>\Images\img_my_computer_32pxl.png</value>
   </data>
-  <data name="TreeViewItemNetworkDrive" xml:space="preserve">
-    <value>\Images\img_hard_drive_network_32pxl.png</value>
-  </data>
-  <data name="TreeViewItemSystemDrive" xml:space="preserve">
-    <value>\Images\img_hard_drive_system_32pxl.png</value>
+  <data name="TreeViewItemRename" xml:space="preserve">
+    <value>\Images\img_rename_32pxl.png</value>
   </data>
 </root>

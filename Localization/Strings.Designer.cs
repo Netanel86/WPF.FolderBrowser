@@ -81,6 +81,24 @@ namespace FolderBrowserDialog.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string MenuNewFolder {
+            get {
+                return ResourceManager.GetString("MenuNewFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MenuRename {
+            get {
+                return ResourceManager.GetString("MenuRename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string TitleFolderBrowserDialog {
             get {
                 return ResourceManager.GetString("TitleFolderBrowserDialog", resourceCulture);
