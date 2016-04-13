@@ -7,13 +7,14 @@ namespace FolderBrowserDialog.ViewModel
         private DriveInfo m_DriveInfo;
         public string DriveLetter 
         {
-            get { return r_Directory.Name; }
+            get { return m_Directory.Name; }
         }
 
         public DriveModel(DriveInfo i_DriveInfo, DummyDirectoryModel i_ParentDirectory)
             : base(i_DriveInfo.RootDirectory, i_ParentDirectory)
         {
             this.m_DriveInfo = i_DriveInfo;
+            this.IsEditable = false;
         }
 
         protected override void LoadImage()

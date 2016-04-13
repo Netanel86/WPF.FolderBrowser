@@ -7,13 +7,14 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using FolderBrowserDialog.Localization;
+using System.Windows.Controls;
 
 namespace FolderBrowserDialog.ViewModel
 {
     public class TreeViewModel : ViewModelBase , ISelectedObserver
     {
-
         private DirectoryModelBase m_SelectedItem;
+        
         public DirectoryModelBase SelectedItem
         {
             get { return m_SelectedItem; }
@@ -55,7 +56,7 @@ namespace FolderBrowserDialog.ViewModel
         {
             get { return m_FindDirectoryCommand; }
         }
-        
+
         public TreeViewModel()
         {
             r_RootItems = new ObservableCollection<DummyDirectoryModel>();
@@ -86,7 +87,7 @@ namespace FolderBrowserDialog.ViewModel
                 {
                     found.Parent.IsExpanded = true;
                 }
-
+                
                 found.IsSelected = true;
             }
             else
@@ -120,10 +121,12 @@ namespace FolderBrowserDialog.ViewModel
         {
             if (i_Directory.HasAccess)
             {
-                this.PathText = i_Directory.Path;
+                this.PathText = i_Directory.FullPath;
             }
 
             this.SelectedItem = i_Directory;
         }
+
+
     }
 }

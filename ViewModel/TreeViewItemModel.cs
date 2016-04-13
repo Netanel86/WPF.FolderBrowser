@@ -52,6 +52,11 @@ namespace FolderBrowserDialog.ViewModel
         /// <summary>
         /// Represents the state of the <paramref name="Children"/> collection.
         /// </summary>
+        /// <remarks>
+        /// returns true if two criteria's are met: 
+        /// 1.the collection is not empty
+        /// 2.the first child is not the <see cref="sr_DummyItem"/>
+        /// </remarks>
         public bool IsPopulated
         {
             get { return r_Children.Count > 0 && r_Children[0] != sr_DummyItem; }
@@ -65,7 +70,7 @@ namespace FolderBrowserDialog.ViewModel
             get { return m_IsExpanded; }
             set
             {
-                const bool v_Expand = true;
+                const bool v_Expanded = true;
                 
                 if (value != m_IsExpanded)
                 {
@@ -73,21 +78,22 @@ namespace FolderBrowserDialog.ViewModel
                     this.OnPropertyChanged("IsExpanded");
                 }
                 
-                //Unexpand all expanded children
+                //Unexpand all expanded children - when an ancestor in unexpanded.
                 if (!m_IsExpanded && IsPopulated)
                 {
                     foreach (TreeViewItemModel child in r_Children)
                     {
-                        child.IsExpanded = !v_Expand;
+                        child.IsExpanded = !v_Expanded;
                     }
                 }
 
-                //Expand all unexpanded predeccesors
+                //Expand all unexpanded predeccesors - when an unexpanded child is selected
                 if (m_IsExpanded && r_Parent != null)
                 {
-                    r_Parent.IsExpanded = v_Expand;
+                    r_Parent.IsExpanded = v_Expanded;
                 }
 
+                //Populate if not populated yet
                 if (m_IsExpanded && !IsPopulated)
                 {
                     this.Populate();

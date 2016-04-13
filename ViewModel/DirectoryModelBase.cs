@@ -3,7 +3,10 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using FolderBrowserDialog.Localization;
+using FolderBrowserDialog.Controls;
+using System.Windows;
 
 namespace FolderBrowserDialog.ViewModel
 {
@@ -35,16 +38,44 @@ namespace FolderBrowserDialog.ViewModel
                 }
             }
         }
-        public string Path
+        public string FullPath
         {
-            get { return r_Directory.FullName; }
+            get { return m_Directory.FullName; }
         }
-        protected readonly DirectoryInfo r_Directory;
+        protected DirectoryInfo m_Directory;
         public bool IsEmpty
         {
-            get { return r_Directory.GetDirectories().Length == 0; }
+            get { return m_Directory.GetDirectories().Length == 0; }
+        }
+        
+        private ICommand m_NewFolderCommand;
+        public ICommand NewFolderCommand
+        {
+            get { return m_NewFolderCommand; }
+        }
+        
+        private ICommand m_EnterEditModeCommand;
+        public ICommand EnterEditModeCommand
+        {
+            get { return m_EnterEditModeCommand; }
+            set { m_EnterEditModeCommand = value; }
         }
 
+        private eTextControlMode m_CurrentEditMode = eTextControlMode.ReadOnly;
+        public eTextControlMode CurrentEditMode
+        {
+            get { return m_CurrentEditMode; }
+            set
+            {
+                if (m_CurrentEditMode != value)
+                {
+                    m_CurrentEditMode = value;
+                    OnPropertyChanged("CurrentEditMode");
+                }
+
+            }
+        }
+        
         private bool m_HasAccess = true;
         public bool HasAccess
         {
@@ -55,17 +86,36 @@ namespace FolderBrowserDialog.ViewModel
                 {
                     try
                     {
-                        m_HasAccess = r_Directory.GetDirectories() != null ? v_Access : !v_Access;
+                        m_HasAccess = m_Directory.GetDirectories() != null ? v_Access : !v_Access;
                     }
                     catch (UnauthorizedAccessException ex)
                     {
                         m_HasAccess = !v_Access;
                         System.Diagnostics.Debug.WriteLine(ex.Message);
                     }
+                    catch (DirectoryNotFoundException ex)
+                    {
+                        m_HasAccess = !v_Access;
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                        (this.Parent as DirectoryModelBase).RefreshDirectoryTree();
+                        MessageBox.Show(ex.Message + "\nThe selected directory is either been deleted, renamed or moved.", "Directory Not Found", MessageBoxButton.OK);
+                    }
                 }
+
 
                 return m_HasAccess;
             }
+        }
+
+        private bool m_IsEditable = true;
+        public bool IsEditable
+        {
+            get 
+            {
+                const bool v_Editable = true;
+                return this.HasAccess ? m_IsEditable : !v_Editable; 
+            }
+            protected set { m_IsEditable = value; }
         }
 
         public DirectoryModelBase(DirectoryInfo i_Directory, TreeViewItemModel i_ParentDirectory)
@@ -73,21 +123,30 @@ namespace FolderBrowserDialog.ViewModel
         {
             CheckIfNull(i_Directory, "i_Directory");
             CheckIfNull(i_ParentDirectory, "i_ParentDirectory");
+            m_NewFolderCommand = new RelayCommand(createNewFolder, x => this.HasAccess);
+            m_EnterEditModeCommand = new RelayCommand(switchToEditMode, x => this.IsEditable && this.CurrentEditMode == eTextControlMode.ReadOnly);
+            m_Directory = i_Directory;
 
-            r_Directory = i_Directory;
-
-            if (HasAccess && !IsEmpty)
+            if (this.HasAccess && !IsEmpty)
             {
                 this.Children.Add(this.DummyItem);
             }
+        }
+        private void switchToEditMode(object obj)
+        {
+            this.CurrentEditMode = eTextControlMode.Editable;
+        }
+        private void createNewFolder(object obj)
+        {
+
         }
 
         protected override void Populate()
         {
             this.Children.Clear();
-            if (this.HasAccess)
+            if (this.HasAccess && !this.IsEmpty)
             {
-                foreach (DirectoryInfo subDirectory in r_Directory.GetDirectories())
+                foreach (DirectoryInfo subDirectory in m_Directory.GetDirectories())
                 {
                     if ((subDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {
@@ -97,7 +156,6 @@ namespace FolderBrowserDialog.ViewModel
                     }
                 }
             }
-
         }
 
         protected virtual void LoadImage()
@@ -112,6 +170,11 @@ namespace FolderBrowserDialog.ViewModel
             }
         }
 
+        public void RefreshDirectoryTree()
+        {
+            this.Populate();
+        }
+        
         public void AddSelectedObserver(ISelectedObserver i_Observer)
         {
             this.m_SelectedObserver = i_Observer;
@@ -128,7 +191,7 @@ namespace FolderBrowserDialog.ViewModel
                 this.Populate();
             }
 
-            return String.Compare(r_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
+            return String.Compare(m_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
         }
 
         protected override void OnPropertyChanged(string i_Property)

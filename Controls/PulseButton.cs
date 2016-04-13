@@ -17,10 +17,10 @@ namespace FolderBrowserDialog.Controls
 {
     /// <summary>
     /// Button with image and built-in pulse animation.
-    /// animation enabled only while control has mouse focus and enabled.
-    /// while control disabled image is half transparent.
     /// </summary>
     /// <remarks>
+    /// animation enabled only while control has mouse focus and enabled.
+    /// while control disabled image is half transparent.
     /// need's to be provided with an image. exposes two
     /// new Dependency Properties: Icon, ScaleMax.
     /// To use the button properly you need to include its XAML file as a resource.
@@ -40,7 +40,7 @@ namespace FolderBrowserDialog.Controls
         /// the button's view.
         /// </summary>
         /// <remarks>
-        /// Bindable property, This property must be set, otherwise the button is transperant.
+        /// Bindable property, This property must be set, otherwise the button is transperent.
         /// </remarks>
         public ImageSource Icon
         {
@@ -82,7 +82,7 @@ namespace FolderBrowserDialog.Controls
         }
         #endregion Constructors
 
-        #region On Event's Overrides
+        #region Animation Event Overrides
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
@@ -102,7 +102,7 @@ namespace FolderBrowserDialog.Controls
             base.OnMouseLeave(e);
             m_StoryBoard.Stop();
         }
-        #endregion On Event's Overrides
+        #endregion Animation Event Overrides
 
         #region Animation
         private Storyboard m_StoryBoard;

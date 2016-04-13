@@ -72,6 +72,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\EditableTexBox.cs" />
+    <Compile Include="Controls\eTextControlMode.cs" />
     <Compile Include="Controls\PulseButton.cs" />
     <Compile Include="Images\Icons.Designer.cs">
       <AutoGen>True</AutoGen>

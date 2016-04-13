@@ -5,7 +5,6 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:vm="clr-namespace:FolderBrowserDialog.ViewModel"
         xmlns:ctrl="clr-namespace:FolderBrowserDialog.Controls"
-        xmlns:c="clr-namespace:FolderBrowserDialog"
         Height="350" Width="350"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
@@ -23,12 +22,10 @@
     </Window.Icon>
 
     <DockPanel DataContext="{StaticResource TreeViewModel}" Margin="10">
-        
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
             <Label Target="{Binding ElementName=TextBoxPath}" Padding="0,0,5,0" >
                 <AccessText Text="{Binding Strings.LabelPath}"/>
             </Label>
-            
             <TextBox Name="TextBoxPath" Width="265" AcceptsReturn="False" Text="{Binding PathText, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding FindDirectoryCommand}"/>
@@ -50,16 +47,15 @@
         </StackPanel>
 
         <TreeView ItemsSource="{Binding RootItems}">
-
             <TreeView.Resources>
                 <ContextMenu x:Key="TreeViewItemContext">
-                    <MenuItem Header="{Binding Strings.MenuNewFolder}">
+                    <MenuItem Header="{Binding Strings.MenuNewFolder}" Command="{Binding NewFolderCommand}">
                         <MenuItem.Icon>
                             <Image Source="{Binding Icons.TreeViewItemFolderNew}" />
                         </MenuItem.Icon>
                     </MenuItem>
 
-                    <MenuItem Header="{Binding Strings.MenuRename}">
+                    <MenuItem Header="{Binding Strings.MenuRename}" Command="{Binding EnterEditModeCommand}">
                         <MenuItem.Icon>
                             <Image Source="{Binding Icons.TreeViewItemRename}" />
                         </MenuItem.Icon>
@@ -74,7 +70,7 @@
                 </HierarchicalDataTemplate>
                 
                 <HierarchicalDataTemplate DataType="{x:Type vm:DriveModel}" ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
                         <TextBlock Text="{Binding DriveLetter}"/>
                         <i:Interaction.Triggers>
@@ -86,15 +82,32 @@
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type vm:FolderModel}" ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="{Binding FolderName}"/>
+
+                        <ctrl:EditableTextBox Mode="{Binding CurrentEditMode, Mode=TwoWay}" Text="{Binding FolderName, Mode=OneWay}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding RenameFolderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ctrl:EditableTextBox}, Path=Text}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <TextBoxBase.Style>
+                                <Style TargetType="{x:Type ctrl:EditableTextBox}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}},Path=IsSelected}" Value="true">
+                                            <Setter Property="Foreground" Value="{x:Static SystemColors.HighlightTextBrush}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBoxBase.Style>
+                        </ctrl:EditableTextBox>
+
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                                 <si:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                     </StackPanel>
+                    </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
 
@@ -103,13 +116,13 @@
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                     <Setter Property="FontWeight" Value="Normal"/>
-                    <Setter Property="ContextMenu" Value="{StaticResource TreeViewItemContext}" />
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="FontWeight" Value="Bold" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
+                
            </TreeView.ItemContainerStyle>
         </TreeView>
     </DockPanel>
