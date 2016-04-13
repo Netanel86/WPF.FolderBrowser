@@ -98,7 +98,7 @@ namespace FolderBrowserDialog.ViewModel
                         m_HasAccess = !v_Access;
                         System.Diagnostics.Debug.WriteLine(ex.Message);
                         (this.Parent as DirectoryModelBase).RefreshDirectoryTree();
-                        MessageBox.Show(ex.Message + "\nThe selected directory is either been deleted, renamed or moved.", "Directory Not Found", MessageBoxButton.OK);
+                        MessageBox.Show(ex.Message + System.Environment.NewLine + Strings.MessegeBoxTextErrorDirectNotFound, Strings.MessegeBoxTitleErrorDirectNotFound, MessageBoxButton.OK);
                     }
                 }
 

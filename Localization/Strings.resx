@@ -129,6 +129,15 @@
   <data name="MenuRename" xml:space="preserve">
     <value />
   </data>
+  <data name="MessegeBoxTextErrorDirectNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessegeBoxTitleErrorDirectNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessegeBoxTitleErrorRename" xml:space="preserve">
+    <value />
+  </data>
   <data name="TitleFolderBrowserDialog" xml:space="preserve">
     <value />
   </data>

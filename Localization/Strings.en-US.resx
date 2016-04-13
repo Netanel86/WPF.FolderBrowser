@@ -129,6 +129,15 @@
   <data name="MenuRename" xml:space="preserve">
     <value>Rename</value>
   </data>
+  <data name="MessegeBoxTextErrorDirectNotFound" xml:space="preserve">
+    <value>The selected directory is either been deleted, renamed or moved.</value>
+  </data>
+  <data name="MessegeBoxTitleErrorDirectNotFound" xml:space="preserve">
+    <value>Directory Not Found</value>
+  </data>
+  <data name="MessegeBoxTitleErrorRename" xml:space="preserve">
+    <value>Rename Error</value>
+  </data>
   <data name="TitleFolderBrowserDialog" xml:space="preserve">
     <value>Folder Browser</value>
   </data>

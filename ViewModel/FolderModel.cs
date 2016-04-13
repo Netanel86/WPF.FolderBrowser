@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FolderBrowserDialog.Controls;
+using FolderBrowserDialog.Localization;
 namespace FolderBrowserDialog.ViewModel
 {
     public class FolderModel : DirectoryModelBase
@@ -60,7 +61,7 @@ namespace FolderBrowserDialog.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Rename Error", MessageBoxButton.OK);
+                MessageBox.Show(ex.Message, Strings.MessegeBoxTitleErrorRename, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             finally
             {

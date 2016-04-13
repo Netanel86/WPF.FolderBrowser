@@ -99,6 +99,33 @@ namespace FolderBrowserDialog.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string MessegeBoxTextErrorDirectNotFound {
+            get {
+                return ResourceManager.GetString("MessegeBoxTextErrorDirectNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MessegeBoxTitleErrorDirectNotFound {
+            get {
+                return ResourceManager.GetString("MessegeBoxTitleErrorDirectNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MessegeBoxTitleErrorRename {
+            get {
+                return ResourceManager.GetString("MessegeBoxTitleErrorRename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string TitleFolderBrowserDialog {
             get {
                 return ResourceManager.GetString("TitleFolderBrowserDialog", resourceCulture);
