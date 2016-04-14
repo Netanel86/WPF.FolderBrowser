@@ -10,14 +10,27 @@ using System.Windows;
 
 namespace FolderBrowserDialog.ViewModel
 {
-    public interface ISelectedObserver
-    {
-        void NotifyIsSelected(DirectoryModelBase i_Directory);
-    }
+
     public class DirectoryModelBase : TreeViewItemModel
     {
-        private ISelectedObserver m_SelectedObserver;
-        private string m_ImagePath = String.Empty;
+        public DirectoryModelBase(DirectoryInfo i_Directory, TreeViewItemModel i_ParentDirectory)
+            : base(i_ParentDirectory, false)
+        {
+            CheckIfNull(i_Directory, "i_Directory");
+            CheckIfNull(i_ParentDirectory, "i_ParentDirectory");
+
+            m_NewFolderCommand = new RelayCommand(createNewFolder, x => this.HasAccess);
+            m_EnterEditModeCommand =
+                new RelayCommand(switchToEditMode, x => this.IsEditable && this.CurrentEditMode == eTextControlMode.ReadOnly);
+
+            m_Directory = i_Directory;
+
+            if (this.HasAccess && !IsEmpty)
+            {
+                this.Children.Add(this.DummyItem);
+            }
+        }
+
         public string ImagePath
         {
             get 
@@ -38,45 +51,12 @@ namespace FolderBrowserDialog.ViewModel
                 }
             }
         }
+        
         public string FullPath
         {
             get { return m_Directory.FullName; }
         }
-        protected DirectoryInfo m_Directory;
-        public bool IsEmpty
-        {
-            get { return m_Directory.GetDirectories().Length == 0; }
-        }
-        
-        private ICommand m_NewFolderCommand;
-        public ICommand NewFolderCommand
-        {
-            get { return m_NewFolderCommand; }
-        }
-        
-        private ICommand m_EnterEditModeCommand;
-        public ICommand EnterEditModeCommand
-        {
-            get { return m_EnterEditModeCommand; }
-            set { m_EnterEditModeCommand = value; }
-        }
 
-        private eTextControlMode m_CurrentEditMode = eTextControlMode.ReadOnly;
-        public eTextControlMode CurrentEditMode
-        {
-            get { return m_CurrentEditMode; }
-            set
-            {
-                if (m_CurrentEditMode != value)
-                {
-                    m_CurrentEditMode = value;
-                    OnPropertyChanged("CurrentEditMode");
-                }
-
-            }
-        }
-        
-        private bool m_HasAccess = true;
         public bool HasAccess
         {
             get
@@ -98,7 +78,7 @@ namespace FolderBrowserDialog.ViewModel
                         m_HasAccess = !v_Access;
                         System.Diagnostics.Debug.WriteLine(ex.Message);
                         (this.Parent as DirectoryModelBase).RefreshDirectoryTree();
-                        MessageBox.Show(ex.Message + System.Environment.NewLine + Strings.MessegeBoxTextErrorDirectNotFound, Strings.MessegeBoxTitleErrorDirectNotFound, MessageBoxButton.OK);
+                        MessageBox.Show(ex.Message + System.Environment.NewLine + Strings.MessegeBoxTextErrorDirectNotFound, Strings.MessegeBoxTitleErrorDirectNotFound, MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
                 }
 
@@ -107,38 +87,113 @@ namespace FolderBrowserDialog.ViewModel
             }
         }
 
-        private bool m_IsEditable = true;
+        public bool IsEmpty
+        {
+            get { return m_Directory.GetDirectories().Length == 0; }
+        }
+
         public bool IsEditable
         {
-            get 
+            get
             {
                 const bool v_Editable = true;
-                return this.HasAccess ? m_IsEditable : !v_Editable; 
+                return this.HasAccess ? m_IsEditable : !v_Editable;
             }
             protected set { m_IsEditable = value; }
         }
 
-        public DirectoryModelBase(DirectoryInfo i_Directory, TreeViewItemModel i_ParentDirectory)
-            : base(i_ParentDirectory, false)
+        public ICommand NewFolderCommand
         {
-            CheckIfNull(i_Directory, "i_Directory");
-            CheckIfNull(i_ParentDirectory, "i_ParentDirectory");
-            m_NewFolderCommand = new RelayCommand(createNewFolder, x => this.HasAccess);
-            m_EnterEditModeCommand = new RelayCommand(switchToEditMode, x => this.IsEditable && this.CurrentEditMode == eTextControlMode.ReadOnly);
-            m_Directory = i_Directory;
+            get { return m_NewFolderCommand; }
+        }
 
-            if (this.HasAccess && !IsEmpty)
+        public ICommand EnterEditModeCommand
+        {
+            get { return m_EnterEditModeCommand; }
+        }
+
+        public eTextControlMode CurrentEditMode
+        {
+            get { return m_CurrentEditMode; }
+            set
             {
-                this.Children.Add(this.DummyItem);
+                if (m_CurrentEditMode != value)
+                {
+                    m_CurrentEditMode = value;
+                    OnPropertyChanged("CurrentEditMode");
+                }
+
             }
         }
+
+        protected DirectoryInfo m_Directory;
+
+        private ISelectedDirectoryObserver m_SelectedObserver;
+        
+        private string m_ImagePath = String.Empty;
+
+        private bool m_HasAccess = true;
+
+        private bool m_IsEditable = true;
+
+        private ICommand m_NewFolderCommand;
+        
+        private ICommand m_EnterEditModeCommand;
+       
+        private eTextControlMode m_CurrentEditMode = eTextControlMode.ReadOnly;
+        
         private void switchToEditMode(object obj)
         {
             this.CurrentEditMode = eTextControlMode.Editable;
         }
+        
         private void createNewFolder(object obj)
         {
+            string nonExistingNewFolderName = Strings.NewFolderNameString;
+            int count = 0;
+            
+            //find a new folder name that doesnt exits in the current directory
+            while (Directory.Exists(Path.Combine(m_Directory.FullName, nonExistingNewFolderName)))
+            {
+                count++;
+                nonExistingNewFolderName = Strings.NewFolderNameString + count.ToString();
+            }
+            
+            //create the new folder and add it to the childer collection of the current directory
+            DirectoryModelBase subfolder = CreateNewDirectoryModel(m_Directory.CreateSubdirectory(nonExistingNewFolderName), this);
+            subfolder.AddSelectedObserver(m_SelectedObserver);
+            this.Children.Add(subfolder);
+            
+            //set the newly created folder as the selected tree item and enter edit mode
+            subfolder.IsSelected = true;
+            subfolder.EnterEditModeCommand.Execute(null);
+        }
 
+        protected void CheckIfNull(object i_Parameter, string i_ParameterName)
+        {
+            if (i_Parameter == null)
+            {
+                throw new ArgumentNullException(i_ParameterName);
+            }
+        }
+
+        protected virtual void LoadImage()
+        {
+        }
+
+        /// <summary>
+        /// Initializes an instance of <typeparamref name="DirectoryModelBase"/>
+        /// </summary>
+        /// <param name="i_DirectoryInfo">Directory to wrap</param>
+        /// <param name="i_Parent">Directory parent model</param>
+        /// <returns>the new <typeparamref name="DirectoryModelBase"/></returns>
+        /// <remarks>
+        /// is called in <code>this.Populate()</code> method, 
+        /// override to implement creation of concrete inheriting classes.
+        /// </remarks>
+        protected virtual DirectoryModelBase CreateNewDirectoryModel(DirectoryInfo i_DirectoryInfo, DirectoryModelBase i_Parent)
+        {
+            throw new NotImplementedException();
         }
 
         protected override void Populate()
@@ -150,48 +205,12 @@ namespace FolderBrowserDialog.ViewModel
                 {
                     if ((subDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {
-                        FolderModel folder = new FolderModel(subDirectory, this);
-                        folder.AddSelectedObserver(m_SelectedObserver); 
+                        DirectoryModelBase folder = CreateNewDirectoryModel(subDirectory, this);
+                        folder.AddSelectedObserver(m_SelectedObserver);
                         this.Children.Add(folder);
                     }
                 }
             }
-        }
-
-        protected virtual void LoadImage()
-        {
-        }
-
-        protected void CheckIfNull(object i_Parameter, string i_ParameterName)
-        {
-            if (i_Parameter == null)
-            {
-                throw new ArgumentNullException(i_ParameterName);
-            }
-        }
-
-        public void RefreshDirectoryTree()
-        {
-            this.Populate();
-        }
-        
-        public void AddSelectedObserver(ISelectedObserver i_Observer)
-        {
-            this.m_SelectedObserver = i_Observer;
-        }
-        
-        public bool MatchDirectoryName(string i_DirectoryToMatch)
-        {
-            const bool v_Match = true;
-            const bool v_IgnoreCase = true;
-
-            //populate the item before searching deeper.
-            if (!this.IsPopulated)
-            {
-                this.Populate();
-            }
-
-            return String.Compare(m_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
         }
 
         protected override void OnPropertyChanged(string i_Property)
@@ -205,6 +224,24 @@ namespace FolderBrowserDialog.ViewModel
                     m_SelectedObserver.NotifyIsSelected(this);
                 }
             }
+        }
+        
+        public void RefreshDirectoryTree()
+        {
+            this.Populate();
+        }
+        
+        public void AddSelectedObserver(ISelectedDirectoryObserver i_Observer)
+        {
+            this.m_SelectedObserver = i_Observer;
+        }
+        
+        public bool MatchDirectoryName(string i_DirectoryToMatch)
+        {
+            const bool v_Match = true;
+            const bool v_IgnoreCase = true;
+
+            return String.Compare(m_Directory.Name, i_DirectoryToMatch, v_IgnoreCase) == 0 ? v_Match : !v_Match;
         }
     }
 }

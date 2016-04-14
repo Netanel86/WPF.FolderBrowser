@@ -68,5 +68,10 @@ namespace FolderBrowserDialog.ViewModel
                 this.CurrentEditMode = eTextControlMode.ReadOnly;
             }
         }
+
+        protected override DirectoryModelBase CreateNewDirectoryModel(DirectoryInfo i_DirectoryInfo, DirectoryModelBase i_Parent)
+        {
+            return new FolderModel(i_DirectoryInfo, i_Parent);
+        }
     }
 }

@@ -9,29 +9,55 @@ using System.Windows.Media;
 
 namespace FolderBrowserDialog.Controls
 {
-    public class EditableTextBox : TextBox
+    /// <summary>
+    /// An Togglable TextBox control
+    /// </summary>
+    /// <remarks>
+    /// Toggles between Edit and ReadOnly modes which are represented in a depandency property <paramref name="Mode"/>.
+    /// <paramref name="Mode"/> is of type <typeparamref name="eTextControlMode"/>
+    /// </remarks>
+    public class TogglableTextBox : TextBox
     {
+        #region Dependency Properties
+        /// <summary>
+        ///  Identifies the TogglableTextBox.Mode dependency property.
+        /// </summary>
         public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(eTextControlMode), typeof(EditableTextBox), new PropertyMetadata(eTextControlMode.ReadOnly));
+            DependencyProperty.Register("Mode", typeof(eTextControlMode), typeof(TogglableTextBox), new PropertyMetadata(eTextControlMode.ReadOnly));
+        #endregion Dependency Properties
 
-        public EditableTextBox()
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of <typeparamref name="TogglableTextBox"/>
+        /// </summary>
+        public TogglableTextBox()
         {
             base.BorderBrush = new SolidColorBrush(Colors.White);
             base.Background = new SolidColorBrush(Colors.White);
             textBoxModeHandler(this.Mode);
         }
+        #endregion Constructors
 
+        #region Properties
+        /// <summary>
+        /// Gets/sets the the current mode of the textbox
+        /// </summary>
         public eTextControlMode Mode
         {
             get { return (eTextControlMode)base.GetValue(ModeProperty); }
             set { base.SetValue(ModeProperty, value); }
         }
+        #endregion Properties
 
+        #region Fields
         private string m_OldText = String.Empty;
+        
         private Thickness m_NoBorder = new Thickness(0);
         
         private Thickness m_StandardThickness = new Thickness(1);
+        #endregion Fields
 
+        #region Methods
         private void textBoxModeHandler(eTextControlMode i_Mode)
         {
             switch (i_Mode)
@@ -99,5 +125,6 @@ namespace FolderBrowserDialog.Controls
             }
 
         }
+        #endregion Methods
     }
 }

@@ -28,5 +28,10 @@ namespace FolderBrowserDialog.ViewModel
                 this.ImagePath = m_DriveInfo.DriveType == DriveType.Network ? Icons.TreeViewItemDriveNetwork: Icons.TreeViewItemDrive;
             }
         }
+
+        protected override DirectoryModelBase CreateNewDirectoryModel(DirectoryInfo i_DirectoryInfo, DirectoryModelBase i_Parent)
+        {
+            return new FolderModel(i_DirectoryInfo, i_Parent);
+        }
     }
 }

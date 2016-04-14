@@ -126,6 +126,15 @@ namespace FolderBrowserDialog.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NewFolderNameString {
+            get {
+                return ResourceManager.GetString("NewFolderNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string TitleFolderBrowserDialog {
             get {
                 return ResourceManager.GetString("TitleFolderBrowserDialog", resourceCulture);

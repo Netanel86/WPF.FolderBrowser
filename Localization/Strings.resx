@@ -138,6 +138,9 @@
   <data name="MessegeBoxTitleErrorRename" xml:space="preserve">
     <value />
   </data>
+  <data name="NewFolderNameString" xml:space="preserve">
+    <value />
+  </data>
   <data name="TitleFolderBrowserDialog" xml:space="preserve">
     <value />
   </data>

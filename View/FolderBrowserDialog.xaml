@@ -85,14 +85,14 @@
                     <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
                         <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <ctrl:EditableTextBox Mode="{Binding CurrentEditMode, Mode=TwoWay}" Text="{Binding FolderName, Mode=OneWay}">
+                        <ctrl:TogglableTextBox Mode="{Binding CurrentEditMode, Mode=TwoWay}" Text="{Binding FolderName, Mode=OneWay}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="LostFocus">
                                     <i:InvokeCommandAction Command="{Binding RenameFolderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ctrl:EditableTextBox}, Path=Text}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <TextBoxBase.Style>
-                                <Style TargetType="{x:Type ctrl:EditableTextBox}">
+                                <Style TargetType="{x:Type ctrl:TogglableTextBox}">
                                     <Style.Triggers>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -105,7 +105,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </TextBoxBase.Style>
-                        </ctrl:EditableTextBox>
+                        </ctrl:TogglableTextBox>
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseRightButtonDown">
@@ -127,7 +127,6 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-                
            </TreeView.ItemContainerStyle>
         </TreeView>
     </DockPanel>

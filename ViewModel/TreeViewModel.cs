@@ -11,22 +11,9 @@ using System.Windows.Controls;
 
 namespace FolderBrowserDialog.ViewModel
 {
-    public class TreeViewModel : ViewModelBase , ISelectedObserver
+    public class TreeViewModel : ViewModelBase , ISelectedDirectoryObserver
     {
         private DirectoryModelBase m_SelectedItem;
-        
-        public DirectoryModelBase SelectedItem
-        {
-            get { return m_SelectedItem; }
-            set 
-            {
-                if (m_SelectedItem != value)
-                {
-                    m_SelectedItem = value;
-                    this.OnPropertyChanged("SelectedItem");
-                }
-            }
-        }
         
         private readonly ICommand m_FindDirectoryCommand;
         
@@ -68,7 +55,7 @@ namespace FolderBrowserDialog.ViewModel
                 if (drive.DriveType != DriveType.CDRom)
                 {
                     DriveModel driveM = new DriveModel(drive, r_MyComputer);
-                    driveM.AddSelectedObserver(this as ISelectedObserver);
+                    driveM.AddSelectedObserver(this as ISelectedDirectoryObserver);
                     r_MyComputer.Children.Add(driveM);
                 }
             }
@@ -100,10 +87,16 @@ namespace FolderBrowserDialog.ViewModel
                     );
             }
         }
+        
         private DirectoryModelBase findDirectoryTreeItem(List<string> i_PathElements, TreeViewItemModel i_Directory)
         {
             if (i_PathElements.Count != 0)
             {
+                if (!i_Directory.IsPopulated)
+                {
+                    (i_Directory as DirectoryModelBase).RefreshDirectoryTree();
+                }
+
                 foreach (DirectoryModelBase subdir in i_Directory.Children)
                 {
                     if (subdir.MatchDirectoryName(i_PathElements[0]))
@@ -124,9 +117,7 @@ namespace FolderBrowserDialog.ViewModel
                 this.PathText = i_Directory.FullPath;
             }
 
-            this.SelectedItem = i_Directory;
+            this.m_SelectedItem = i_Directory;
         }
-
-
     }
 }

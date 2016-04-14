@@ -36,6 +36,32 @@ namespace FolderBrowserDialog.Controls
     {
         #region Dependency Properties
         /// <summary>
+        ///  Identifies the PulseButton.Icon dependency property.
+        /// </summary>
+        public static readonly DependencyProperty IconProperty =
+            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(PulseButton));
+
+        /// <summary>
+        ///  Identifies the PulseButton.ScaleMax dependency property.
+        /// </summary>
+        public static DependencyProperty ScaleMaxProperty =
+            DependencyProperty.Register("ScaleMax", typeof(double), typeof(PulseButton));
+        #endregion Dependency Properties
+
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of <typeparamref name="PulseButton"/>
+        /// </summary>
+        public PulseButton()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(PulseButton), new FrameworkPropertyMetadata(typeof(PulseButton)));
+            this.ScaleMax = k_ScaleMaxDefault;
+
+        }
+        #endregion Constructors
+
+        #region Properties
+        /// <summary>
         /// Gets/sets an <typeparamref name="ImageSource"/> representing
         /// the button's view.
         /// </summary>
@@ -48,9 +74,6 @@ namespace FolderBrowserDialog.Controls
             set { base.SetValue(IconProperty, value); }
         }
 
-        public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(PulseButton));
-
         /// <summary>
         /// Gets/sets the maximum relative scale for the pulse animation.
         /// </summary>
@@ -62,51 +85,17 @@ namespace FolderBrowserDialog.Controls
             get { return (double)base.GetValue(ScaleMaxProperty); }
             set { base.SetValue(ScaleMaxProperty, value); }
         }
-        
-        public static DependencyProperty ScaleMaxProperty =
-            DependencyProperty.Register("ScaleMax", typeof(double), typeof(PulseButton));
-        #endregion Dependency Properties
-        
-        #region Constant Members
+        #endregion Properties
+       
+        #region Fields
         private const double k_ScaleMaxDefault = 1.3;
        
         private const double k_ScaleMinDefault = 1;
-        #endregion Constant Members
-
-        #region Constructors
-        public PulseButton()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(PulseButton), new FrameworkPropertyMetadata(typeof(PulseButton)));
-            this.ScaleMax = k_ScaleMaxDefault;
-            
-        }
-        #endregion Constructors
-
-        #region Animation Event Overrides
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-
-            //initialize animation components
-            initializeStoryBoard();
-        }
-
-        protected override void OnMouseEnter(MouseEventArgs e)
-        {
-            base.OnMouseEnter(e);
-            m_StoryBoard.Begin();
-        }
-
-        protected override void OnMouseLeave(MouseEventArgs e)
-        {
-            base.OnMouseLeave(e);
-            m_StoryBoard.Stop();
-        }
-        #endregion Animation Event Overrides
-
-        #region Animation
+        
         private Storyboard m_StoryBoard;
+        #endregion Fields
 
+        #region Methods
         private void initializeStoryBoard()
         {
             m_StoryBoard = new Storyboard();
@@ -139,6 +128,26 @@ namespace FolderBrowserDialog.Controls
             Storyboard.SetTarget(animationX, this);
             Storyboard.SetTarget(animationY, this);
         }
-        #endregion Animation
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            //initialize animation components
+            initializeStoryBoard();
+        }
+
+        protected override void OnMouseEnter(MouseEventArgs e)
+        {
+            base.OnMouseEnter(e);
+            m_StoryBoard.Begin();
+        }
+
+        protected override void OnMouseLeave(MouseEventArgs e)
+        {
+            base.OnMouseLeave(e);
+            m_StoryBoard.Stop();
+        }
+        #endregion Methods
     }
 }

@@ -86,8 +86,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ViewModel\DirectoryModelBase.cs" />
+    <Compile Include="ViewModel\ISelectedDirectoryObserver.cs" />
     <Compile Include="ViewModel\TreeViewModel.cs" />
-    <Compile Include="ViewModel\DriveViewModel.cs" />
+    <Compile Include="ViewModel\DriveModel.cs" />
     <Compile Include="ViewModel\DummyDirectoryModel.cs" />
     <Compile Include="ViewModel\FolderModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
