@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 
-namespace FolderBrowserDialog.ViewModel
+namespace FolderBrowserDialog.Common
 {
     public class RelayCommand : ICommand
     {

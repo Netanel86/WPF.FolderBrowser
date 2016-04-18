@@ -1,11 +1,12 @@
-﻿using System.IO;
-using FolderBrowserDialog.Images;
-using System;
+﻿using System;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using FolderBrowserDialog.Controls;
+using FolderBrowserDialog.Common;
+using FolderBrowserDialog.Images;
 using FolderBrowserDialog.Localization;
+
 namespace FolderBrowserDialog.ViewModel
 {
     public class FolderModel : DirectoryModelBase

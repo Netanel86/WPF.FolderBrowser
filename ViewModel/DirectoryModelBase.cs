@@ -1,12 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using FolderBrowserDialog.Localization;
 using FolderBrowserDialog.Controls;
-using System.Windows;
+using FolderBrowserDialog.Common;
 
 namespace FolderBrowserDialog.ViewModel
 {
@@ -152,14 +150,14 @@ namespace FolderBrowserDialog.ViewModel
             string nonExistingNewFolderName = Strings.NewFolderNameString;
             int count = 0;
             
-            //find a new folder name that doesnt exits in the current directory
+            //find a "New Folder"/+"#" name that doesnt exits in the current directory
             while (Directory.Exists(Path.Combine(m_Directory.FullName, nonExistingNewFolderName)))
             {
                 count++;
                 nonExistingNewFolderName = Strings.NewFolderNameString + count.ToString();
             }
             
-            //create the new folder and add it to the childer collection of the current directory
+            //create the new folder and add it to the children collection of the current directory
             DirectoryModelBase subfolder = CreateNewDirectoryModel(m_Directory.CreateSubdirectory(nonExistingNewFolderName), this);
             subfolder.AddSelectedObserver(m_SelectedObserver);
             this.Children.Add(subfolder);
@@ -186,10 +184,10 @@ namespace FolderBrowserDialog.ViewModel
         /// </summary>
         /// <param name="i_DirectoryInfo">Directory to wrap</param>
         /// <param name="i_Parent">Directory parent model</param>
-        /// <returns>the new <typeparamref name="DirectoryModelBase"/></returns>
+        /// <returns>a new instance of a class extending <typeparamref name="DirectoryModelBase"/></returns>
         /// <remarks>
         /// is called in <code>this.Populate()</code> method, 
-        /// override to implement creation of concrete inheriting classes.
+        /// override to implement creation of concrete extended classes.
         /// </remarks>
         protected virtual DirectoryModelBase CreateNewDirectoryModel(DirectoryInfo i_DirectoryInfo, DirectoryModelBase i_Parent)
         {

@@ -5,10 +5,15 @@ using System.Text;
 using System.ComponentModel;
 using FolderBrowserDialog.Localization;
 using FolderBrowserDialog.Images;
+using FolderBrowserDialog.Common;
 
 namespace FolderBrowserDialog.ViewModel
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    /// <summary>
+    /// A base view model class, which holds application resources
+    /// to be accesible threw the view model.
+    /// </summary>
+    public class ViewModelBase : ObservableObject
     {
         private Icons m_Icons = new Icons();
         public Icons Icons
@@ -20,27 +25,5 @@ namespace FolderBrowserDialog.ViewModel
         {
             get { return m_Strings; }
         }
-
-        #region INotifyPropertyChanged Members
-        /// <summary>
-        /// Method is called every time a property is changed
-        /// </summary>
-        /// <param name="i_Property">the name of the updated property</param>
-        /// <remarks>
-        /// override to add user customized logics whenever a property changes.
-        /// </remarks>
-        protected virtual void OnPropertyChanged(string i_Property)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(i_Property));
-            }
-        }
-
-        /// <summary>
-        /// Notifies when a property is changed
-        /// </summary> 
-        public event PropertyChangedEventHandler PropertyChanged;
-        #endregion INotifyPropertyChanged Members
     }
 }

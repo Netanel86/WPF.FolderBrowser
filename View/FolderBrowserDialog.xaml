@@ -88,7 +88,7 @@
                         <ctrl:TogglableTextBox Mode="{Binding CurrentEditMode, Mode=TwoWay}" Text="{Binding FolderName, Mode=OneWay}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="LostFocus">
-                                    <i:InvokeCommandAction Command="{Binding RenameFolderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ctrl:EditableTextBox}, Path=Text}" />
+                                    <i:InvokeCommandAction Command="{Binding RenameFolderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ctrl:TogglableTextBox}, Path=Text}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <TextBoxBase.Style>

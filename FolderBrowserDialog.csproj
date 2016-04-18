@@ -72,7 +72,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\EditableTexBox.cs" />
+    <Compile Include="Common\Aggregators\EventAggregator.cs" />
+    <Compile Include="Common\Aggregators\IEventAggregator.cs" />
+    <Compile Include="Common\Aggregators\Subscription.cs" />
+    <Compile Include="Common\DisposableObject.cs" />
+    <Compile Include="Common\ObservableObject.cs" />
+    <Compile Include="Controls\TogglableTexBox.cs" />
     <Compile Include="Controls\eTextControlMode.cs" />
     <Compile Include="Controls\PulseButton.cs" />
     <Compile Include="Images\Icons.Designer.cs">
@@ -91,7 +96,7 @@
     <Compile Include="ViewModel\DriveModel.cs" />
     <Compile Include="ViewModel\DummyDirectoryModel.cs" />
     <Compile Include="ViewModel\FolderModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="ViewModel\TreeViewItemModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\FolderBrowserDialog.xaml.cs">

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using FolderBrowserDialog.Localization;
-using System.Windows.Controls;
+using FolderBrowserDialog.Common;
 
 namespace FolderBrowserDialog.ViewModel
 {

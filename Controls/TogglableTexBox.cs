@@ -10,11 +10,11 @@ using System.Windows.Media;
 namespace FolderBrowserDialog.Controls
 {
     /// <summary>
-    /// An Togglable TextBox control
+    /// A Togglable TextBox control
     /// </summary>
     /// <remarks>
-    /// Toggles between Edit and ReadOnly modes which are represented in a depandency property <paramref name="Mode"/>.
-    /// <paramref name="Mode"/> is of type <typeparamref name="eTextControlMode"/>
+    /// Toggles between Edit and ReadOnly modes which are represented by a
+    /// bindable depandency property <paramref name="Mode"/>.
     /// </remarks>
     public class TogglableTextBox : TextBox
     {
