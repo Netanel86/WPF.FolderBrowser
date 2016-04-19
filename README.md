@@ -10,7 +10,7 @@ Under Development
 
 * Quick summary 
 
-Built for use in WPF .NET 4.0 applications.
+          Built for use in WPF .NET 4.0 applications.
 Used as a modal dialog window to get a user input of a requested directory path.
 	
 
