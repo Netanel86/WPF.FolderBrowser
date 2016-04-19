@@ -17,6 +17,3 @@ Under Development
 	*Added animated buttons.
 	*Added icons for diffrent tree directories.
 	*Added rename directory and create new directory options.
-	
-	
-	
