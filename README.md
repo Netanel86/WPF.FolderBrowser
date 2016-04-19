@@ -1,6 +1,7 @@
 # README #
 
 A Simple WPF Folder Browser Dialog.
+
 The project is implemented to concur with MVVM design rules.
 
 Under Development
