@@ -54,6 +54,8 @@ namespace WPF.FolderBrowserDialog.ViewModel
         public void InitiateSearch(object i_Parameter)
         {
             string text = (string)i_Parameter;
+
+            //searching initializes only if the path exists.
             if (Directory.Exists(text))
             {
                 string path = Path.GetFullPath(text);

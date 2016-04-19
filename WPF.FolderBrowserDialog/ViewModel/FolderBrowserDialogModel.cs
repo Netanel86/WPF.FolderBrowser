@@ -59,6 +59,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
                 this.PathText = (i_Sender as TreeViewModel).SelectedItem.FullPath; 
             }
         }
+        
         public void OnLoaded()
         {
             if (!m_IsLoaded)
@@ -68,6 +69,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
                 m_IsLoaded = true;
             }
         }
+        
         public void OnUnloaded()
         {
             if (m_IsLoaded)
