@@ -9,8 +9,8 @@ Under Development
 ### What is this repository for? ###
 
 * Quick summary 
-** Built for use in WPF .NET 4.0 applications.
-** Used as a modal dialog window to get a user input of a requested directory path.
+ Built for use in WPF .NET 4.0 applications.
+ Used as a modal dialog window to get a user input of a requested directory path.
 	
 
 * Version 0.0.0.1
