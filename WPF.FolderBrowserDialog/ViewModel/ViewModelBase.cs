@@ -11,9 +11,9 @@ namespace WPF.FolderBrowserDialog.ViewModel
 {
     /// <summary>
     /// A base view model class, which holds application resources
-    /// to be accesible threw the view model.
+    /// to be accesible through binding to the view model.
     /// </summary>
-    public class ViewModelBase : ObservableObject
+    public class ViewModelBase : BindableObject
     {
         private Icons m_Icons = new Icons();
         public Icons Icons

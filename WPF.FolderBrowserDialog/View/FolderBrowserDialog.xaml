@@ -1,33 +1,48 @@
-﻿<Window x:Class="WPF.FolderBrowserDialog.View.FolderBrowserDialog"
+﻿<dialog:DialogBase x:Class="WPF.FolderBrowserDialog.View.FolderBrowserDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:si="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:vm="clr-namespace:WPF.FolderBrowserDialog.ViewModel"
-        xmlns:ctrl="clr-namespace:WPF.Common.Controls;assembly=WPF.Common"
+        xmlns:v="clr-namespace:WPF.FolderBrowserDialog.View"
+        xmlns:ctrl="clr-namespace:WPF.Common.UI.Controls;assembly=WPF.Common.UI"
+        xmlns:behaviors="clr-namespace:WPF.Common.UI.Behaviors;assembly=WPF.Common.UI"
+        xmlns:dialog="clr-namespace:WPF.Common.UI.Infrastracture;assembly=WPF.Common.UI"
         Height="350" Width="350"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    
-    <Window.Resources>
+
+
+        <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WPF.Common;component/Controls/PulseButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.Common.UI;component/Controls/PulseButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <vm:FolderBrowserDialogModel x:Key="DialogModel" />
         </ResourceDictionary>
     </Window.Resources>
+
     
+    <i:Interaction.Behaviors>
+        <behaviors:WindowBehavior CloseCommand="{Binding Source={StaticResource DialogModel},Path=CloseCommand}" 
+                                  LoadCommand="{Binding Source={StaticResource DialogModel},Path=LoadCommand}" 
+                                  Handler="{Binding Source={StaticResource DialogModel}}" />
+    </i:Interaction.Behaviors>
+
+    <dialog:DialogBase.ReturnValue>
+        <Binding Source="{StaticResource DialogModel}" Path="ReturnValue" />
+    </dialog:DialogBase.ReturnValue>
+        
     <Window.Title>
         <Binding Source="{StaticResource DialogModel}" Path="Strings.TitleFolderBrowserDialog"/>
     </Window.Title>
-    
+
     <Window.Icon>
         <Binding Source="{StaticResource DialogModel}" Path="Icons.ButtonFind"/>
     </Window.Icon>
-
-    <DockPanel DataContext="{StaticResource DialogModel}" Margin="10">
+    
+   <DockPanel DataContext="{StaticResource DialogModel}" Margin="10">
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
             <Label Target="{Binding ElementName=TextBoxPath}" Padding="0,0,5,0" >
                 <AccessText Text="{Binding Strings.LabelPath}"/>
@@ -48,11 +63,11 @@
         </StackPanel>
         
         <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" DockPanel.Dock="Bottom">
-            <Button Content="Cancel" Padding="8,0" Margin="0,0,5,0" />
-            <Button Content="OK" Padding="8,0"/>
+            <Button Content="Cancel" Padding="8,0" Margin="0,0,5,0" Command="{Binding CancelCommand}" CommandParameter="false" />
+            <Button Content="OK" Padding="8,0" Command="{Binding OkCommand}" CommandParameter="true" />
         </StackPanel>
 
-        <TreeView DataContext="{Binding TreeModel}"  ItemsSource="{Binding RootItems}">
+            <TreeView DataContext="{Binding TreeModel}"  ItemsSource="{Binding RootItems}">
             <TreeView.Resources>
                 <ContextMenu x:Key="TreeViewItemContext">
                     <MenuItem Header="{Binding Strings.MenuNewFolder}" Command="{Binding NewFolderCommand}">
@@ -112,15 +127,23 @@
                                 </Style>
                             </TextBoxBase.Style>
                         </ctrl:TogglableTextBox>
-
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                                 <si:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
                             </i:EventTrigger>
+
                         </i:Interaction.Triggers>
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedItemChanged">
+                    <si:ChangePropertyAction PropertyName="SelectedItem" 
+                                             Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}},Path=SelectedItem}" 
+                                             TargetObject="{Binding}"/> 
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
@@ -136,4 +159,4 @@
            </TreeView.ItemContainerStyle>
         </TreeView>
     </DockPanel>
-</Window>
+</dialog:DialogBase>

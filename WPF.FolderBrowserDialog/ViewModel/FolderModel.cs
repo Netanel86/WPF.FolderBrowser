@@ -2,9 +2,8 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-//using WPF.FolderBrowserDialog.Controls;
 using WPF.Common;
-using WPF.Common.Controls;
+using WPF.Common.Enums;
 using WPF.FolderBrowserDialog.Images;
 using WPF.FolderBrowserDialog.Localization;
 
@@ -63,7 +62,9 @@ namespace WPF.FolderBrowserDialog.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Strings.MessegeBoxTitleErrorRename, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                //todo: create a proper class for exception message for handling diffrent exceptions.
+                FolderBrowserDialogModel.Messanger.Publish<Exception>(ex);
+                //MessageBox.Show(ex.Message, Strings.MessegeBoxTitleErrorRename, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             finally
             {

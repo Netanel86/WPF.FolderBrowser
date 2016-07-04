@@ -1,33 +1,42 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using WPF.Common;
 using System.ComponentModel;
+using WPF.Common.Aggregators;
+using System.Windows;
+using WPF.Common.UI.ViewModels;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
-    public class FolderBrowserDialogModel : ViewModelBase
+    public class FolderBrowserDialogModel : DialogModel<PathResult>
     {
+        private Subscription<Exception> m_Token;
+        public static readonly IEventAggregator Messanger = new EventAggregator();
+        public event EventHandler<NotificationEventArgs<Exception>> ErrorNotice;
+        
+        protected void OnErrorNotice(Exception i_Exception)
+        {
+            if (ErrorNotice != null)
+            {
+                ErrorNotice.Invoke(this, new NotificationEventArgs<Exception>(i_Exception));
+            }
+        }
         public TreeViewModel TreeModel
         {
             get;
             private set;
         }
 
-        private bool m_IsLoaded = false;
-
         public ICommand FindDirectoryCommand
         {
-            get 
-            { 
-                return m_FindDirectoryCommand; 
-            }
+            get;
+            private set;
         }
-
-        private ICommand m_FindDirectoryCommand;
-
+        
         private string m_PathText = String.Empty;
 
         public string PathText
@@ -36,47 +45,55 @@ namespace WPF.FolderBrowserDialog.ViewModel
             set
             {
                 m_PathText = value;
-                m_FindDirectoryCommand.CanExecute(value);
-                this.OnPropertyChanged("PathText");
+                this.FindDirectoryCommand.CanExecute(value);
+                this.OkCommand.CanExecute(null);
+                OnPropertyChanged("PathText");
             }
         }
 
         public FolderBrowserDialogModel()
+            :base()
         {
             this.TreeModel = new TreeViewModel();
-            m_FindDirectoryCommand = new RelayCommand(TreeModel.InitiateSearch, (x) => !String.IsNullOrEmpty(this.PathText));
+            FindDirectoryCommand = new RelayCommand(TreeModel.InitiateSearch, (x) => !String.IsNullOrEmpty(this.PathText));
         }
-
-        public void Initialize()
-        {
-
-        }
-
+        
         private void onSelectedDirectoryChanged(object i_Sender, PropertyChangedEventArgs i_Args)
         {
-            if (i_Args.PropertyName.CompareTo("SelectedItem") == 0) 
-            { 
-                this.PathText = (i_Sender as TreeViewModel).SelectedItem.FullPath; 
+            if (i_Args.PropertyName.CompareTo("SelectedItem") == 0)
+            {
+                if (TreeModel.SelectedItem is DirectoryModelBase)
+                {
+                    this.PathText = (TreeModel.SelectedItem as DirectoryModelBase).FullPath;
+                }
             }
         }
-        
-        public void OnLoaded()
-        {
-            if (!m_IsLoaded)
-            {
-                this.TreeModel.PropertyChanged += onSelectedDirectoryChanged;
 
-                m_IsLoaded = true;
-            }
-        }
-        
-        public void OnUnloaded()
+        protected override void OnClosed()
         {
-            if (m_IsLoaded)
+            this.TreeModel.PropertyChanged -= onSelectedDirectoryChanged;
+            Messanger.Unsubscribe<Exception>(m_Token);
+        }
+
+        protected override void OnLoaded()
+        {
+            this.TreeModel.PropertyChanged += onSelectedDirectoryChanged;
+            m_Token = Messanger.Subscribe<Exception>(OnErrorNotice);
+        }
+
+        protected override void CloseWindow(bool i_DialogCanceled)
+        {
+            if (!i_DialogCanceled)
             {
-                this.TreeModel.PropertyChanged -= onSelectedDirectoryChanged;
-                m_IsLoaded = false;
+                this.ReturnValue = new PathResult() { Path = this.PathText };
             }
+
+            base.CloseWindow(i_DialogCanceled);
+        }
+
+        protected override bool CheckResultLegitimacy()
+        {
+            return Directory.Exists(this.PathText);
         }
     }
 }

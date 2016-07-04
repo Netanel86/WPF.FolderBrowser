@@ -14,7 +14,7 @@ Under Development
 	
 
 * Version 0.0.0.1
-    * Added search path text box.
+	* Added search path text box.
     * Added animated buttons.
     * Added icons for diffrent tree directories.
     * Added rename directory and create new directory options.

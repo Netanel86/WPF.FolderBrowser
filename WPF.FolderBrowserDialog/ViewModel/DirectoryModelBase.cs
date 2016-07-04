@@ -3,9 +3,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using WPF.FolderBrowserDialog.Localization;
-//using WPF.FolderBrowserDialog.Controls;
 using WPF.Common;
-using WPF.Common.Controls;
+using WPF.Common.Enums;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
@@ -75,9 +74,10 @@ namespace WPF.FolderBrowserDialog.ViewModel
                     catch (DirectoryNotFoundException ex)
                     {
                         m_HasAccess = !v_Access;
-                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                        //System.Diagnostics.Debug.WriteLine(ex.Message);
                         (this.Parent as DirectoryModelBase).RefreshDirectoryTree();
-                        MessageBox.Show(ex.Message + System.Environment.NewLine + Strings.MessegeBoxTextErrorDirectNotFound, Strings.MessegeBoxTitleErrorDirectNotFound, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        //MessageBox.Show(ex.Message + System.Environment.NewLine + Strings.MessegeBoxTextErrorDirectNotFound, Strings.MessegeBoxTitleErrorDirectNotFound, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        FolderBrowserDialogModel.Messanger.Publish<Exception>(ex);
                     }
                 }
 
@@ -127,8 +127,6 @@ namespace WPF.FolderBrowserDialog.ViewModel
 
         protected DirectoryInfo m_Directory;
 
-        private ISelectedDirectoryObserver m_SelectedObserver;
-        
         private string m_ImagePath = String.Empty;
 
         private bool m_HasAccess = true;
@@ -150,17 +148,15 @@ namespace WPF.FolderBrowserDialog.ViewModel
         {
             string nonExistingNewFolderName = Strings.NewFolderNameString;
             int count = 0;
-            
-            //find a "New Folder"/+"#" name that doesnt exits in the current directory
+            this.IsExpanded = true;
+            //find a "New Folder"/+"no.#" name that doesnt exits in the current directory
             while (Directory.Exists(Path.Combine(m_Directory.FullName, nonExistingNewFolderName)))
             {
-                count++;
-                nonExistingNewFolderName = Strings.NewFolderNameString + count.ToString();
+                nonExistingNewFolderName = Strings.NewFolderNameString + count++.ToString();
             }
             
             //create the new folder and add it to the children collection of the current directory
             DirectoryModelBase subfolder = CreateNewDirectoryModel(m_Directory.CreateSubdirectory(nonExistingNewFolderName), this);
-            subfolder.AddSelectedObserver(m_SelectedObserver);
             this.Children.Add(subfolder);
             
             //set the newly created folder as the selected tree item and enter edit mode
@@ -182,11 +178,11 @@ namespace WPF.FolderBrowserDialog.ViewModel
         }
 
         /// <summary>
-        /// Initializes an instance of <typeparamref name="DirectoryModelBase"/>
+        /// Initializes an instance of <see cref="DirectoryModelBase"/>
         /// </summary>
         /// <param name="i_DirectoryInfo">Directory to wrap</param>
         /// <param name="i_Parent">Directory parent model</param>
-        /// <returns>a new instance of a class extending <typeparamref name="DirectoryModelBase"/></returns>
+        /// <returns>a new instance of a class extending <see cref="DirectoryModelBase"/></returns>
         /// <remarks>
         /// is called in <code>this.Populate()</code> method, 
         /// override to implement creation of concrete extended classes.
@@ -206,34 +202,15 @@ namespace WPF.FolderBrowserDialog.ViewModel
                     if ((subDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {
                         DirectoryModelBase folder = CreateNewDirectoryModel(subDirectory, this);
-                        folder.AddSelectedObserver(m_SelectedObserver);
                         this.Children.Add(folder);
                     }
                 }
             }
         }
 
-        protected override void OnPropertyChanged(string i_Property)
-        {
-            base.OnPropertyChanged(i_Property);
-
-            if (i_Property.CompareTo("IsSelected") == 0)
-            {
-                if (this.IsSelected && m_SelectedObserver != null)
-                {
-                    m_SelectedObserver.NotifySelectedItemChanged(this);
-                }
-            }
-        }
-        
         public void RefreshDirectoryTree()
         {
             this.Populate();
-        }
-        
-        public void AddSelectedObserver(ISelectedDirectoryObserver i_Observer)
-        {
-            this.m_SelectedObserver = i_Observer;
         }
         
         public bool MatchDirectoryName(string i_DirectoryToMatch)

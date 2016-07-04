@@ -10,13 +10,13 @@ using WPF.Common;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
-    public class TreeViewModel : ViewModelBase , ISelectedDirectoryObserver
+    public class TreeViewModel : ViewModelBase
     {
-        private DirectoryModelBase m_SelectedItem;
-        public DirectoryModelBase SelectedItem
+        private TreeViewItemModel m_SelectedItem;
+        public TreeViewItemModel SelectedItem
         {
             get { return m_SelectedItem; }
-            private set
+            set
             {
                 m_SelectedItem = value;
                 this.OnPropertyChanged("SelectedItem");
@@ -32,8 +32,6 @@ namespace WPF.FolderBrowserDialog.ViewModel
             get { return r_RootItems; }
         }
 
-
-
         public TreeViewModel()
         {
             r_RootItems = new ObservableCollection<DummyDirectoryModel>();
@@ -44,7 +42,6 @@ namespace WPF.FolderBrowserDialog.ViewModel
                 if (drive.DriveType != DriveType.CDRom)
                 {
                     DriveModel driveM = new DriveModel(drive, r_MyComputer);
-                    driveM.AddSelectedObserver(this as ISelectedDirectoryObserver);
                     r_MyComputer.Children.Add(driveM);
                 }
             }
@@ -71,12 +68,13 @@ namespace WPF.FolderBrowserDialog.ViewModel
             }
             else
             {
-                MessageBox.Show(
-                    "The specified path does not exists.",
-                    "Try Again",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                    );
+                FolderBrowserDialogModel.Messanger.Publish<Exception>(new DirectoryNotFoundException());
+                //MessageBox.Show(
+                //    "The specified path does not exists.",
+                //    "Try Again",
+                //    MessageBoxButton.OK,
+                //    MessageBoxImage.Information
+                //    );
             }
         }
 
@@ -100,11 +98,6 @@ namespace WPF.FolderBrowserDialog.ViewModel
             }
 
             return i_Directory as DirectoryModelBase;
-        }
-
-        public void NotifySelectedItemChanged(DirectoryModelBase i_Directory)
-        {
-            this.SelectedItem = i_Directory;
         }
     }
 }

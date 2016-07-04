@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace WPF.Common
 {
     /// <summary>
     /// Class implementing <see cref="INotifyPropertyChanged"/> for use
-    /// in observable objects to notify when a property on that object has changed.
+    /// in bindable objects to notify when a property on that object has changed.
     /// </summary>
-    public abstract class ObservableObject : INotifyPropertyChanged
+    public abstract class BindableObject : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Members
         /// <summary>

@@ -8,10 +8,10 @@ using System.ComponentModel;
 namespace WPF.FolderBrowserDialog.ViewModel
 {
     /// <summary>
-    /// A basic <typeparamref name="TreeViewItem"/> view model
+    /// A basic <see cref="TreeViewItem"/> view model
     /// </summary>
     /// <remarks>
-    /// inherit, use to bind <typeparamref name="TreeViewItem"/> with your own view model.
+    /// inherit, use to bind <see cref="TreeViewItem"/> with your own view model.
     /// </remarks>
     public class TreeViewItemModel : ViewModelBase
     {
@@ -139,10 +139,10 @@ namespace WPF.FolderBrowserDialog.ViewModel
 
         #region Methods
         /// <summary>
-        /// Populates the <paramref name="Children"/> collection with <typeparamref name="TreeItemViewModel"/> type objects.
+        /// Populates the <paramref name="Children"/> collection with <see cref="TreeItemViewModel"/> type objects.
         /// </summary>
         /// <remarks>
-        /// override with you logics to populate the collection only when the <typeparamref name="TreeItemViewModel"/> is expanded.
+        /// override with you logics to populate the collection only when the <see cref="TreeItemViewModel"/> is expanded.
         /// </remarks>
         protected virtual void Populate()
         {
