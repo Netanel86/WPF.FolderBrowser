@@ -63,100 +63,11 @@
         </StackPanel>
         
         <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" DockPanel.Dock="Bottom">
-            <Button Content="Cancel" Padding="8,0" Margin="0,0,5,0" Command="{Binding CancelCommand}" CommandParameter="false" />
-            <Button Content="OK" Padding="8,0" Command="{Binding OkCommand}" CommandParameter="true" />
+            <Button Content="Cancel" Padding="8,0" Margin="0,0,5,0" Command="{Binding CancelCommand}"/>
+            <Button Content="OK" Padding="8,0" Command="{Binding OkCommand}"/>
         </StackPanel>
 
-            <TreeView DataContext="{Binding TreeModel}"  ItemsSource="{Binding RootItems}">
-            <TreeView.Resources>
-                <ContextMenu x:Key="TreeViewItemContext">
-                    <MenuItem Header="{Binding Strings.MenuNewFolder}" Command="{Binding NewFolderCommand}">
-                        <MenuItem.Icon>
-                            <Image Source="{Binding Icons.TreeViewItemFolderNew}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-
-                    <MenuItem Header="{Binding Strings.MenuRename}" Command="{Binding EnterEditModeCommand}">
-                        <MenuItem.Icon>
-                            <Image Source="{Binding Icons.TreeViewItemRename}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </ContextMenu>
-
-                <HierarchicalDataTemplate DataType="{x:Type vm:DummyDirectoryModel}" ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
-                        <TextBlock Text="{Binding DummyName}"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-                
-                <HierarchicalDataTemplate DataType="{x:Type vm:DriveModel}" ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
-                        <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
-                        <TextBlock Text="{Binding DriveLetter}"/>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
-                                <si:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-
-                <HierarchicalDataTemplate DataType="{x:Type vm:FolderModel}" ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
-                        <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" />
-
-                        <ctrl:TogglableTextBox Mode="{Binding CurrentEditMode, Mode=TwoWay}" Text="{Binding FolderName, Mode=OneWay}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="LostFocus">
-                                    <i:InvokeCommandAction Command="{Binding RenameFolderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ctrl:TogglableTextBox}, Path=Text}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <TextBoxBase.Style>
-                                <Style TargetType="{x:Type ctrl:TogglableTextBox}">
-                                    <Style.Triggers>
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}},Path=IsSelected}" Value="true"/>
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}},Path=IsKeyboardFocused}" Value="true"/>
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=Mode}" Value="ReadOnly"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <Setter Property="Foreground" Value="{x:Static SystemColors.HighlightTextBrush}" />
-                                        </MultiDataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBoxBase.Style>
-                        </ctrl:TogglableTextBox>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
-                                <si:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
-                            </i:EventTrigger>
-
-                        </i:Interaction.Triggers>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.Resources>
+        <v:DirectoryTreeView/>
             
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedItemChanged">
-                    <si:ChangePropertyAction PropertyName="SelectedItem" 
-                                             Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}},Path=SelectedItem}" 
-                                             TargetObject="{Binding}"/> 
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
-                    <Setter Property="FontWeight" Value="Normal"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="FontWeight" Value="Bold" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-           </TreeView.ItemContainerStyle>
-        </TreeView>
     </DockPanel>
 </dialog:DialogBase>

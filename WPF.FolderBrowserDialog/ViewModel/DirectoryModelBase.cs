@@ -5,6 +5,7 @@ using System.Windows.Input;
 using WPF.FolderBrowserDialog.Localization;
 using WPF.Common;
 using WPF.Common.Enums;
+using WPF.Common.ViewModel;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
@@ -77,7 +78,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
                         //System.Diagnostics.Debug.WriteLine(ex.Message);
                         (this.Parent as DirectoryModelBase).RefreshDirectoryTree();
                         //MessageBox.Show(ex.Message + System.Environment.NewLine + Strings.MessegeBoxTextErrorDirectNotFound, Strings.MessegeBoxTitleErrorDirectNotFound, MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                        FolderBrowserDialogModel.Messanger.Publish<Exception>(ex);
+                        Messanger.Publish<Exception>(ex);
                     }
                 }
 

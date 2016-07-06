@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.ComponentModel;
+using WPF.Common.ViewModel;
 
 namespace WPF.Common.UI.Behaviors
 {
@@ -57,6 +58,7 @@ namespace WPF.Common.UI.Behaviors
 
         private void closeWindow(object i_Sender, EventArgs i_Args)
         {
+            //to do: check what happens when window in not a dialog
             this.AssociatedObject.DialogResult = !(i_Args as NotificationEventArgs<bool>).Data;
             this.AssociatedObject.Close();
         }

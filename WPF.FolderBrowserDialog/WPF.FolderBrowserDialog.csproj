@@ -101,14 +101,19 @@
     <Compile Include="ViewModel\DriveModel.cs" />
     <Compile Include="ViewModel\DummyDirectoryModel.cs" />
     <Compile Include="ViewModel\FolderModel.cs" />
-    <Compile Include="ViewModel\TreeViewItemModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\FolderBrowserDialog.xaml.cs">
       <DependentUpon>FolderBrowserDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DirectoryTreeView.xaml.cs">
+      <DependentUpon>DirectoryTreeView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\FolderBrowserDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DirectoryTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using WPF.FolderBrowserDialog.Localization;
 using WPF.Common;
+using WPF.Common.ViewModel;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
@@ -68,7 +69,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
             }
             else
             {
-                FolderBrowserDialogModel.Messanger.Publish<Exception>(new DirectoryNotFoundException());
+                Messanger.Publish<Exception>(new DirectoryNotFoundException());
                 //MessageBox.Show(
                 //    "The specified path does not exists.",
                 //    "Try Again",

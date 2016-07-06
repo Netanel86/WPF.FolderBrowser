@@ -12,7 +12,7 @@ namespace WPF.Common.UI.Controls
     /// </summary>
     /// <remarks>
     /// Toggles between Edit and ReadOnly modes which are represented by a
-    /// bindable depandency property <paramref name="Mode"/>.
+    /// bindable dependency property <paramref name="Mode"/>.
     /// </remarks>
     public class TogglableTextBox : TextBox
     {

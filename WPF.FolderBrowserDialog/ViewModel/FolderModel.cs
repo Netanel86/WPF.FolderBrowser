@@ -63,7 +63,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
             catch (Exception ex)
             {
                 //todo: create a proper class for exception message for handling diffrent exceptions.
-                FolderBrowserDialogModel.Messanger.Publish<Exception>(ex);
+                Messanger.Publish<Exception>(ex);
                 //MessageBox.Show(ex.Message, Strings.MessegeBoxTitleErrorRename, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             finally

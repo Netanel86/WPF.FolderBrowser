@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 
-namespace WPF.Common.UI.ViewModels
+namespace WPF.Common.ViewModel
 {
-    public abstract class DialogModel<T> : BindableObject, IDialogModel<T>
+    public abstract class DialogModel<T> : ViewModelBase, IDialogModel<T>
     {
         private T m_ReturnValue;
         
@@ -49,10 +46,7 @@ namespace WPF.Common.UI.ViewModels
             LoadCommand = new RelayCommand((x) => OnLoaded());
         }
 
-        protected virtual bool CheckResultLegitimacy()
-        {
-            throw new NotImplementedException();
-        }
+        protected abstract bool CheckResultLegitimacy();
 
         protected virtual void CloseWindow(bool i_DialogCanceled)
         {

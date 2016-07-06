@@ -8,14 +8,13 @@ using WPF.Common;
 using System.ComponentModel;
 using WPF.Common.Aggregators;
 using System.Windows;
-using WPF.Common.UI.ViewModels;
+using WPF.Common.ViewModel;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class FolderBrowserDialogModel : DialogModel<PathResult>
     {
         private Subscription<Exception> m_Token;
-        public static readonly IEventAggregator Messanger = new EventAggregator();
         public event EventHandler<NotificationEventArgs<Exception>> ErrorNotice;
         
         protected void OnErrorNotice(Exception i_Exception)

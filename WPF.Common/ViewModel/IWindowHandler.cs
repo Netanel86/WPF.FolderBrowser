@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WPF.Common.UI.Behaviors
+namespace WPF.Common.ViewModel
 {
     public interface IWindowHandler
     {

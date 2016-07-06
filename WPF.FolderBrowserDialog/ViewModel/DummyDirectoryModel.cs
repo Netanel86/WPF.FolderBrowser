@@ -1,4 +1,6 @@
 ﻿using WPF.FolderBrowserDialog.Images;
+using WPF.Common.ViewModel;
+
 namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class DummyDirectoryModel : TreeViewItemModel

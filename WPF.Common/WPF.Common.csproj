@@ -51,6 +51,12 @@
     <Compile Include="NotificationEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModel\DialogModel.cs" />
+    <Compile Include="ViewModel\IDialogHandler.cs" />
+    <Compile Include="ViewModel\IDialogModel.cs" />
+    <Compile Include="ViewModel\IWindowHandler.cs" />
+    <Compile Include="ViewModel\TreeViewItemModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
