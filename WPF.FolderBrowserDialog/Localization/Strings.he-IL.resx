@@ -117,34 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClosedFolder" xml:space="preserve">
-    <value>img_yellow_folder_closed_32pxl.png</value>
+  <data name="ButtonFind" xml:space="preserve">
+    <value>חפש</value>
   </data>
-  <data name="Computer" xml:space="preserve">
-    <value>img_my_computer_32pxl.png</value>
+  <data name="LabelPath" xml:space="preserve">
+    <value>_כתובת:</value>
   </data>
-  <data name="Find" xml:space="preserve">
-    <value>img_folder_explorer_32pxl.png</value>
+  <data name="MenuNewFolder" xml:space="preserve">
+    <value>תקייה חדשה</value>
   </data>
-  <data name="NetworkDrive" xml:space="preserve">
-    <value>img_hard_drive_network_32pxl.png</value>
+  <data name="MenuRename" xml:space="preserve">
+    <value>שינוי שם</value>
   </data>
-  <data name="NewFolder" xml:space="preserve">
-    <value>img_folder_new_32pxl.png</value>
+  <data name="MessegeBoxTextErrorDirectNotFound" xml:space="preserve">
+    <value>כתובת לא נמצאה</value>
   </data>
-  <data name="NoAccessFolder" xml:space="preserve">
-    <value>img_folder_noaccess_32pxl.png</value>
+  <data name="MessegeBoxTitleErrorDirectNotFound" xml:space="preserve">
+    <value>לא נמצא</value>
   </data>
-  <data name="OpenFolder" xml:space="preserve">
-    <value>img_yellow_folder_open_32pxl.png</value>
+  <data name="MessegeBoxTitleErrorRename" xml:space="preserve">
+    <value>טעות בשינוי שם</value>
   </data>
-  <data name="RenameFolder" xml:space="preserve">
-    <value>img_rename_32pxl.png</value>
+  <data name="NewFolderNameString" xml:space="preserve">
+    <value>תקייה חדשה</value>
   </data>
-  <data name="SimpleDrive" xml:space="preserve">
-    <value>img_hard_drive_32pxl.png</value>
+  <data name="TitleFolderBrowserDialog" xml:space="preserve">
+    <value>חיפוש כתובת</value>
   </data>
-  <data name="SystemDrive" xml:space="preserve">
-    <value>img_hard_drive_system_32pxl.png</value>
+  <data name="ToolTipFind" xml:space="preserve">
+    <value>חפש את הכתובת המבוקשת</value>
+  </data>
+  <data name="TreeViewItemMyComputer" xml:space="preserve">
+    <value>המחשב שלי</value>
   </data>
 </root>

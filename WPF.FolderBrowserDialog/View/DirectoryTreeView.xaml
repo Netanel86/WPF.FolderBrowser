@@ -7,36 +7,44 @@
              xmlns:ctrl="clr-namespace:WPF.Common.UI.Controls;assembly=WPF.Common.UI"
              xmlns:si="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:v="clr-namespace:WPF.FolderBrowserDialog.View"
+             mc:Ignorable="d">
+   
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Converters/Converters.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/View/Resources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     
     <TreeView DataContext="{Binding TreeModel}"  ItemsSource="{Binding RootItems}">
         <TreeView.Resources>
-            
             <ContextMenu x:Key="TreeViewItemContext">
-                <MenuItem Header="{Binding Strings.MenuNewFolder}" Command="{Binding NewFolderCommand}">
+                <MenuItem Header="{Binding Source={StaticResource Strings}, Path=MenuNewFolder}" Command="{Binding NewFolderCommand}">
                     <MenuItem.Icon>
-                        <Image Source="{Binding Icons.TreeViewItemFolderNew}" />
+                        <Image Source="{Binding Source={StaticResource Icons}, Path=NewFolder, Converter={StaticResource IconConverter}}" />
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Header="{Binding Strings.MenuRename}" Command="{Binding EnterEditModeCommand}">
+                <MenuItem Header="{Binding Source={StaticResource Strings}, Path=MenuRename}" Command="{Binding EnterEditModeCommand}">
                     <MenuItem.Icon>
-                        <Image Source="{Binding Icons.TreeViewItemRename}" />
+                        <Image Source="{Binding Source={StaticResource Icons}, Path=RenameFolder, Converter={StaticResource IconConverter}}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </ContextMenu>
 
             <HierarchicalDataTemplate DataType="{x:Type vm:DummyDirectoryModel}" ItemsSource="{Binding Children}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
-                    <TextBlock Text="{Binding DummyName}"/>
+                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding Icon, Converter={StaticResource IconConverter}}" />
+                    <TextBlock Text="{Binding DummyName, Converter={StaticResource StringConverter}}"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type vm:DriveModel}" ItemsSource="{Binding Children}">
                 <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
-                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath}" />
+                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding Icon, Converter={StaticResource IconConverter}}" />
                     <TextBlock Text="{Binding DriveLetter}"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseRightButtonDown">
@@ -48,7 +56,7 @@
 
             <HierarchicalDataTemplate DataType="{x:Type vm:FolderModel}" ItemsSource="{Binding Children}">
                 <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
-                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" />
+                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding Icon, Converter={StaticResource IconConverter}, UpdateSourceTrigger=PropertyChanged}" />
 
                     <ctrl:TogglableTextBox Mode="{Binding CurrentEditMode, Mode=TwoWay}" Text="{Binding FolderName, Mode=OneWay}">
                         <i:Interaction.Triggers>

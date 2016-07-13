@@ -1,20 +1,21 @@
 ﻿using WPF.FolderBrowserDialog.Images;
 using WPF.Common.ViewModel;
+using WPF.FolderBrowserDialog.Localization;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class DummyDirectoryModel : TreeViewItemModel
     {
-        public string ImagePath { get; set; }
-        private string m_DummyName;
-        public string DummyName
+        public eIconType Icon { get; set; }
+        private eStringType m_DummyName;
+        public eStringType DummyName
         {
             get { return m_DummyName; }
         }
-        public DummyDirectoryModel(string i_DummyName)
+        public DummyDirectoryModel(eStringType i_DummyName)
             : base(null, false)
         {
-            this.ImagePath = Icons.TreeViewItemMyComputer;
+            this.Icon = eIconType.Computer;
             m_DummyName = i_DummyName;
         }
     }

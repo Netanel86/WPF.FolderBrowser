@@ -61,92 +61,92 @@ namespace WPF.FolderBrowserDialog.Images {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_folder_explorer_32pxl.png.
+        ///   Looks up a localized string similar to img_yellow_folder_closed_32pxl.png.
         /// </summary>
-        public static string ButtonFind {
+        public static string ClosedFolder {
             get {
-                return ResourceManager.GetString("ButtonFind", resourceCulture);
+                return ResourceManager.GetString("ClosedFolder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_hard_drive_32pxl.png.
+        ///   Looks up a localized string similar to img_my_computer_32pxl.png.
         /// </summary>
-        public static string TreeViewItemDrive {
+        public static string Computer {
             get {
-                return ResourceManager.GetString("TreeViewItemDrive", resourceCulture);
+                return ResourceManager.GetString("Computer", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_hard_drive_network_32pxl.png.
+        ///   Looks up a localized string similar to img_folder_explorer_32pxl.png.
         /// </summary>
-        public static string TreeViewItemDriveNetwork {
+        public static string Find {
             get {
-                return ResourceManager.GetString("TreeViewItemDriveNetwork", resourceCulture);
+                return ResourceManager.GetString("Find", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_hard_drive_system_32pxl.png.
+        ///   Looks up a localized string similar to img_hard_drive_network_32pxl.png.
         /// </summary>
-        public static string TreeViewItemDriveSystem {
+        public static string NetworkDrive {
             get {
-                return ResourceManager.GetString("TreeViewItemDriveSystem", resourceCulture);
+                return ResourceManager.GetString("NetworkDrive", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_yellow_folder_closed_32pxl.png.
+        ///   Looks up a localized string similar to img_folder_new_32pxl.png.
         /// </summary>
-        public static string TreeViewItemFolderClosed {
+        public static string NewFolder {
             get {
-                return ResourceManager.GetString("TreeViewItemFolderClosed", resourceCulture);
+                return ResourceManager.GetString("NewFolder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_folder_new_32pxl.png.
+        ///   Looks up a localized string similar to img_folder_noaccess_32pxl.png.
         /// </summary>
-        public static string TreeViewItemFolderNew {
+        public static string NoAccessFolder {
             get {
-                return ResourceManager.GetString("TreeViewItemFolderNew", resourceCulture);
+                return ResourceManager.GetString("NoAccessFolder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_folder_noaccess_32pxl.png.
+        ///   Looks up a localized string similar to img_yellow_folder_open_32pxl.png.
         /// </summary>
-        public static string TreeViewItemFolderNoAccess {
+        public static string OpenFolder {
             get {
-                return ResourceManager.GetString("TreeViewItemFolderNoAccess", resourceCulture);
+                return ResourceManager.GetString("OpenFolder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_yellow_folder_open_32pxl.png.
+        ///   Looks up a localized string similar to img_rename_32pxl.png.
         /// </summary>
-        public static string TreeViewItemFolderOpen {
+        public static string RenameFolder {
             get {
-                return ResourceManager.GetString("TreeViewItemFolderOpen", resourceCulture);
+                return ResourceManager.GetString("RenameFolder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_my_computer_32pxl.png.
+        ///   Looks up a localized string similar to img_hard_drive_32pxl.png.
         /// </summary>
-        public static string TreeViewItemMyComputer {
+        public static string SimpleDrive {
             get {
-                return ResourceManager.GetString("TreeViewItemMyComputer", resourceCulture);
+                return ResourceManager.GetString("SimpleDrive", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pack://application:,,,/WPF.FolderBrowserDialog;component/Images/img_rename_32pxl.png.
+        ///   Looks up a localized string similar to img_hard_drive_system_32pxl.png.
         /// </summary>
-        public static string TreeViewItemRename {
+        public static string SystemDrive {
             get {
-                return ResourceManager.GetString("TreeViewItemRename", resourceCulture);
+                return ResourceManager.GetString("SystemDrive", resourceCulture);
             }
         }
     }

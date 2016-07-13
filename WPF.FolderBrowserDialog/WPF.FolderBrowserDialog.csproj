@@ -84,10 +84,19 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\eStringTypeExtension.cs" />
+    <Compile Include="Converters\IconToBitmapConverter.cs" />
+    <Compile Include="ViewModel\eIconType.cs" />
     <Compile Include="Images\Icons.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\eStringType.cs" />
+    <Compile Include="Localization\Strings.he-IL.Designer.cs">
+      <DependentUpon>Strings.he-IL.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Localization\Strings.en-US.Designer.cs">
       <DependentUpon>Strings.en-US.resx</DependentUpon>
@@ -95,6 +104,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="PathResult.cs" />
+    <Compile Include="Converters\EnumToStringConverter.cs" />
     <Compile Include="ViewModel\DirectoryModelBase.cs" />
     <Compile Include="ViewModel\FolderBrowserDialogModel.cs" />
     <Compile Include="ViewModel\TreeViewModel.cs" />
@@ -107,11 +117,19 @@
     <Compile Include="View\DirectoryTreeView.xaml.cs">
       <DependentUpon>DirectoryTreeView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Converters\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolderBrowserDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\DirectoryTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Resources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,6 +151,10 @@
     <EmbeddedResource Include="Images\Icons.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Strings.he-IL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.he-IL.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

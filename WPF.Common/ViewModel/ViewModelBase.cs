@@ -14,4 +14,5 @@ namespace WPF.Common.ViewModel
             get { return sr_Messanger; }
         }
     }
+
 }

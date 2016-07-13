@@ -6,6 +6,9 @@ using WPF.FolderBrowserDialog.Localization;
 using WPF.Common;
 using WPF.Common.Enums;
 using WPF.Common.ViewModel;
+using WPF.FolderBrowserDialog.Images;
+using WPF.FolderBrowserDialog.Converters;
+using System.Windows.Data;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
@@ -30,22 +33,22 @@ namespace WPF.FolderBrowserDialog.ViewModel
             }
         }
 
-        public string ImagePath
+        public eIconType Icon
         {
-            get 
+            get
             {
-                if (m_ImagePath == String.Empty)
+                if (m_Icon == eIconType.None)
                 {
                     this.LoadImage();
                 }
-                return m_ImagePath; 
+                return m_Icon;
             }
 
             set
             {
-                if (m_ImagePath.CompareTo(value) != 0)
+                if (m_Icon.CompareTo(value) != 0)
                 {
-                    m_ImagePath = value;
+                    m_Icon = value;
                     this.OnPropertyChanged("ImagePath");
                 }
             }
@@ -128,7 +131,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
 
         protected DirectoryInfo m_Directory;
 
-        private string m_ImagePath = String.Empty;
+        private eIconType m_Icon = eIconType.None;
 
         private bool m_HasAccess = true;
 
@@ -147,13 +150,14 @@ namespace WPF.FolderBrowserDialog.ViewModel
         
         private void createNewFolder(object obj)
         {
-            string nonExistingNewFolderName = Strings.NewFolderNameString;
+            string newFolderName = eStringType.String_NewFolderName.GetUnderlyingString();
+            string nonExistingNewFolderName = newFolderName;
             int count = 0;
             this.IsExpanded = true;
             //find a "New Folder"/+"no.#" name that doesnt exits in the current directory
             while (Directory.Exists(Path.Combine(m_Directory.FullName, nonExistingNewFolderName)))
             {
-                nonExistingNewFolderName = Strings.NewFolderNameString + count++.ToString();
+                nonExistingNewFolderName = newFolderName + count++.ToString();
             }
             
             //create the new folder and add it to the children collection of the current directory

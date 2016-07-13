@@ -21,11 +21,6 @@ namespace WPF.Common.ViewModel
 
         public event EventHandler CloseWindowRequest;
 
-        public bool IsLegitReturnValue
-        {
-            get { return CheckResultLegitimacy(); }
-        }
-
         public ICommand OkCommand
         { get; private set; }
 
@@ -40,7 +35,7 @@ namespace WPF.Common.ViewModel
 
         public DialogModel()
         {
-            OkCommand = new RelayCommand((x) => CloseWindow(!v_DialogCanceled), (x) => IsLegitReturnValue);
+            OkCommand = new RelayCommand((x) => CloseWindow(!v_DialogCanceled), (x) => CheckResultLegitimacy());
             CancelCommand = new RelayCommand((x) => CloseWindow(v_DialogCanceled));
             CloseCommand = new RelayCommand((x) => OnClosed());
             LoadCommand = new RelayCommand((x) => OnLoaded());

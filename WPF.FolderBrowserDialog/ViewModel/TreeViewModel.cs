@@ -36,7 +36,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
         public TreeViewModel()
         {
             r_RootItems = new ObservableCollection<DummyDirectoryModel>();
-            r_MyComputer = new DummyDirectoryModel(Strings.TreeViewItemMyComputer);
+            r_MyComputer = new DummyDirectoryModel(eStringType.String_MyComputer);
             
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
@@ -56,7 +56,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
             //searching initializes only if the path exists.
             if (Directory.Exists(text))
             {
-                string path = Path.GetFullPath(text);
+                string path = Path.GetFullPath(text + @"\");
                 List<string> subpaths = path.Split('\\').ToList();
                 subpaths[0] += "\\";
                 DirectoryModelBase found = findDirectoryTreeItem(subpaths, r_MyComputer);

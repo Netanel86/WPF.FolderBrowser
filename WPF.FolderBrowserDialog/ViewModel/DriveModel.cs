@@ -21,11 +21,11 @@ namespace WPF.FolderBrowserDialog.ViewModel
         {
             if (System.Environment.SystemDirectory.Contains(m_DriveInfo.Name))
             {
-                this.ImagePath = Icons.TreeViewItemDriveSystem;
+                this.Icon = eIconType.SystemDrive;
             }
             else
             {
-                this.ImagePath = m_DriveInfo.DriveType == DriveType.Network ? Icons.TreeViewItemDriveNetwork: Icons.TreeViewItemDrive;
+                this.Icon = m_DriveInfo.DriveType == DriveType.Network ? eIconType.NetworkDrive : eIconType.SimpleDrive;
             }
         }
 

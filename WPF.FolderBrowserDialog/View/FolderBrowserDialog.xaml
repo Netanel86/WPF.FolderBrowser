@@ -12,15 +12,19 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
 
-
         <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/WPF.Common.UI;component/Controls/PulseButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Converters/Converters.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/View/Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <vm:FolderBrowserDialogModel x:Key="DialogModel" />
+          
         </ResourceDictionary>
+
+
     </Window.Resources>
 
     
@@ -35,28 +39,30 @@
     </dialog:DialogBase.ReturnValue>
         
     <Window.Title>
-        <Binding Source="{StaticResource DialogModel}" Path="Strings.TitleFolderBrowserDialog"/>
+        <Binding Source="{StaticResource Strings}" Path="TitleFolderBrowserDialog" />
     </Window.Title>
 
     <Window.Icon>
-        <Binding Source="{StaticResource DialogModel}" Path="Icons.ButtonFind"/>
+        <Binding Source="{StaticResource Icons}" Path="Find"  Converter="{StaticResource IconConverter}"/>
     </Window.Icon>
     
    <DockPanel DataContext="{StaticResource DialogModel}" Margin="10">
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
             <Label Target="{Binding ElementName=TextBoxPath}" Padding="0,0,5,0" >
-                <AccessText Text="{Binding Strings.LabelPath}"/>
+                <AccessText Text="{Binding Source={StaticResource Strings},Path=LabelPath}"/>
             </Label>
             <TextBox Name="TextBoxPath" Width="265" AcceptsReturn="False" Text="{Binding PathText, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding FindDirectoryCommand}" CommandParameter="{Binding PathText}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <ctrl:PulseButton Icon="{Binding Icons.ButtonFind}" Command="{Binding FindDirectoryCommand}" CommandParameter="{Binding PathText}" Height="20" Width="20" Margin="5,0,0,0">
+            <ctrl:PulseButton Icon="{Binding Source={StaticResource Icons}, Path=Find, Converter={StaticResource IconConverter}}" 
+                              Command="{Binding FindDirectoryCommand}" CommandParameter="{Binding PathText}" 
+                              Height="20" Width="20" Margin="5,0,0,0">
                 <Button.ToolTip>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold" Text="{Binding Strings.ButtonFind}" />
-                        <TextBlock Text="{Binding Strings.ToolTipFind}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding Source={StaticResource Strings}, Path=ButtonFind}" />
+                        <TextBlock Text="{Binding Source={StaticResource Strings}, Path=ToolTipFind}"/>
                     </StackPanel>
                 </Button.ToolTip>
             </ctrl:PulseButton>

@@ -1,13 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
-using WPF.Common;
 using System.ComponentModel;
+using WPF.Common;
 using WPF.Common.Aggregators;
-using System.Windows;
 using WPF.Common.ViewModel;
 
 namespace WPF.FolderBrowserDialog.ViewModel
@@ -56,7 +52,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
             this.TreeModel = new TreeViewModel();
             FindDirectoryCommand = new RelayCommand(TreeModel.InitiateSearch, (x) => !String.IsNullOrEmpty(this.PathText));
         }
-        
+
         private void onSelectedDirectoryChanged(object i_Sender, PropertyChangedEventArgs i_Args)
         {
             if (i_Args.PropertyName.CompareTo("SelectedItem") == 0)
@@ -92,7 +88,15 @@ namespace WPF.FolderBrowserDialog.ViewModel
 
         protected override bool CheckResultLegitimacy()
         {
-            return Directory.Exists(this.PathText);
+            bool legit = false;
+            
+            if(Directory.Exists(this.PathText))
+            {
+                TreeModel.InitiateSearch(this.PathText);
+                legit = (TreeModel.SelectedItem as DirectoryModelBase).HasAccess;
+            }
+            
+            return legit;
         }
     }
 }

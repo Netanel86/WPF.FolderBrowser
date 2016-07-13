@@ -30,7 +30,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
 
         protected override void LoadImage()
         {
-            this.ImagePath = this.HasAccess ? Icons.TreeViewItemFolderClosed : Icons.TreeViewItemFolderNoAccess;
+            this.Icon = this.HasAccess ? eIconType.ClosedFolder : eIconType.NoAccessFolder;
         }
 
         protected override void OnPropertyChanged(string i_Property)
@@ -39,7 +39,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
 
             if (this.HasAccess && i_Property.CompareTo("IsExpanded") == 0)
             {
-                this.ImagePath = this.IsExpanded ? Icons.TreeViewItemFolderOpen : Icons.TreeViewItemFolderClosed;
+                this.Icon = this.IsExpanded ? eIconType.OpenFolder : eIconType.ClosedFolder;
             }
         }
 
