@@ -54,6 +54,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\LifeCycleBehaviorTest.cs" />
     <Compile Include="Behaviors\UserControlLifeCycleBehavior.cs" />
     <Compile Include="Behaviors\IDialogService.cs" />
     <Compile Include="Behaviors\UserControlDialogPresenter.cs" />
@@ -91,10 +92,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <DesignData Include="Resources\Styles.xaml">
+    <Page Include="Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </DesignData>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WPF.Common\WPF.Common.csproj">

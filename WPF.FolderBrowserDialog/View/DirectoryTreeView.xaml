@@ -95,7 +95,6 @@
                 <si:ChangePropertyAction PropertyName="SelectedItem" 
                                              Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}},Path=SelectedItem}" 
                                              TargetObject="{Binding}"/>
-                <si:CallMethodAction MethodName="ItemContainerGenerator.ContainerFromItem" />
             </i:EventTrigger>
         </i:Interaction.Triggers>
 

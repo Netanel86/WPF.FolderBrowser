@@ -5,7 +5,6 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:vm="clr-namespace:WPF.FolderBrowserDialog.ViewModel"
         xmlns:v="clr-namespace:WPF.FolderBrowserDialog.View"
-        xmlns:ctrl="clr-namespace:WPF.Common.UI.Controls;assembly=WPF.Common.UI"
         xmlns:behaviors="clr-namespace:WPF.Common.UI.Behaviors;assembly=WPF.Common.UI"
         xmlns:dialog="clr-namespace:WPF.Common.UI.Infrastracture;assembly=WPF.Common.UI"
         Height="350" Width="350"
@@ -14,7 +13,6 @@
         <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WPF.Common.UI;component/Controls/PulseButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Converters/Converters.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/View/Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -24,6 +22,13 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    <Window.Title>
+        <Binding Source="{StaticResource Strings}" Path="TitleFolderBrowserDialog" />
+    </Window.Title>
+
+    <Window.Icon>
+        <Binding Source="{StaticResource Icons}" Path="Find"  Converter="{StaticResource IconConverter}"/>
+    </Window.Icon>
     
     <i:Interaction.Behaviors>
         <behaviors:WindowLifeCycleBehavior CloseCommand="{Binding Source={StaticResource DialogModel},Path=CloseCommand}" 
@@ -35,54 +40,5 @@
         <Binding Source="{StaticResource DialogModel}" Path="ReturnValue" />
     </dialog:DialogBase.ReturnValue>
         
-    <Window.Title>
-        <Binding Source="{StaticResource Strings}" Path="TitleFolderBrowserDialog" />
-    </Window.Title>
-
-    <Window.Icon>
-        <Binding Source="{StaticResource Icons}" Path="Find"  Converter="{StaticResource IconConverter}"/>
-    </Window.Icon>
-    
-   <DockPanel DataContext="{StaticResource DialogModel}" Margin="10">
-
-        <Grid DockPanel.Dock="Top">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="30" />
-            </Grid.ColumnDefinitions>
-
-            <DockPanel LastChildFill="True" Margin="0,5,0,5" >
-                <Label VerticalAlignment="Center" Target="{Binding ElementName=TextBoxPath}" Padding="0,0,5,0" DockPanel.Dock="Left" >
-                    <AccessText Text="{Binding Source={StaticResource Strings},Path=LabelPath}"/>
-                </Label>
-
-
-                <TextBox Name="TextBoxPath" Width="Auto" AcceptsReturn="False" Text="{Binding PathText, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Enter" Command="{Binding FindDirectoryCommand}" CommandParameter="{Binding PathText}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
-            </DockPanel>
-
-            <ctrl:PulseButton Grid.Column="1" HorizontalAlignment="Right" Icon="{Binding Source={StaticResource Icons}, Path=Find, Converter={StaticResource IconConverter}}" 
-                              Command="{Binding FindDirectoryCommand}" CommandParameter="{Binding PathText}" 
-                              Height="20" Width="20" >
-                <Button.ToolTip>
-                    <StackPanel>
-                        <TextBlock FontWeight="Bold" Text="{Binding Source={StaticResource Strings}, Path=ButtonFind}" />
-                        <TextBlock Text="{Binding Source={StaticResource Strings}, Path=ToolTipFind}"/>
-                    </StackPanel>
-                </Button.ToolTip>
-            </ctrl:PulseButton>
-        </Grid>
-
-        <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" DockPanel.Dock="Bottom">
-            <Button Content="Cancel" Padding="8,0" Margin="0,0,5,0" Command="{Binding CancelCommand}"/>
-            <Button Content="OK" Padding="8,0" Command="{Binding OkCommand}"/>
-        </StackPanel>
-
-        <v:DirectoryTreeView/>
-            
-    </DockPanel>
+    <v:FolderBrowserUC DataContext="{StaticResource DialogModel}" />
 </dialog:DialogBase>

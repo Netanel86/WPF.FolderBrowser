@@ -117,6 +117,9 @@
     <Compile Include="View\DirectoryTreeView.xaml.cs">
       <DependentUpon>DirectoryTreeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FolderBrowserUC.xaml.cs">
+      <DependentUpon>FolderBrowserUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FolderBrowserView.xaml.cs">
       <DependentUpon>FolderBrowserView.xaml</DependentUpon>
     </Compile>
@@ -129,6 +132,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\DirectoryTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FolderBrowserUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
