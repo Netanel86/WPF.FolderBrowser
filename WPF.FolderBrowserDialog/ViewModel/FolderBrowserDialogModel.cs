@@ -5,44 +5,63 @@ using System.ComponentModel;
 using WPF.Common;
 using WPF.Common.Aggregators;
 using WPF.Common.ViewModel;
+using WPF.FolderBrowserDialog.Converters;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class FolderBrowserDialogModel : DialogModel<PathResult>
     {
-        private Subscription<Exception> m_Token;
-        public event EventHandler<NotificationEventArgs<Exception>> ErrorNotice;
+        private Subscription<ErrorMessage> m_Token;
         
-        protected void OnErrorNotice(Exception i_Exception)
-        {
-            if (ErrorNotice != null)
-            {
-                ErrorNotice.Invoke(this, new NotificationEventArgs<Exception>(i_Exception));
-            }
-        }
         public TreeViewModel TreeModel
         {
             get;
             private set;
         }
 
-        public ICommand FindDirectoryCommand
-        {
-            get;
-            private set;
-        }
-        
         private string m_PathText = String.Empty;
 
+        public int LastVisibleCharIndex
+        {
+            get { return PathText.Length + 1; }
+        }
+        
         public string PathText
         {
             get { return m_PathText; }
             set
             {
+                const bool v_IgnoreCase = true;
+                string oldPath = m_PathText;
+                
                 m_PathText = value;
-                this.FindDirectoryCommand.CanExecute(value);
-                this.OkCommand.CanExecute(null);
+
+                if (m_PathText.EndsWith("/") || m_PathText.EndsWith(@"\"))
+                {
+                    if (String.Compare(oldPath, m_PathText, v_IgnoreCase) != 0 )
+                    {
+                        try
+                        {
+                            this.TreeModel.InitiateSearch(m_PathText as string);
+                        }
+                        catch(DirectoryNotFoundException i_Execption)
+                        {
+                            this.OnErrorNotice(
+                                new ErrorMessage()
+                                {
+                                    Title = eStringType.ErrorTitle_DirectoryNotFound.GetUnderlyingString(),
+                                    Text = eStringType.ErrorText_DirectoryNotFound.GetUnderlyingString(),
+                                    Content = i_Execption.Message,
+                                    Icon = eMessageIcon.Warning
+                                }
+                                );
+                        }
+                    }
+                }
+                
                 OnPropertyChanged("PathText");
+
+                this.OkCommand.CanExecute(null);
             }
         }
 
@@ -50,7 +69,6 @@ namespace WPF.FolderBrowserDialog.ViewModel
             :base()
         {
             this.TreeModel = new TreeViewModel();
-            FindDirectoryCommand = new RelayCommand(TreeModel.InitiateSearch, (x) => !String.IsNullOrEmpty(this.PathText));
         }
 
         private void onSelectedDirectoryChanged(object i_Sender, PropertyChangedEventArgs i_Args)
@@ -63,17 +81,17 @@ namespace WPF.FolderBrowserDialog.ViewModel
                 }
             }
         }
-
-        protected override void OnClosed()
-        {
-            this.TreeModel.PropertyChanged -= onSelectedDirectoryChanged;
-            Messanger.Unsubscribe<Exception>(m_Token);
-        }
-
+        
         protected override void OnLoaded()
         {
             this.TreeModel.PropertyChanged += onSelectedDirectoryChanged;
-            m_Token = Messanger.Subscribe<Exception>(OnErrorNotice);
+            m_Token = Messanger.Subscribe<ErrorMessage>(OnErrorNotice);
+        }
+        
+        protected override void OnClosed()
+        {
+            this.TreeModel.PropertyChanged -= onSelectedDirectoryChanged;
+            Messanger.Unsubscribe<ErrorMessage>(m_Token);
         }
 
         protected override void CloseWindow(bool i_DialogCanceled)
@@ -89,13 +107,12 @@ namespace WPF.FolderBrowserDialog.ViewModel
         protected override bool CheckResultLegitimacy()
         {
             bool legit = false;
-            
-            if(Directory.Exists(this.PathText))
+
+            if (TreeModel.SelectedItem != null && (TreeModel.SelectedItem as DirectoryModelBase).HasAccess)
             {
-                TreeModel.InitiateSearch(this.PathText);
-                legit = (TreeModel.SelectedItem as DirectoryModelBase).HasAccess;
+                legit = true;
             }
-            
+
             return legit;
         }
     }

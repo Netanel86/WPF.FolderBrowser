@@ -13,7 +13,7 @@ using System.Windows.Data;
 namespace WPF.FolderBrowserDialog.ViewModel
 {
 
-    public class DirectoryModelBase : TreeViewItemModel
+    public abstract class DirectoryModelBase : TreeViewItemModel
     {
         public DirectoryModelBase(DirectoryInfo i_Directory, TreeViewItemModel i_ParentDirectory)
             : base(i_ParentDirectory, false)
@@ -53,11 +53,8 @@ namespace WPF.FolderBrowserDialog.ViewModel
                 }
             }
         }
-        
-        public string FullPath
-        {
-            get { return m_Directory.FullName; }
-        }
+
+        public abstract string FullPath { get; }
 
         public bool HasAccess
         {
@@ -75,13 +72,20 @@ namespace WPF.FolderBrowserDialog.ViewModel
                         m_HasAccess = !v_Access;
                         System.Diagnostics.Debug.WriteLine(ex.Message);
                     }
-                    catch (DirectoryNotFoundException ex)
+                    catch (DirectoryNotFoundException i_Exception)
                     {
                         m_HasAccess = !v_Access;
-                        //System.Diagnostics.Debug.WriteLine(ex.Message);
+
                         (this.Parent as DirectoryModelBase).RefreshDirectoryTree();
-                        //MessageBox.Show(ex.Message + System.Environment.NewLine + Strings.MessegeBoxTextErrorDirectNotFound, Strings.MessegeBoxTitleErrorDirectNotFound, MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                        Messanger.Publish<Exception>(ex);
+                        
+                        Messanger.Publish<ErrorMessage>(
+                            new ErrorMessage()
+                            {
+                                Title = eStringType.ErrorTitle_DirectoryNotFound.GetUnderlyingString(),
+                                Text = eStringType.ErrorText_DirectoryNotFound.GetUnderlyingString(),
+                                Content = i_Exception.Message,
+                                Icon = eMessageIcon.Warning
+                            });
                     }
                 }
 
@@ -159,14 +163,16 @@ namespace WPF.FolderBrowserDialog.ViewModel
             {
                 nonExistingNewFolderName = newFolderName + count++.ToString();
             }
-            
+
+       
             //create the new folder and add it to the children collection of the current directory
             DirectoryModelBase subfolder = CreateNewDirectoryModel(m_Directory.CreateSubdirectory(nonExistingNewFolderName), this);
             this.Children.Add(subfolder);
-            
+
             //set the newly created folder as the selected tree item and enter edit mode
             subfolder.IsSelected = true;
-            subfolder.EnterEditModeCommand.Execute(null);
+            subfolder.EnterEditModeCommand.Execute(null);   
+
         }
 
         protected void CheckIfNull(object i_Parameter, string i_ParameterName)
@@ -183,19 +189,16 @@ namespace WPF.FolderBrowserDialog.ViewModel
         }
 
         /// <summary>
-        /// Initializes an instance of <see cref="DirectoryModelBase"/>
+        /// Initializes a concrete instance of <see cref="DirectoryModelBase"/>
         /// </summary>
         /// <param name="i_DirectoryInfo">Directory to wrap</param>
         /// <param name="i_Parent">Directory parent model</param>
         /// <returns>a new instance of a class extending <see cref="DirectoryModelBase"/></returns>
         /// <remarks>
         /// is called in <code>this.Populate()</code> method, 
-        /// override to implement creation of concrete extended classes.
+        /// implement for creation of concrete extended classes.
         /// </remarks>
-        protected virtual DirectoryModelBase CreateNewDirectoryModel(DirectoryInfo i_DirectoryInfo, DirectoryModelBase i_Parent)
-        {
-            throw new NotImplementedException();
-        }
+        protected abstract DirectoryModelBase CreateNewDirectoryModel(DirectoryInfo i_DirectoryInfo, DirectoryModelBase i_Parent);
 
         protected override void Populate()
         {

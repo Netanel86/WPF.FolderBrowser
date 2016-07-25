@@ -79,6 +79,7 @@
                             </Style>
                         </TextBoxBase.Style>
                     </ctrl:TogglableTextBox>
+                    
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                             <si:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
@@ -90,10 +91,11 @@
         </TreeView.Resources>
 
         <i:Interaction.Triggers>
-            <i:EventTrigger EventName="SelectedItemChanged">
+            <i:EventTrigger EventName="SelectedItemChanged" >
                 <si:ChangePropertyAction PropertyName="SelectedItem" 
                                              Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}},Path=SelectedItem}" 
                                              TargetObject="{Binding}"/>
+                <si:CallMethodAction MethodName="ItemContainerGenerator.ContainerFromItem" />
             </i:EventTrigger>
         </i:Interaction.Triggers>
 

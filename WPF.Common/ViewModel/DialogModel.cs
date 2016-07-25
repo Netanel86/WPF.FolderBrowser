@@ -19,7 +19,9 @@ namespace WPF.Common.ViewModel
 
         private const bool v_DialogCanceled = true;
 
-        public event EventHandler CloseWindowRequest;
+        public event EventHandler CloseRequest;
+
+        public event EventHandler ErrorNotice;
 
         public ICommand OkCommand
         { get; private set; }
@@ -43,11 +45,19 @@ namespace WPF.Common.ViewModel
 
         protected abstract bool CheckResultLegitimacy();
 
+        protected virtual void OnErrorNotice(ErrorMessage i_Message)
+        {
+            if (this.ErrorNotice != null)
+            {
+                ErrorNotice(this, new NotificationEventArgs<ErrorMessage>(i_Message));
+            }
+        }
+
         protected virtual void CloseWindow(bool i_DialogCanceled)
         {
-            if (this.CloseWindowRequest != null)
+            if (this.CloseRequest != null)
             {
-                this.CloseWindowRequest(this, new NotificationEventArgs<bool>(i_DialogCanceled));
+                this.CloseRequest(this, new NotificationEventArgs<bool>(i_DialogCanceled));
             }
         }
 

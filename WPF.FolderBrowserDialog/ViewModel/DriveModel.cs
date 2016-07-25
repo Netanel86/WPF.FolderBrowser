@@ -4,7 +4,13 @@ namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class DriveModel : DirectoryModelBase
     {
+        public override string FullPath
+        {
+            get { return m_Directory.FullName; }
+        }
+        
         private DriveInfo m_DriveInfo;
+        
         public string DriveLetter 
         {
             get { return m_Directory.Name; }

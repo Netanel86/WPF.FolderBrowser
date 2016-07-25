@@ -6,11 +6,17 @@ using WPF.Common;
 using WPF.Common.Enums;
 using WPF.FolderBrowserDialog.Images;
 using WPF.FolderBrowserDialog.Localization;
+using WPF.FolderBrowserDialog.Converters;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class FolderModel : DirectoryModelBase
     {
+        public override string FullPath
+        {
+            get { return m_Directory.FullName + @"\"; }
+        }
+
         public string FolderName
         {
             get { return m_Directory.Name; }
@@ -60,11 +66,18 @@ namespace WPF.FolderBrowserDialog.ViewModel
                     base.OnPropertyChanged("IsSelected");
                 }
             }
-            catch (Exception ex)
+            catch (Exception i_Exception)
             {
-                //todo: create a proper class for exception message for handling diffrent exceptions.
-                Messanger.Publish<Exception>(ex);
-                //MessageBox.Show(ex.Message, Strings.MessegeBoxTitleErrorRename, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                this.OnPropertyChanged("FolderName");
+
+                Messanger.Publish<ErrorMessage>(
+                    new ErrorMessage()
+                    {
+                        Title = eStringType.ErrorTitle_Rename.GetUnderlyingString(),
+                        Text = eStringType.ErrorText_Rename.GetUnderlyingString(),
+                        Content = i_Exception.Message,
+                        Icon = eMessageIcon.Warning
+                    });
             }
             finally
             {

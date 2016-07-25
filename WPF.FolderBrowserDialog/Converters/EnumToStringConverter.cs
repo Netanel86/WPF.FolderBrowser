@@ -26,6 +26,13 @@ namespace WPF.FolderBrowserDialog.Converters
                     case eStringType.String_MyComputer:
                         str = Strings.TreeViewItemMyComputer;
                         break;
+
+                    case eStringType.ErrorTitle_DirectoryNotFound:
+                        str = Strings.MessegeBoxTitleErrorDirectNotFound;
+                        break;
+                    case eStringType.ErrorText_DirectoryNotFound:
+                        str = Strings.MessegeBoxTextErrorDirectNotFound;
+                        break;
                 }
             }
 

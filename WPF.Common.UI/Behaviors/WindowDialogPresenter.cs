@@ -4,20 +4,21 @@ using System.Windows.Interactivity;
 using System.Windows;
 using WPF.Common.ViewModel;
 using WPF.Common.UI.Infrastracture;
+using System.Windows.Controls;
 
 namespace WPF.Common.UI.Behaviors
 {
-    public class DialogBehaviorManager : Behavior<Window>
+    public class WindowDialogPresenter : Behavior<Window>
     {
         public static readonly DependencyProperty HandlerProperty =
             DependencyProperty.RegisterAttached(
             "Handler",
-            typeof(IDialogHandler),
-            typeof(DialogBehaviorManager));
+            typeof(IDialogPresenter),
+            typeof(WindowDialogPresenter));
 
-        public IDialogHandler Handler
+        public IDialogPresenter Handler
         {
-            get { return (IDialogHandler)GetValue(HandlerProperty); }
+            get { return (IDialogPresenter)GetValue(HandlerProperty); }
             set { SetValue(HandlerProperty, value); }
         }
 
@@ -25,7 +26,7 @@ namespace WPF.Common.UI.Behaviors
         {
             this.Handler.OpenDialogRequest += openDialog;
         }
-
+    
         private void openDialog(object i_Sender, EventArgs i_Args)
         {
             CallBackNotificationEventArgs<Type, object> args = i_Args as CallBackNotificationEventArgs<Type, object>;

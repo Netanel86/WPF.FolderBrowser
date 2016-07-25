@@ -15,24 +15,9 @@ namespace WPF.FolderBrowserDialog.View
     /// </summary>
     public partial class FolderBrowserDialog : DialogBase
     {
-        private FolderBrowserDialogModel DialogModel
-        {
-            get { return Resources["DialogModel"] as FolderBrowserDialogModel; }
-        }
-
         public FolderBrowserDialog()
         {
             InitializeComponent();
-
-
-            DialogModel.ErrorNotice += onErrorNotice;
-        }
-
-        private void onErrorNotice(object i_Sender,NotificationEventArgs<Exception> i_Args)
-        {
-            System.Diagnostics.Debug.WriteLine(i_Args.Data.Message);
-
-            MessageBox.Show(i_Args.Data.Message + System.Environment.NewLine + Strings.MessegeBoxTextErrorDirectNotFound, Strings.MessegeBoxTitleErrorDirectNotFound, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
 }

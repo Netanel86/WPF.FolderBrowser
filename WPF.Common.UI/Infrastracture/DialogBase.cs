@@ -2,7 +2,7 @@
 
 namespace WPF.Common.UI.Infrastracture
 {
-    public abstract class DialogBase : Window
+    public class DialogBase : Window
     {
         public static readonly DependencyProperty ReturnValueProperty =
             DependencyProperty.RegisterAttached(

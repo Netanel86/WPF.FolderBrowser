@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+
 using WPF.FolderBrowserDialog.Localization;
 using WPF.Common;
 using WPF.Common.ViewModel;
@@ -49,34 +50,43 @@ namespace WPF.FolderBrowserDialog.ViewModel
             r_RootItems.Add(r_MyComputer);
         }
 
-        public void InitiateSearch(object i_Parameter)
+        private List<string> concatPathToElements(string i_Path)
         {
-            string text = (string)i_Parameter;
+            i_Path = i_Path.Replace("/",@"\");
+            
+            List<string> subpaths = i_Path.Split('\\').ToList();
+            subpaths[0] += "\\";
+            
+            return subpaths;
+        }
+        
+        public void InitiateSearch(string i_Path)
+        {
+            DirectoryModelBase directory = null;
 
             //searching initializes only if the path exists.
-            if (Directory.Exists(text))
+            if ((directory = TryGetDirectoryItem(i_Path)) != null)
             {
-                string path = Path.GetFullPath(text + @"\");
-                List<string> subpaths = path.Split('\\').ToList();
-                subpaths[0] += "\\";
-                DirectoryModelBase found = findDirectoryTreeItem(subpaths, r_MyComputer);
-                if (found.Parent != null && !found.Parent.IsExpanded)
-                {
-                    found.Parent.IsExpanded = true;
-                }
-
-                found.IsSelected = true;
+                selectDirectory(directory);
             }
             else
             {
-                Messanger.Publish<Exception>(new DirectoryNotFoundException());
-                //MessageBox.Show(
-                //    "The specified path does not exists.",
-                //    "Try Again",
-                //    MessageBoxButton.OK,
-                //    MessageBoxImage.Information
-                //    );
+                throw new DirectoryNotFoundException(i_Path);
             }
+        }
+
+        public DirectoryModelBase TryGetDirectoryItem(string i_Path)
+        {
+            DirectoryModelBase directory = null;
+
+            if (Directory.Exists(i_Path))
+            {
+                List<string> subpaths = concatPathToElements(i_Path);
+
+                directory = findDirectoryTreeItem(subpaths, r_MyComputer);
+            }
+
+            return directory;
         }
 
         private DirectoryModelBase findDirectoryTreeItem(List<string> i_PathElements, TreeViewItemModel i_Directory)
@@ -99,6 +109,18 @@ namespace WPF.FolderBrowserDialog.ViewModel
             }
 
             return i_Directory as DirectoryModelBase;
+        }
+
+        private void selectDirectory(DirectoryModelBase i_Directory)
+        {
+            //expend the parent item if its not already expanded
+            if (i_Directory.Parent != null && !i_Directory.Parent.IsExpanded)
+            {
+                i_Directory.Parent.IsExpanded = true;
+            }
+
+            i_Directory.IsSelected = true;
+            //this.OnPropertyChanged("SelectedItem");
         }
     }
 }

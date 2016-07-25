@@ -9,8 +9,7 @@
         xmlns:behaviors="clr-namespace:WPF.Common.UI.Behaviors;assembly=WPF.Common.UI"
         xmlns:dialog="clr-namespace:WPF.Common.UI.Infrastracture;assembly=WPF.Common.UI"
         Height="350" Width="350"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen">
 
         <Window.Resources>
         <ResourceDictionary>
@@ -23,13 +22,11 @@
             <vm:FolderBrowserDialogModel x:Key="DialogModel" />
           
         </ResourceDictionary>
-
-
     </Window.Resources>
 
     
     <i:Interaction.Behaviors>
-        <behaviors:WindowBehavior CloseCommand="{Binding Source={StaticResource DialogModel},Path=CloseCommand}" 
+        <behaviors:WindowLifeCycleBehavior CloseCommand="{Binding Source={StaticResource DialogModel},Path=CloseCommand}" 
                                   LoadCommand="{Binding Source={StaticResource DialogModel},Path=LoadCommand}" 
                                   Handler="{Binding Source={StaticResource DialogModel}}" />
     </i:Interaction.Behaviors>
@@ -47,18 +44,30 @@
     </Window.Icon>
     
    <DockPanel DataContext="{StaticResource DialogModel}" Margin="10">
-        <StackPanel Margin="0,0,0,5" Orientation="Horizontal" DockPanel.Dock="Top">
-            <Label Target="{Binding ElementName=TextBoxPath}" Padding="0,0,5,0" >
-                <AccessText Text="{Binding Source={StaticResource Strings},Path=LabelPath}"/>
-            </Label>
-            <TextBox Name="TextBoxPath" Width="265" AcceptsReturn="False" Text="{Binding PathText, UpdateSourceTrigger=PropertyChanged}">
-                <TextBox.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding FindDirectoryCommand}" CommandParameter="{Binding PathText}"/>
-                </TextBox.InputBindings>
-            </TextBox>
-            <ctrl:PulseButton Icon="{Binding Source={StaticResource Icons}, Path=Find, Converter={StaticResource IconConverter}}" 
+
+        <Grid DockPanel.Dock="Top">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel LastChildFill="True" Margin="0,5,0,5" >
+                <Label VerticalAlignment="Center" Target="{Binding ElementName=TextBoxPath}" Padding="0,0,5,0" DockPanel.Dock="Left" >
+                    <AccessText Text="{Binding Source={StaticResource Strings},Path=LabelPath}"/>
+                </Label>
+
+
+                <TextBox Name="TextBoxPath" Width="Auto" AcceptsReturn="False" Text="{Binding PathText, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding FindDirectoryCommand}" CommandParameter="{Binding PathText}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+            </DockPanel>
+
+            <ctrl:PulseButton Grid.Column="1" HorizontalAlignment="Right" Icon="{Binding Source={StaticResource Icons}, Path=Find, Converter={StaticResource IconConverter}}" 
                               Command="{Binding FindDirectoryCommand}" CommandParameter="{Binding PathText}" 
-                              Height="20" Width="20" Margin="5,0,0,0">
+                              Height="20" Width="20" >
                 <Button.ToolTip>
                     <StackPanel>
                         <TextBlock FontWeight="Bold" Text="{Binding Source={StaticResource Strings}, Path=ButtonFind}" />
@@ -66,8 +75,8 @@
                     </StackPanel>
                 </Button.ToolTip>
             </ctrl:PulseButton>
-        </StackPanel>
-        
+        </Grid>
+
         <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" DockPanel.Dock="Bottom">
             <Button Content="Cancel" Padding="8,0" Margin="0,0,5,0" Command="{Binding CancelCommand}"/>
             <Button Content="OK" Padding="8,0" Command="{Binding OkCommand}"/>

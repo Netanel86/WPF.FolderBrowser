@@ -4,20 +4,21 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.ComponentModel;
 using WPF.Common.ViewModel;
+using System.Windows.Controls;
 
 namespace WPF.Common.UI.Behaviors
 {
-    public class WindowBehavior : Behavior<Window>
+    public class WindowLifeCycleBehavior : Behavior<Window>
     {
         public static readonly DependencyProperty HandlerProperty = 
             DependencyProperty.RegisterAttached(
             "Handler",
-            typeof(IWindowHandler),
-            typeof(WindowBehavior));
+            typeof(ILifeCycleHandler),
+            typeof(WindowLifeCycleBehavior));
 
-        public IWindowHandler Handler
+        public ILifeCycleHandler Handler
         {
-            get { return (IWindowHandler)GetValue(HandlerProperty); }
+            get { return (ILifeCycleHandler)GetValue(HandlerProperty); }
             set{ SetValue(HandlerProperty,value);}
         }
 
@@ -25,7 +26,7 @@ namespace WPF.Common.UI.Behaviors
             DependencyProperty.RegisterAttached(
             "CloseCommand",
             typeof(ICommand),
-            typeof(WindowBehavior));
+            typeof(WindowLifeCycleBehavior));
 
         public ICommand CloseCommand
         {
@@ -36,7 +37,7 @@ namespace WPF.Common.UI.Behaviors
             DependencyProperty.RegisterAttached(
             "LoadCommand",
             typeof(ICommand),
-            typeof(WindowBehavior));
+            typeof(WindowLifeCycleBehavior));
         
         public ICommand LoadCommand
         {
@@ -46,13 +47,14 @@ namespace WPF.Common.UI.Behaviors
         
         protected override void OnAttached()
         {
-            Window window = this.AssociatedObject;
+            System.Windows.Window window = this.AssociatedObject;
 
             window.Loaded += onWindowLoaded;
             window.Closing += onWindowClosing;
             window.Closed += onWindowClosed;
 
-            this.Handler.CloseWindowRequest += closeWindow;
+            this.Handler.CloseRequest += closeWindow;
+            this.Handler.ErrorNotice += notifyError;
             base.OnAttached();
         }
 
@@ -63,15 +65,31 @@ namespace WPF.Common.UI.Behaviors
             this.AssociatedObject.Close();
         }
 
+        private void notifyError(object i_Sender, EventArgs i_Args)
+        {
+            IMessageModel message = (i_Args as NotificationEventArgs<ErrorMessage>).Data;
+
+            MessageBox.Show(
+                message.Content + System.Environment.NewLine
+                + message.Text,
+                message.Title,
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+
+
+            //System.Diagnostics.Debug.WriteLine(i_Args.Data.Message);
+        }
+
         protected override void OnDetaching()
         {
-            Window window = this.AssociatedObject;
+            System.Windows.Window window = this.AssociatedObject;
            
             window.Loaded -= onWindowLoaded;
             window.Closing -= onWindowClosing;
             window.Closed -= onWindowClosed;
 
-            this.Handler.CloseWindowRequest -= closeWindow;
+            this.Handler.CloseRequest -= closeWindow;
+            this.Handler.ErrorNotice -= notifyError;
             base.OnDetaching();
         }
 
