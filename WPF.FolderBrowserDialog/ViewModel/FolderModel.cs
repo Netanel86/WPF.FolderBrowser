@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using WPF.Common;
 using WPF.Common.Enums;
-using WPF.FolderBrowserDialog.Images;
+using WPF.FolderBrowserDialog.Resources;
 using WPF.FolderBrowserDialog.Localization;
 using WPF.FolderBrowserDialog.Converters;
 

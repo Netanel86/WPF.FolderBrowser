@@ -6,7 +6,7 @@ using WPF.FolderBrowserDialog.Localization;
 using WPF.Common;
 using WPF.Common.Enums;
 using WPF.Common.ViewModel;
-using WPF.FolderBrowserDialog.Images;
+using WPF.FolderBrowserDialog.Resources;
 using WPF.FolderBrowserDialog.Converters;
 using System.Windows.Data;
 

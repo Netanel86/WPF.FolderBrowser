@@ -1,4 +1,4 @@
-﻿using WPF.FolderBrowserDialog.Images;
+﻿using WPF.FolderBrowserDialog.Resources;
 using WPF.Common.ViewModel;
 using WPF.FolderBrowserDialog.Localization;
 

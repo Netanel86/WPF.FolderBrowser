@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Media.Imaging;
 using System.Windows.Data;
 using WPF.FolderBrowserDialog.ViewModel;
-using WPF.FolderBrowserDialog.Images;
+using WPF.FolderBrowserDialog.Resources;
 
 namespace WPF.FolderBrowserDialog.Converters
 {

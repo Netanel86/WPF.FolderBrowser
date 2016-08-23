@@ -142,6 +142,6 @@ namespace WPF.FolderBrowserDialog.ViewModel
 
         public event EventHandler<CallBackNotificationEventArgs<Type, object>> ShowViewRequest;
 
-        public event EventHandler ErrorNotice;
+        public event EventHandler<NotificationEventArgs<ErrorMessage>> ErrorNotice;
     }
 }

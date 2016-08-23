@@ -7,6 +7,6 @@ namespace WPF.Common.ViewModel
 {
     public interface IErrorNotifier
     {
-        event EventHandler ErrorNotice;
+        event EventHandler<NotificationEventArgs<ErrorMessage>> ErrorNotice;
     }
 }

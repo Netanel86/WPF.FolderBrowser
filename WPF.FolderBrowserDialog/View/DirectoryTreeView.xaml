@@ -14,9 +14,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Converters/Converters.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/View/Resources.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/View/TreeViewItemStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/Converters.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/Resources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/TreeViewItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -24,6 +24,7 @@
     <TreeView DataContext="{Binding TreeModel}"  ItemsSource="{Binding RootItems}">
         <TreeView.Resources>
             <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource TreeViewItemStyleCustom}" />
+            
             <ContextMenu x:Key="TreeViewItemContext">
                 <MenuItem Header="{Binding Source={StaticResource Strings}, Path=MenuNewFolder}" Command="{Binding NewFolderCommand}">
                     <MenuItem.Icon>

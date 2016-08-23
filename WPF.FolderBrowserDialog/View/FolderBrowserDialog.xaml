@@ -13,8 +13,8 @@
         <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Converters/Converters.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/View/Resources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/Converters.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <vm:FolderBrowserDialogModel x:Key="DialogModel" />

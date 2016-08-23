@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using WPF.FolderBrowserDialog.Images;
+using WPF.FolderBrowserDialog.Resources;
 namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class DriveModel : DirectoryModelBase
