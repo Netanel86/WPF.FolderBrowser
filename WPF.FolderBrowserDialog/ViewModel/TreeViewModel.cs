@@ -14,6 +14,17 @@ namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class TreeViewModel : ViewModelBase
     {
+        //private eIconType m_ExpanderIcon;
+        //public eIconType ExpanderIcon
+        //{
+        //    get { return m_ExpanderIcon; }
+        //    set 
+        //    {
+        //        m_ExpanderIcon = value;
+        //        this.OnPropertyChanged("ExpanderIcon");
+        //    }
+        //}
+
         private TreeViewItemModel m_SelectedItem;
         public TreeViewItemModel SelectedItem
         {

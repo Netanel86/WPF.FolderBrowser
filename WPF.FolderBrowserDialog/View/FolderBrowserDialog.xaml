@@ -31,7 +31,7 @@
     </Window.Icon>
     
     <i:Interaction.Behaviors>
-        <behaviors:WindowLifeCycleBehavior CloseCommand="{Binding Source={StaticResource DialogModel},Path=CloseCommand}" 
+        <behaviors:ViewLifeCycleBehavior CloseCommand="{Binding Source={StaticResource DialogModel},Path=CloseCommand}" 
                                   LoadCommand="{Binding Source={StaticResource DialogModel},Path=LoadCommand}" 
                                   Handler="{Binding Source={StaticResource DialogModel}}" />
     </i:Interaction.Behaviors>
@@ -40,5 +40,10 @@
         <Binding Source="{StaticResource DialogModel}" Path="ReturnValue" />
     </dialog:DialogBase.ReturnValue>
         
-    <v:FolderBrowserUC DataContext="{StaticResource DialogModel}" />
+    <Grid>
+        <i:Interaction.Behaviors>
+            <behaviors:ViewPresenterBehavior Handler="{Binding Source={StaticResource DialogModel}}" />
+        </i:Interaction.Behaviors>
+        <v:FolderBrowserView DataContext="{StaticResource DialogModel}" />
+    </Grid>
 </dialog:DialogBase>

@@ -6,10 +6,11 @@ using WPF.Common;
 using WPF.Common.Aggregators;
 using WPF.Common.ViewModel;
 using WPF.FolderBrowserDialog.Converters;
+using WPF.Common.UI.Behaviors;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
-    public class FolderBrowserDialogModel : DialogModel<PathResult>
+    public class FolderBrowserDialogModel : DialogModel<PathResult>, IViewPresenter
     {
         private Subscription<ErrorMessage> m_Token;
         
@@ -68,6 +69,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
         public FolderBrowserDialogModel()
             :base()
         {
+            this.OpenDialogCommand = new RelayCommand(type => OnOpenDialogRequest(type));
             this.TreeModel = new TreeViewModel();
         }
 
@@ -94,14 +96,14 @@ namespace WPF.FolderBrowserDialog.ViewModel
             Messanger.Unsubscribe<ErrorMessage>(m_Token);
         }
 
-        protected override void CloseWindow(bool i_DialogCanceled)
+        protected override void OnCloseRequest(bool i_DialogCanceled)
         {
             if (!i_DialogCanceled)
             {
                 this.ReturnValue = new PathResult() { Path = this.PathText };
             }
 
-            base.CloseWindow(i_DialogCanceled);
+            base.OnCloseRequest(i_DialogCanceled);
         }
 
         protected override bool CheckResultLegitimacy()
@@ -115,5 +117,31 @@ namespace WPF.FolderBrowserDialog.ViewModel
 
             return legit;
         }
+
+        protected void OnOpenDialogRequest(object i_DialogType)
+        {
+            if (this.ShowViewRequest != null)
+            {
+                this.ShowViewRequest(this, new CallBackNotificationEventArgs<Type, object>(i_DialogType as Type, null));
+            }
+        }
+
+        public ICommand OpenDialogCommand
+        {
+            get;
+            private set;
+        }
+
+        protected virtual void OnErrorNotice(ErrorMessage i_Message)
+        {
+            if (this.ErrorNotice != null)
+            {
+                ErrorNotice(this, new NotificationEventArgs<ErrorMessage>(i_Message));
+            }
+        }
+
+        public event EventHandler<CallBackNotificationEventArgs<Type, object>> ShowViewRequest;
+
+        public event EventHandler ErrorNotice;
     }
 }

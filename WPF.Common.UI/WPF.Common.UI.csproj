@@ -54,18 +54,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\LifeCycleBehaviorTest.cs" />
-    <Compile Include="Behaviors\UserControlLifeCycleBehavior.cs" />
+    <Compile Include="Behaviors\ViewLifeCycleBehavior.cs" />
     <Compile Include="Behaviors\IDialogService.cs" />
-    <Compile Include="Behaviors\UserControlDialogPresenter.cs" />
-    <Compile Include="Behaviors\WindowDialogPresenter.cs" />
-    <Compile Include="Behaviors\WindowLifeCycleBehavior.cs" />
+    <Compile Include="Behaviors\ViewPresenterBehavior.cs" />
     <Compile Include="Converters\CommonIconConverter.cs" />
     <Compile Include="Controls\PulseButton.cs" />
     <Compile Include="Controls\TogglableTexBox.cs" />
     <Compile Include="Infrastracture\DialogBase.cs" />
     <Compile Include="Infrastracture\DialogUserControl.cs" />
-    <Compile Include="Infrastracture\MessageControl.xaml.cs">
+    <Compile Include="View\MessageControl.xaml.cs">
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,7 +77,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Infrastracture\MessageControl.xaml">
+    <Page Include="View\MessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

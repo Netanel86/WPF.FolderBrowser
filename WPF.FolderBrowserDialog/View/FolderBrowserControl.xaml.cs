@@ -11,15 +11,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF.Common.UI.Infrastracture;
 
 namespace WPF.FolderBrowserDialog.View
 {
     /// <summary>
-    /// Interaction logic for FolderBrowserUC.xaml
+    /// Interaction logic for FolderBrowserView.xaml
     /// </summary>
-    public partial class FolderBrowserUC : UserControl
+    public partial class FolderBrowserControl : DialogUserControl
     {
-        public FolderBrowserUC()
+        public FolderBrowserControl()
         {
             InitializeComponent();
         }

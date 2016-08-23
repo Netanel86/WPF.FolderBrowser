@@ -79,6 +79,24 @@ namespace WPF.FolderBrowserDialog.Images {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to img_yellow_folder_closed_32pxl.png.
+        /// </summary>
+        public static string ExpanderClosed {
+            get {
+                return ResourceManager.GetString("ExpanderClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to img_yellow_folder_open_32pxl.png.
+        /// </summary>
+        public static string ExpanderOpen {
+            get {
+                return ResourceManager.GetString("ExpanderOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to img_folder_explorer_32pxl.png.
         /// </summary>
         public static string Find {

@@ -1,0 +1,36 @@
+﻿<dialog:DialogUserControl x:Class="WPF.FolderBrowserDialog.View.FolderBrowserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:si="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+            xmlns:vm="clr-namespace:WPF.FolderBrowserDialog.ViewModel"
+            xmlns:v="clr-namespace:WPF.FolderBrowserDialog.View"
+            xmlns:behavior="clr-namespace:WPF.Common.UI.Behaviors;assembly=WPF.Common.UI"
+            xmlns:dialog="clr-namespace:WPF.Common.UI.Infrastracture;assembly=WPF.Common.UI"
+            BorderBrush="Gray" BorderThickness="2" Padding="4" Margin="20" Background="White">
+
+    <UserControl.Resources>
+        <vm:FolderBrowserDialogModel x:Key="DialogModel" />
+    </UserControl.Resources>
+
+    <i:Interaction.Behaviors>
+        <behavior:ViewLifeCycleBehavior CloseCommand="{Binding Source={StaticResource DialogModel},Path=CloseCommand}" 
+                                          LoadCommand="{Binding Source={StaticResource DialogModel},Path=LoadCommand}"
+                                          Handler="{StaticResource DialogModel}" />
+
+    </i:Interaction.Behaviors>
+
+    <dialog:DialogUserControl.ReturnValue>
+        <Binding Source="{StaticResource DialogModel}" Path="ReturnValue" />
+    </dialog:DialogUserControl.ReturnValue>
+
+    <Grid>
+        <i:Interaction.Behaviors>
+                <behavior:ViewPresenterBehavior Handler="{StaticResource DialogModel}" />
+        </i:Interaction.Behaviors>
+    
+        <v:FolderBrowserView DataContext="{StaticResource DialogModel}" />
+    </Grid>
+</dialog:DialogUserControl>

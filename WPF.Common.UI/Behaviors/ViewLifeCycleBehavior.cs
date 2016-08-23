@@ -4,21 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using WPF.Common.ViewModel;
+using WPF.Common;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 using WPF.Common.UI.Infrastracture;
 using System.Windows.Input;
+using System.Reflection;
 
 namespace WPF.Common.UI.Behaviors
 {
-    public class LifeCycleBehaviorTest : Behavior<DependencyObject>
+    public class ViewLifeCycleBehavior : Behavior<DependencyObject>
     {
         public static readonly DependencyProperty HandlerPropery =
-           DependencyProperty.Register("Handler", typeof(ILifeCycleHandler), typeof(LifeCycleBehaviorTest));
+           DependencyProperty.Register("Handler", typeof(IClosableElement), typeof(ViewLifeCycleBehavior));
 
-        public ILifeCycleHandler Handler
+        public IClosableElement Handler
         {
-            get { return this.GetValue(HandlerPropery) as ILifeCycleHandler; }
+            get { return this.GetValue(HandlerPropery) as IClosableElement; }
             set { this.SetValue(HandlerPropery, value); }
         }
 
@@ -26,7 +28,7 @@ namespace WPF.Common.UI.Behaviors
             DependencyProperty.RegisterAttached(
             "CloseCommand",
             typeof(ICommand),
-            typeof(LifeCycleBehaviorTest));
+            typeof(ViewLifeCycleBehavior));
 
         public ICommand CloseCommand
         {
@@ -37,7 +39,7 @@ namespace WPF.Common.UI.Behaviors
             DependencyProperty.RegisterAttached(
             "LoadCommand",
             typeof(ICommand),
-            typeof(LifeCycleBehaviorTest));
+            typeof(ViewLifeCycleBehavior));
 
         public ICommand LoadCommand
         {
@@ -56,11 +58,13 @@ namespace WPF.Common.UI.Behaviors
                 m_Control.Unloaded += onDialogClosed;
 
                 Handler.CloseRequest += onCloseRequest;
-                Handler.ErrorNotice += onMessageEvent;
             }
             else if ((m_Window = this.AssociatedObject as Window) != null)
             {
-                //todo
+                m_Window.Loaded += onDialogLoaded;
+                m_Window.Closed += onDialogClosed;
+
+                this.Handler.CloseRequest += onCloseRequest;
             }
 
             base.OnAttached();
@@ -74,24 +78,15 @@ namespace WPF.Common.UI.Behaviors
                 m_Control.Unloaded -= onDialogClosed;
 
                 Handler.CloseRequest -= onCloseRequest;
-                Handler.ErrorNotice -= onMessageEvent;
             }
             else if (m_Window != null)
             {
-                //todo
+                m_Window.Loaded -= onDialogLoaded;
+                m_Window.Closed -= onDialogClosed;
+
+                this.Handler.CloseRequest -= onCloseRequest;
             }
             base.OnDetaching();
-        }
-        
-        private void onMessageEvent(object i_Sender, EventArgs i_Args)
-        {
-            if (m_Control != null)
-            {
-                IMessageModel message = (i_Args as NotificationEventArgs<ErrorMessage>).Data;
-                MessageControl control = new MessageControl();
-                control.DataContext = message;
-                m_Control.Service.NavigateTo(control, null);
-            }
         }
         
         private void onCloseRequest(object i_Sender, EventArgs i_Args)
@@ -102,6 +97,8 @@ namespace WPF.Common.UI.Behaviors
             }
             else if (m_Window != null)
             {
+                m_Window.DialogResult = !(i_Args as NotificationEventArgs<bool>).Data;
+                m_Window.Close();
             }
         }
         private void onDialogLoaded(object i_Sender, EventArgs i_Args)

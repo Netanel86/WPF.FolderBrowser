@@ -21,8 +21,6 @@ namespace WPF.Common.ViewModel
 
         public event EventHandler CloseRequest;
 
-        public event EventHandler ErrorNotice;
-
         public ICommand OkCommand
         { get; private set; }
 
@@ -37,23 +35,15 @@ namespace WPF.Common.ViewModel
 
         public DialogModel()
         {
-            OkCommand = new RelayCommand((x) => CloseWindow(!v_DialogCanceled), (x) => CheckResultLegitimacy());
-            CancelCommand = new RelayCommand((x) => CloseWindow(v_DialogCanceled));
+            OkCommand = new RelayCommand((x) => OnCloseRequest(!v_DialogCanceled), (x) => CheckResultLegitimacy());
+            CancelCommand = new RelayCommand((x) => OnCloseRequest(v_DialogCanceled));
             CloseCommand = new RelayCommand((x) => OnClosed());
             LoadCommand = new RelayCommand((x) => OnLoaded());
         }
 
         protected abstract bool CheckResultLegitimacy();
 
-        protected virtual void OnErrorNotice(ErrorMessage i_Message)
-        {
-            if (this.ErrorNotice != null)
-            {
-                ErrorNotice(this, new NotificationEventArgs<ErrorMessage>(i_Message));
-            }
-        }
-
-        protected virtual void CloseWindow(bool i_DialogCanceled)
+        protected virtual void OnCloseRequest(bool i_DialogCanceled)
         {
             if (this.CloseRequest != null)
             {

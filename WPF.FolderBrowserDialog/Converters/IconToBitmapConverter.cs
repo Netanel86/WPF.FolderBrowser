@@ -51,7 +51,12 @@ namespace WPF.FolderBrowserDialog.Converters
                     case eIconType.NetworkDrive:
                         converted = Icons.NetworkDrive;
                         break;
-
+                    case eIconType.ExpanderClosed:
+                        converted = Icons.ExpanderClosed;
+                        break;
+                    case eIconType.ExpanderOpen:
+                        converted = Icons.ExpanderOpen;
+                        break;
                     case eIconType.None:
                         converted = String.Empty;
                         break;

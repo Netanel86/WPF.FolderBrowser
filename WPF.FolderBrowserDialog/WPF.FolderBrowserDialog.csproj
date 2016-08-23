@@ -117,11 +117,11 @@
     <Compile Include="View\DirectoryTreeView.xaml.cs">
       <DependentUpon>DirectoryTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FolderBrowserUC.xaml.cs">
-      <DependentUpon>FolderBrowserUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\FolderBrowserView.xaml.cs">
       <DependentUpon>FolderBrowserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolderBrowserControl.xaml.cs">
+      <DependentUpon>FolderBrowserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="Converters\Converters.xaml">
       <SubType>Designer</SubType>
@@ -135,15 +135,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FolderBrowserUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\FolderBrowserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolderBrowserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TreeViewItemStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WPF.Common.ViewModel;
+using System.Windows.Input;
 
 namespace WPF.Common
 {
@@ -15,7 +16,7 @@ namespace WPF.Common
         OK
     }
 
-    public interface IMessageModel
+    public interface IMessageModel : IClosableElement
     {
         string Title { get; }
         string Text { get; }
@@ -29,6 +30,22 @@ namespace WPF.Common
         public string Text { get; set; }
         public string Content { get; set; }
         public eMessageIcon Icon { get; set; }
+
+        public MessageModel()
+        {
+            DefaultButtonCommand = new RelayCommand(x => OnCloseRequest(true));
+        }
+        public event EventHandler CloseRequest;
+
+        protected void OnCloseRequest(bool i_DialogCanceled)
+        {
+            if (this.CloseRequest != null)
+            {
+                this.CloseRequest(this, new NotificationEventArgs<bool>(i_DialogCanceled));
+            }
+        }
+
+        public ICommand DefaultButtonCommand { set; get; }
     }
 
     public class ErrorMessage : MessageModel

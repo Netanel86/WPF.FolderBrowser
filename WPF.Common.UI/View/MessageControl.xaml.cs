@@ -11,8 +11,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF.Common.UI.Behaviors;
+using WPF.Common.UI.Infrastracture;
 
-namespace WPF.Common.UI.Infrastracture
+namespace WPF.Common.UI.View
 {
     /// <summary>
     /// Interaction logic for MessageControl.xaml
@@ -21,7 +23,6 @@ namespace WPF.Common.UI.Infrastracture
     {
         public MessageControl()
         {
-            InitializeComponent();
         }
     }
 }

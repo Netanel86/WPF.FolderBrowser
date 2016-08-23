@@ -2,10 +2,7 @@
 
 namespace WPF.Common.ViewModel
 {
-    public interface ILifeCycleHandler : IClosableElement, IErrorNotifier
-    {
-    }
-    public interface IDialogModel<T> : ILifeCycleHandler
+    public interface IDialogModel<T> : IClosableElement
     {
         T ReturnValue { get; }
         ICommand CloseCommand { get; }

@@ -28,5 +28,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
         NoAccessFolder,
         NewFolder,
         RenameFolder,
+        ExpanderClosed,
+        ExpanderOpen
     }
 }
