@@ -7,10 +7,12 @@ using WPF.Common.Aggregators;
 using WPF.Common.ViewModel;
 using WPF.FolderBrowserDialog.Converters;
 using WPF.Common.UI.Behaviors;
+using WPF.Common.Services;
+using WPF.Common.Messaging;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
-    public class FolderBrowserDialogModel : DialogModel<PathResult>, IViewPresenter
+    public class FolderBrowserDialogModel : DialogModel, INavigable
     {
         private Subscription<ErrorMessage> m_Token;
         
@@ -43,7 +45,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
                     {
                         try
                         {
-                            this.TreeModel.InitiateSearch(m_PathText as string);
+                            this.TreeModel.InitiateSearch(m_PathText);
                         }
                         catch(DirectoryNotFoundException i_Execption)
                         {
@@ -69,7 +71,6 @@ namespace WPF.FolderBrowserDialog.ViewModel
         public FolderBrowserDialogModel()
             :base()
         {
-            this.OpenDialogCommand = new RelayCommand(type => OnOpenDialogRequest(type));
             this.TreeModel = new TreeViewModel();
         }
 
@@ -81,36 +82,45 @@ namespace WPF.FolderBrowserDialog.ViewModel
                 {
                     this.PathText = (TreeModel.SelectedItem as DirectoryModelBase).FullPath;
                 }
+                else
+                {
+                    this.PathText = eStringType.String_MyComputer.GetUnderlyingString();
+                }
             }
         }
         
-        protected override void OnLoaded()
+        protected override void Load()
         {
             this.TreeModel.PropertyChanged += onSelectedDirectoryChanged;
             m_Token = Messanger.Subscribe<ErrorMessage>(OnErrorNotice);
+
+            if (this.DefaultValue != null)
+            {
+                this.TreeModel.InitiateSearch( (this.DefaultValue as PathResult).Path );
+            }
         }
         
-        protected override void OnClosed()
+        protected override void Unload()
         {
             this.TreeModel.PropertyChanged -= onSelectedDirectoryChanged;
             Messanger.Unsubscribe<ErrorMessage>(m_Token);
         }
 
-        protected override void OnCloseRequest(bool i_DialogCanceled)
+        protected override void CloseDialog(bool i_DialogCanceled)
         {
             if (!i_DialogCanceled)
             {
                 this.ReturnValue = new PathResult() { Path = this.PathText };
             }
 
-            base.OnCloseRequest(i_DialogCanceled);
+            this.Navigator.NavigateBackwards(this.ReturnValue);
         }
 
         protected override bool CheckResultLegitimacy()
         {
             bool legit = false;
 
-            if (TreeModel.SelectedItem != null && (TreeModel.SelectedItem as DirectoryModelBase).HasAccess)
+            if (Directory.Exists(PathText) && TreeModel.SelectedItem != null && (TreeModel.SelectedItem as DirectoryModelBase).HasAccess)
             {
                 legit = true;
             }
@@ -118,30 +128,24 @@ namespace WPF.FolderBrowserDialog.ViewModel
             return legit;
         }
 
-        protected void OnOpenDialogRequest(object i_DialogType)
-        {
-            if (this.ShowViewRequest != null)
-            {
-                this.ShowViewRequest(this, new CallBackNotificationEventArgs<Type, object>(i_DialogType as Type, null));
-            }
-        }
-
-        public ICommand OpenDialogCommand
-        {
-            get;
-            private set;
-        }
-
         protected virtual void OnErrorNotice(ErrorMessage i_Message)
         {
-            if (this.ErrorNotice != null)
-            {
-                ErrorNotice(this, new NotificationEventArgs<ErrorMessage>(i_Message));
-            }
+            this.Navigator.NavigateTo(i_Message, null);
         }
 
-        public event EventHandler<CallBackNotificationEventArgs<Type, object>> ShowViewRequest;
-
-        public event EventHandler<NotificationEventArgs<ErrorMessage>> ErrorNotice;
+        #region INavigable
+        private INavigationService m_Navigator;
+        public INavigationService Navigator
+        {
+            get
+            {
+                return m_Navigator;
+            }
+            set
+            {
+                m_Navigator = value;
+            }
+        }
+        #endregion
     }
 }

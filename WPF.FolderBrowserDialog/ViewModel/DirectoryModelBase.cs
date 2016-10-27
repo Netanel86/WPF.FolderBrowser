@@ -9,6 +9,7 @@ using WPF.Common.ViewModel;
 using WPF.FolderBrowserDialog.Resources;
 using WPF.FolderBrowserDialog.Converters;
 using System.Windows.Data;
+using WPF.Common.Messaging;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
@@ -84,7 +85,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
                                 Title = eStringType.ErrorTitle_DirectoryNotFound.GetUnderlyingString(),
                                 Text = eStringType.ErrorText_DirectoryNotFound.GetUnderlyingString(),
                                 Content = i_Exception.Message,
-                                Icon = eMessageIcon.Warning
+                                Icon = eMessageIcon.Exclamation
                             });
                     }
                 }

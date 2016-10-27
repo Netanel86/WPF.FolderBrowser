@@ -79,7 +79,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_yellow_folder_closed_32pxl.png.
+        ///   Looks up a localized string similar to img_expander_closed_32pxl.png.
         /// </summary>
         public static string ExpanderClosed {
             get {
@@ -88,7 +88,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_yellow_folder_open_32pxl.png.
+        ///   Looks up a localized string similar to img_expander_open_32pxl.png.
         /// </summary>
         public static string ExpanderOpen {
             get {

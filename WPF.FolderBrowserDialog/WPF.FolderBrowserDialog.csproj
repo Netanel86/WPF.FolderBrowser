@@ -111,14 +111,8 @@
     <Compile Include="ViewModel\DriveModel.cs" />
     <Compile Include="ViewModel\DummyDirectoryModel.cs" />
     <Compile Include="ViewModel\FolderModel.cs" />
-    <Compile Include="View\FolderBrowserDialog.xaml.cs">
-      <DependentUpon>FolderBrowserDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\DirectoryTreeView.xaml.cs">
       <DependentUpon>DirectoryTreeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolderBrowserView.xaml.cs">
-      <DependentUpon>FolderBrowserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolderBrowserControl.xaml.cs">
       <DependentUpon>FolderBrowserControl.xaml</DependentUpon>
@@ -127,15 +121,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FolderBrowserDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\DirectoryTreeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolderBrowserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,6 +175,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\img_expander_open_32pxl.png" />
     <Resource Include="Images\img_yellow_folder_closed_32pxl.png" />
   </ItemGroup>
   <ItemGroup>
@@ -213,23 +200,10 @@
     <Resource Include="Images\img_yellow_folder_open_32pxl.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\img_magnifying_glass_32pxl.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\img_folder_new_32pxl.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\img_rename_32pxl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WPF.Common.UI\WPF.Common.UI.csproj">
-      <Project>{89D91688-7C4A-44EB-9C27-A7A07098CBB2}</Project>
-      <Name>WPF.Common.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WPF.Common\WPF.Common.csproj">
-      <Project>{7A81E467-B3AB-425F-9245-36455ACF0610}</Project>
-      <Name>WPF.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -252,6 +226,19 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\img_expander_closed_32pxl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\WPF.Common\WPF.Common.UI\WPF.Common.UI.csproj">
+      <Project>{F27E77A8-4FE9-4F12-A62B-29263FE6EE0F}</Project>
+      <Name>WPF.Common.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WPF.Common\WPF.Common\WPF.Common.csproj">
+      <Project>{FD36119B-363B-48C4-98BB-E4C5A463D804}</Project>
+      <Name>WPF.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
