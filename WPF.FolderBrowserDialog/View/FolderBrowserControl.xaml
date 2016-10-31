@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:v="clr-namespace:WPF.FolderBrowserDialog.View"
+             xmlns:str="clr-namespace:WPF.FolderBrowserDialog.Localization"
              xmlns:behavior="clr-namespace:WPF.Common.UI.Behaviors;assembly=WPF.Common.UI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -22,10 +23,16 @@
                                           LoadCommand="{Binding OnLoadCommand}" />
     </i:Interaction.Behaviors>
     
-    <DockPanel Margin="10">
-        <DockPanel DockPanel.Dock="Top" LastChildFill="True" Margin="0,5,0,5" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        
+        <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,5,0,5" >
             <Label VerticalAlignment="Center" Target="{Binding ElementName=TextBoxPath}" Padding="0,0,5,0" DockPanel.Dock="Left" >
-                <AccessText Text="{Binding Source={StaticResource Strings},Path=LabelPath}"/>
+                <AccessText Text="{x:Static str:Strings.LabelPath}"/>
             </Label>
             <TextBox Name="TextBoxPath" Width="Auto" AcceptsReturn="False" Text="{Binding PathText, UpdateSourceTrigger=PropertyChanged}">
                 <!--<i:Interaction.Triggers>
@@ -36,7 +43,11 @@
             </TextBox>
         </DockPanel>
 
-        <v:DirectoryTreeView/>
+        <v:DirectoryTreeView Grid.Row="1"/>
 
-    </DockPanel>
+        <StackPanel Grid.Row="2" FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" >
+            <Button MinWidth="35" Content="Save" Command="{Binding OkCommand}"/>
+        </StackPanel>
+
+    </Grid>
 </UserControl>

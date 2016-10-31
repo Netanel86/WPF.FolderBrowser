@@ -1,9 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:img="clr-namespace:WPF.FolderBrowserDialog.Resources"
+                    xmlns:r="clr-namespace:WPF.FolderBrowserDialog.Resources"
+                    xmlns:cnvrt="clr-namespace:WPF.Common.UI.Converters;assembly=WPF.Common.UI"
                     xmlns:str="clr-namespace:WPF.FolderBrowserDialog.Localization">
     
-    <str:Strings x:Key="Strings" />
-    <img:Icons x:Key="Icons" />
-
+    <cnvrt:GeneralBitmapConverter x:Key="GeneralBitmapConverter" />
+    <cnvrt:GeneralStringConverter x:Key="GeneralStringConverter" />
+    <str:StringAdapter x:Key="StringsAdapter" />
+    <r:IconAdapter x:Key="IconsAdapter" />
+    
 </ResourceDictionary>

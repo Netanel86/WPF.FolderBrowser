@@ -84,8 +84,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\eStringTypeExtension.cs" />
-    <Compile Include="Converters\IconToBitmapConverter.cs" />
+    <Compile Include="Resources\eStringTypeExtension.cs" />
+    <Compile Include="Localization\StringAdapter.cs" />
+    <Compile Include="Resources\IconAdapter.cs" />
     <Compile Include="ViewModel\eIconType.cs" />
     <Compile Include="Resources\Icons.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -104,7 +105,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="PathResult.cs" />
-    <Compile Include="Converters\EnumToStringConverter.cs" />
     <Compile Include="ViewModel\DirectoryModelBase.cs" />
     <Compile Include="ViewModel\FolderBrowserDialogModel.cs" />
     <Compile Include="ViewModel\TreeViewModel.cs" />
@@ -117,10 +117,6 @@
     <Compile Include="View\FolderBrowserControl.xaml.cs">
       <DependentUpon>FolderBrowserControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resources\Converters.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\DirectoryTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

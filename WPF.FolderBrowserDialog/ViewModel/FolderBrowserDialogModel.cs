@@ -5,10 +5,11 @@ using System.ComponentModel;
 using WPF.Common;
 using WPF.Common.Aggregators;
 using WPF.Common.ViewModel;
-using WPF.FolderBrowserDialog.Converters;
 using WPF.Common.UI.Behaviors;
 using WPF.Common.Services;
 using WPF.Common.Messaging;
+using WPF.FolderBrowserDialog.Resources;
+
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {

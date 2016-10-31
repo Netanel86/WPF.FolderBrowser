@@ -7,7 +7,6 @@ using WPF.Common;
 using WPF.Common.Enums;
 using WPF.Common.ViewModel;
 using WPF.FolderBrowserDialog.Resources;
-using WPF.FolderBrowserDialog.Converters;
 using System.Windows.Data;
 using WPF.Common.Messaging;
 

@@ -1,9 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:cnvrt="clr-namespace:WPF.FolderBrowserDialog.Converters">
-
-    <!--FolderBrowserDialog Converters key assignments -->
-    <cnvrt:IconToBitmapConverter x:Key="IconConverter" />
-    <cnvrt:EnumToStringConverter x:Key="StringConverter" />
-
-</ResourceDictionary>
