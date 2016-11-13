@@ -82,6 +82,14 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPF.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\WPF.Common\WPF.Common\bin\Debug\WPF.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="WPF.Common.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\WPF.Common\WPF.Common.UI\bin\Debug\WPF.Common.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\eStringTypeExtension.cs" />
@@ -225,16 +233,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\img_expander_closed_32pxl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\WPF.Common\WPF.Common.UI\WPF.Common.UI.csproj">
-      <Project>{F27E77A8-4FE9-4F12-A62B-29263FE6EE0F}</Project>
-      <Name>WPF.Common.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WPF.Common\WPF.Common\WPF.Common.csproj">
-      <Project>{FD36119B-363B-48C4-98BB-E4C5A463D804}</Project>
-      <Name>WPF.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
