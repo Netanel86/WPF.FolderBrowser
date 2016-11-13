@@ -43,7 +43,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
             {
                 if (drive.DriveType != DriveType.CDRom)
                 {
-                    DriveModel driveM = new DriveModel(drive, r_MyComputer);
+                    DriveModel driveM = new DriveModel(drive, r_MyComputer);             
                     r_MyComputer.Children.Add(driveM);
                 }
             }

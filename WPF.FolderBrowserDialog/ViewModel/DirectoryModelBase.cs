@@ -9,6 +9,7 @@ using WPF.Common.ViewModel;
 using WPF.FolderBrowserDialog.Resources;
 using System.Windows.Data;
 using WPF.Common.Messaging;
+using WPF.Common.Input;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
