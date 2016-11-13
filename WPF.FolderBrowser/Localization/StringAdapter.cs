@@ -15,9 +15,6 @@ namespace WPF.FolderBrowserDialog.Localization
 
             switch ((eStringType)i_ResourceName)
             {
-                case eStringType.Button_Find:
-                    str = Strings.ButtonFind;
-                    break;
                 case eStringType.String_NewFolderName:
                     str = Strings.NewFolderNameString;
                     break;
@@ -31,6 +28,12 @@ namespace WPF.FolderBrowserDialog.Localization
                 case eStringType.ErrorText_DirectoryNotFound:
                     str = Strings.MessegeBoxTextErrorDirectNotFound;
                     break;
+                case eStringType.ErrorTitle_Rename:
+                    str = Strings.MessegeBoxTitleErrorRename;
+                    break;
+                //case eStringType.ErrorText_Rename:
+                //    str = Strings.;
+                //    break;
             }
 
             return str;

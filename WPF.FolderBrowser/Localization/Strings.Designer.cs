@@ -63,9 +63,9 @@ namespace WPF.FolderBrowserDialog.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ButtonFind {
+        public static string ButtonSave {
             get {
-                return ResourceManager.GetString("ButtonFind", resourceCulture);
+                return ResourceManager.GetString("ButtonSave", resourceCulture);
             }
         }
         
@@ -129,24 +129,6 @@ namespace WPF.FolderBrowserDialog.Localization {
         public static string NewFolderNameString {
             get {
                 return ResourceManager.GetString("NewFolderNameString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string TitleFolderBrowserDialog {
-            get {
-                return ResourceManager.GetString("TitleFolderBrowserDialog", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string ToolTipFind {
-            get {
-                return ResourceManager.GetString("ToolTipFind", resourceCulture);
             }
         }
         

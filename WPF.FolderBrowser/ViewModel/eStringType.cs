@@ -8,8 +8,8 @@ namespace WPF.FolderBrowserDialog.ViewModel
 {
     public enum eStringType
     {
-        Button_Find,
         Label_Path,
+        Button_Save,
         Context_NewFolder,
         Context_Rename,
         ErrorTitle_DirectoryNotFound,
@@ -18,7 +18,5 @@ namespace WPF.FolderBrowserDialog.ViewModel
         ErrorText_Rename,
         String_NewFolderName,
         String_MyComputer,
-        WindowTitle_FolderBrowser,
-        ToolTip_Find,
     }
 }

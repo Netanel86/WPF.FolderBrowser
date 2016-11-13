@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ButtonFind" xml:space="preserve">
-    <value>חפש</value>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>שמור</value>
   </data>
   <data name="LabelPath" xml:space="preserve">
     <value>_כתובת:</value>
@@ -140,12 +140,6 @@
   </data>
   <data name="NewFolderNameString" xml:space="preserve">
     <value>תקייה חדשה</value>
-  </data>
-  <data name="TitleFolderBrowserDialog" xml:space="preserve">
-    <value>חיפוש כתובת</value>
-  </data>
-  <data name="ToolTipFind" xml:space="preserve">
-    <value>חפש את הכתובת המבוקשת</value>
   </data>
   <data name="TreeViewItemMyComputer" xml:space="preserve">
     <value>המחשב שלי</value>

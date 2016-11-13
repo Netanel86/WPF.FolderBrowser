@@ -46,7 +46,7 @@
         <v:DirectoryTreeView Grid.Row="1"/>
 
         <StackPanel Grid.Row="2" FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,0" >
-            <Button MinWidth="35" Content="Save" Command="{Binding OkCommand}"/>
+            <Button MinWidth="35" Content="{x:Static str:Strings.ButtonSave}" Command="{Binding OkCommand}"/>
         </StackPanel>
 
     </Grid>

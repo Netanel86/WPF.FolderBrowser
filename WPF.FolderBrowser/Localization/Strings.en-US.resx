@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ButtonFind" xml:space="preserve">
-    <value>Find</value>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="LabelPath" xml:space="preserve">
     <value>_Path:</value>
@@ -140,12 +140,6 @@
   </data>
   <data name="NewFolderNameString" xml:space="preserve">
     <value>New Folder</value>
-  </data>
-  <data name="TitleFolderBrowserDialog" xml:space="preserve">
-    <value>Folder Browser</value>
-  </data>
-  <data name="ToolTipFind" xml:space="preserve">
-    <value>Searches the requested path.</value>
   </data>
   <data name="TreeViewItemMyComputer" xml:space="preserve">
     <value>My Computer</value>
