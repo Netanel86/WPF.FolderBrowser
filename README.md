@@ -1,20 +1,17 @@
 # README #
 
-A Simple WPF Folder Browser Dialog.
+A Simple WPF Folder Browser User Control.
 
 The project is implemented to concur with MVVM design rules.
-
-Under Development
 
 ### What is this repository for? ###
 
 * Quick summary 
     * Built for use in WPF .NET 4.0 applications.
-    * Used as a modal dialog window to get a user input of a requested directory path.
+    * Used as a dialog to get a user input of a requested directory path.
 	
 
-* Version 0.0.0.1
-	* Added search path text box.
-    * Added animated buttons.
-    * Added icons for diffrent tree directories.
-    * Added rename directory and create new directory options.
+* Version 1.0.0.0
+    * Supports English & Hebrew.
+    * Path can be set with an initial value.
+    
