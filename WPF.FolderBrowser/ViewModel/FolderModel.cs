@@ -8,6 +8,7 @@ using WPF.FolderBrowserDialog.Resources;
 using WPF.FolderBrowserDialog.Localization;
 using WPF.Common.Messaging;
 using WPF.Common.Input;
+using WPF.Common.UI.Converters;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
@@ -71,11 +72,12 @@ namespace WPF.FolderBrowserDialog.ViewModel
             {
                 this.OnPropertyChanged("FolderName");
 
+                IResourceAdapter stringAdapter = Services.GetService(typeof(IStringAdapter)) as IResourceAdapter;
                 Messanger.Publish<ErrorMessage>(
                     new ErrorMessage()
                     {
-                        Title = eStringType.ErrorTitle_Rename.GetUnderlyingString(),
-                        Text = eStringType.ErrorText_Rename.GetUnderlyingString(),
+                        Title = stringAdapter.GetResource(eStringType.ErrorTitle_Rename) as string,
+                        Text = stringAdapter.GetResource(eStringType.ErrorText_Rename) as string,
                         Content = i_Exception.Message,
                         Icon = eMessageIcon.Warning
                     });

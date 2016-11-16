@@ -10,6 +10,7 @@ using WPF.FolderBrowserDialog.Resources;
 using System.Windows.Data;
 using WPF.Common.Messaging;
 using WPF.Common.Input;
+using WPF.Common.UI.Converters;
 
 namespace WPF.FolderBrowserDialog.ViewModel
 {
@@ -78,12 +79,14 @@ namespace WPF.FolderBrowserDialog.ViewModel
                         m_HasAccess = !v_Access;
 
                         (this.Parent as DirectoryModelBase).RefreshDirectoryTree();
+
+                        IResourceAdapter stringAdapter = Services.GetService(typeof(IStringAdapter)) as IResourceAdapter;
                         
                         Messanger.Publish<ErrorMessage>(
                             new ErrorMessage()
                             {
-                                Title = eStringType.ErrorTitle_DirectoryNotFound.GetUnderlyingString(),
-                                Text = eStringType.ErrorText_DirectoryNotFound.GetUnderlyingString(),
+                                Title = stringAdapter.GetResource(eStringType.ErrorTitle_DirectoryNotFound) as string,
+                                Text = stringAdapter.GetResource(eStringType.ErrorText_DirectoryNotFound) as string,
                                 Content = i_Exception.Message,
                                 Icon = eMessageIcon.Exclamation
                             });
@@ -155,7 +158,8 @@ namespace WPF.FolderBrowserDialog.ViewModel
         
         private void createNewFolder(object obj)
         {
-            string newFolderName = eStringType.String_NewFolderName.GetUnderlyingString();
+            IResourceAdapter stringAdapter = Services.GetService(typeof(IStringAdapter)) as IResourceAdapter;
+            string newFolderName = stringAdapter.GetResource(eStringType.String_NewFolderName) as string;
             string nonExistingNewFolderName = newFolderName;
             int count = 0;
             this.IsExpanded = true;

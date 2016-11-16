@@ -6,7 +6,7 @@
     
     <cnvrt:GeneralBitmapConverter x:Key="GeneralBitmapConverter" />
     <cnvrt:GeneralStringConverter x:Key="GeneralStringConverter" />
-    <str:StringAdapter x:Key="StringsAdapter" />
+    <str:StringAdapter x:Key="StringAdapter" />
     <r:IconAdapter x:Key="IconsAdapter" />
     
 </ResourceDictionary>

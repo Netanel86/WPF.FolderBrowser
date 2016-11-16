@@ -9,6 +9,8 @@ using WPF.Common.UI.Behaviors;
 using WPF.Common.Services;
 using WPF.Common.Messaging;
 using WPF.FolderBrowserDialog.Resources;
+using WPF.FolderBrowserDialog.Localization;
+using WPF.Common.UI.Converters;
 
 
 namespace WPF.FolderBrowserDialog.ViewModel
@@ -50,11 +52,13 @@ namespace WPF.FolderBrowserDialog.ViewModel
                         }
                         catch(DirectoryNotFoundException i_Execption)
                         {
+                            IResourceAdapter stringAdapter  = Services.GetService(typeof(IStringAdapter)) as IResourceAdapter;
+
                             this.OnErrorNotice(
                                 new ErrorMessage()
                                 {
-                                    Title = eStringType.ErrorTitle_DirectoryNotFound.GetUnderlyingString(),
-                                    Text = eStringType.ErrorText_DirectoryNotFound.GetUnderlyingString(),
+                                    Title = stringAdapter.GetResource(eStringType.ErrorTitle_DirectoryNotFound) as string,
+                                    Text = stringAdapter.GetResource(eStringType.ErrorText_DirectoryNotFound) as string,
                                     Content = i_Execption.Message,
                                     Icon = eMessageIcon.Warning
                                 }
@@ -85,7 +89,8 @@ namespace WPF.FolderBrowserDialog.ViewModel
                 }
                 else
                 {
-                    this.PathText = eStringType.String_MyComputer.GetUnderlyingString();
+                    IResourceAdapter stringAdapter = Services.GetService(typeof(IStringAdapter)) as IResourceAdapter;
+                    this.PathText = stringAdapter.GetResource(eStringType.String_MyComputer) as string;
                 }
             }
         }
@@ -94,6 +99,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
         {
             this.TreeModel.PropertyChanged += onSelectedDirectoryChanged;
             m_Token = Messanger.Subscribe<ErrorMessage>(OnErrorNotice);
+            this.Services.AddService(typeof(IStringAdapter), new StringAdapter());
 
             if (this.DefaultValue != null)
             {
@@ -105,16 +111,18 @@ namespace WPF.FolderBrowserDialog.ViewModel
         {
             this.TreeModel.PropertyChanged -= onSelectedDirectoryChanged;
             Messanger.Unsubscribe<ErrorMessage>(m_Token);
+            this.Services.RemoveService(typeof(IStringAdapter));
         }
 
         protected override void CloseDialog(bool i_DialogCanceled)
         {
+            PathResult retrunValue = null;
             if (!i_DialogCanceled)
             {
-                this.ReturnValue = new PathResult() { Path = this.PathText };
+                retrunValue = new PathResult() { Path = this.PathText };
             }
 
-            this.Navigator.NavigateBackwards(this.ReturnValue);
+            this.Navigator.NavigateBackwards(retrunValue);
         }
 
         protected override bool CheckResultLegitimacy()

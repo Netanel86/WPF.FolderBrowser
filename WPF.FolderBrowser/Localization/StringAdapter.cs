@@ -7,7 +7,10 @@ using WPF.FolderBrowserDialog.ViewModel;
 
 namespace WPF.FolderBrowserDialog.Localization
 {
-    public class StringAdapter : IResourceAdapter
+    public interface IStringAdapter : IResourceAdapter
+    {}
+
+    public class StringAdapter : IStringAdapter
     {
         public object GetResource(object i_ResourceName)
         {

@@ -92,7 +92,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\eStringTypeExtension.cs" />
     <Compile Include="Localization\StringAdapter.cs" />
     <Compile Include="Resources\IconAdapter.cs" />
     <Compile Include="ViewModel\eIconType.cs" />
