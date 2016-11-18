@@ -9,6 +9,7 @@
              xmlns:ctrl="clr-namespace:WPF.Common.UI.Controls;assembly=WPF.Common.UI"
              xmlns:si="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
              
    
@@ -18,6 +19,18 @@
                 <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/Resources.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/TreeViewItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <s:Double x:Key="IconSize">24</s:Double>
+            <s:Double x:Key="ItemFontSize">14</s:Double>
+            
+            <Style x:Key="IconStyle" TargetType="{x:Type Image}">
+                <Setter Property="Width" Value="{StaticResource IconSize}"/>
+                <Setter Property="Height" Value="{StaticResource IconSize}"/>
+            </Style>
+            <Style x:Key="IconTextStyle" TargetType="{x:Type TextBlock}" >
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="{StaticResource ItemFontSize}" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -41,15 +54,15 @@
 
             <HierarchicalDataTemplate DataType="{x:Type vm:DummyDirectoryModel}" ItemsSource="{Binding Children}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding Icon, Converter={StaticResource GeneralBitmapConverter}, ConverterParameter={StaticResource IconsAdapter}}" />
-                    <TextBlock Text="{Binding DummyName, Converter={StaticResource GeneralStringConverter}, ConverterParameter={StaticResource StringAdapter}}"/>
+                    <Image Style="{StaticResource IconStyle}" Margin="3,0" Source="{Binding Icon, Converter={StaticResource GeneralBitmapConverter}, ConverterParameter={StaticResource IconsAdapter}}" />
+                    <TextBlock VerticalAlignment="Center" FontSize="{StaticResource ItemFontSize}" Text="{Binding DummyName, Converter={StaticResource GeneralStringConverter}, ConverterParameter={StaticResource StringAdapter}}"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type vm:DriveModel}" ItemsSource="{Binding Children}">
                 <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
-                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding Icon, Converter={StaticResource GeneralBitmapConverter}, ConverterParameter={StaticResource IconsAdapter}}" />
-                    <TextBlock Text="{Binding DriveLetter}"/>
+                    <Image Style="{StaticResource IconStyle}" Margin="3,0" Source="{Binding Icon, Converter={StaticResource GeneralBitmapConverter}, ConverterParameter={StaticResource IconsAdapter}}" />
+                    <TextBlock VerticalAlignment="Center" FontSize="{StaticResource ItemFontSize}" Text="{Binding DriveLetter}"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                             <si:ChangePropertyAction PropertyName="IsSelected" Value="true" TargetObject="{Binding}"/>
@@ -60,9 +73,9 @@
 
             <HierarchicalDataTemplate DataType="{x:Type vm:FolderModel}" ItemsSource="{Binding Children}">
                 <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource TreeViewItemContext}">
-                    <Image Width="16" Height="16" Margin="3,0" Source="{Binding Icon, Converter={StaticResource GeneralBitmapConverter}, ConverterParameter={StaticResource IconsAdapter}, UpdateSourceTrigger=PropertyChanged}" />
+                    <Image Style="{StaticResource IconStyle}" Margin="3,0" Source="{Binding Icon, Converter={StaticResource GeneralBitmapConverter}, ConverterParameter={StaticResource IconsAdapter}}" />
 
-                    <ctrl:TogglableTextBox Mode="{Binding CurrentEditMode, Mode=TwoWay}" Text="{Binding FolderName, Mode=OneWay}">
+                    <ctrl:TogglableTextBox VerticalAlignment="Center" FontSize="{StaticResource ItemFontSize}"  Mode="{Binding CurrentEditMode, Mode=TwoWay}" Text="{Binding FolderName, Mode=OneWay}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="LostFocus">
                                 <i:InvokeCommandAction Command="{Binding RenameFolderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ctrl:TogglableTextBox}, Path=Text}" />

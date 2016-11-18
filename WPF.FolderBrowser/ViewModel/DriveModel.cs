@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using WPF.FolderBrowserDialog.Resources;
+using System;
 namespace WPF.FolderBrowserDialog.ViewModel
 {
     public class DriveModel : DirectoryModelBase
@@ -13,7 +14,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
         
         public string DriveLetter 
         {
-            get { return m_Directory.Name; }
+            get { return String.Format("{0} ({1})", m_DriveInfo.VolumeLabel, m_Directory.Name); }
         }
 
         public DriveModel(DriveInfo i_DriveInfo, DummyDirectoryModel i_ParentDirectory)
@@ -31,7 +32,18 @@ namespace WPF.FolderBrowserDialog.ViewModel
             }
             else
             {
-                this.Icon = m_DriveInfo.DriveType == DriveType.Network ? eIconType.NetworkDrive : eIconType.SimpleDrive;
+                switch (m_DriveInfo.DriveType)
+                {
+                    case DriveType.Network:
+                        this.Icon = eIconType.NetworkDrive;
+                        break;
+                    case DriveType.Removable:
+                        this.Icon = eIconType.RemovableDrive;
+                        break;
+                    default:
+                        this.Icon = eIconType.SimpleDrive;
+                        break;
+                }
             }
         }
 

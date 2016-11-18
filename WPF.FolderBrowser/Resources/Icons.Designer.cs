@@ -61,7 +61,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_yellow_folder_closed_32pxl.png.
+        ///   Looks up a localized string similar to icon_folder_closed_32pxl.png.
         /// </summary>
         public static string ClosedFolder {
             get {
@@ -70,7 +70,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_my_computer_32pxl.png.
+        ///   Looks up a localized string similar to icon_my_computer_32pxl.png.
         /// </summary>
         public static string Computer {
             get {
@@ -79,7 +79,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_expander_closed_32pxl.png.
+        ///   Looks up a localized string similar to icon_expander_closed_32pxl.png.
         /// </summary>
         public static string ExpanderClosed {
             get {
@@ -88,7 +88,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_expander_open_32pxl.png.
+        ///   Looks up a localized string similar to icon_expander_open_32pxl.png.
         /// </summary>
         public static string ExpanderOpen {
             get {
@@ -97,7 +97,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_folder_explorer_32pxl.png.
+        ///   Looks up a localized string similar to icon_folder_explorer_32pxl.png.
         /// </summary>
         public static string Find {
             get {
@@ -106,7 +106,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_hard_drive_network_32pxl.png.
+        ///   Looks up a localized string similar to icon_drive_network_32pxl.png.
         /// </summary>
         public static string NetworkDrive {
             get {
@@ -115,7 +115,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_folder_new_32pxl.png.
+        ///   Looks up a localized string similar to icon_folder_new_32pxl.png.
         /// </summary>
         public static string NewFolder {
             get {
@@ -124,7 +124,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_folder_noaccess_32pxl.png.
+        ///   Looks up a localized string similar to icon_folder_noaccess_32pxl.png.
         /// </summary>
         public static string NoAccessFolder {
             get {
@@ -133,7 +133,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_yellow_folder_open_32pxl.png.
+        ///   Looks up a localized string similar to icon_folder_open_32pxl.png.
         /// </summary>
         public static string OpenFolder {
             get {
@@ -142,7 +142,16 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_rename_32pxl.png.
+        ///   Looks up a localized string similar to icon_drive_removable_32pxl.png.
+        /// </summary>
+        public static string RemovableDrive {
+            get {
+                return ResourceManager.GetString("RemovableDrive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to icon_rename_32pxl.png.
         /// </summary>
         public static string RenameFolder {
             get {
@@ -151,7 +160,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_hard_drive_32pxl.png.
+        ///   Looks up a localized string similar to icon_drive_simple_32pxl.png.
         /// </summary>
         public static string SimpleDrive {
             get {
@@ -160,7 +169,7 @@ namespace WPF.FolderBrowserDialog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to img_hard_drive_system_32pxl.png.
+        ///   Looks up a localized string similar to icon_drive_system_32pxl.png.
         /// </summary>
         public static string SystemDrive {
             get {

@@ -9,7 +9,7 @@ namespace WPF.FolderBrowserDialog.Resources
 {
     public class IconAdapter : IResourceAdapter
     {
-        private const string m_ApplicationPath = @"pack://application:,,,/WPF.FolderBrowserDialog;component/Images/";
+        private const string m_ApplicationPath = @"pack://application:,,,/WPF.FolderBrowserDialog;component/Icons/";
 
         public object GetResource(object i_ResourceName)
         {
@@ -48,6 +48,9 @@ namespace WPF.FolderBrowserDialog.Resources
                         break;
                     case eIconType.NetworkDrive:
                         resourceString = Icons.NetworkDrive;
+                        break;
+                    case eIconType.RemovableDrive:
+                        resourceString = Icons.RemovableDrive;
                         break;
                     case eIconType.ExpanderClosed:
                         resourceString = Icons.ExpanderClosed;

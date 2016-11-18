@@ -22,6 +22,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
         Computer,
         SimpleDrive,
         NetworkDrive,
+        RemovableDrive,
         SystemDrive,
         ClosedFolder,
         OpenFolder,

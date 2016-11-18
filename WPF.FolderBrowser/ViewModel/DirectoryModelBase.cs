@@ -51,7 +51,7 @@ namespace WPF.FolderBrowserDialog.ViewModel
                 if (m_Icon.CompareTo(value) != 0)
                 {
                     m_Icon = value;
-                    this.OnPropertyChanged("ImagePath");
+                    this.OnPropertyChanged("Icon");
                 }
             }
         }
