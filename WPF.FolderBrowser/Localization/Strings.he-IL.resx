@@ -130,10 +130,10 @@
     <value>שינוי שם</value>
   </data>
   <data name="MessegeBoxTextErrorDirectNotFound" xml:space="preserve">
-    <value>כתובת לא נמצאה</value>
+    <value>הכתובת המבוקשת לא נמצאה, ודא כי הכתובת נכונה וכי התקייה לא הועברה או נמחקה</value>
   </data>
   <data name="MessegeBoxTitleErrorDirectNotFound" xml:space="preserve">
-    <value>לא נמצא</value>
+    <value>כתובת לא נמצאה</value>
   </data>
   <data name="MessegeBoxTitleErrorRename" xml:space="preserve">
     <value>טעות בשינוי שם</value>
