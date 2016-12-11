@@ -1,0 +1,3 @@
+[submodule "wpf.common"]
+	path = wpf.common
+	url = https://Netanel86@bitbucket.org/Netanel86/wpf.common.git
