@@ -1,8 +1,8 @@
-﻿using WPF.FolderBrowserDialog.Resources;
+﻿using WPF.FolderBrowser.Resources;
 using WPF.Common.ViewModel;
-using WPF.FolderBrowserDialog.Localization;
+using WPF.FolderBrowser.Localization;
 
-namespace WPF.FolderBrowserDialog.ViewModel
+namespace WPF.FolderBrowser.ViewModel
 {
     public class DummyDirectoryModel : TreeViewItemModel
     {

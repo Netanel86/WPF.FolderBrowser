@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="WPF.FolderBrowserDialog.View.FolderBrowserControl"
+﻿<UserControl x:Class="WPF.FolderBrowser.View.FolderBrowserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:v="clr-namespace:WPF.FolderBrowserDialog.View"
-             xmlns:str="clr-namespace:WPF.FolderBrowserDialog.Localization"
+             xmlns:v="clr-namespace:WPF.FolderBrowser.View"
+             xmlns:str="clr-namespace:WPF.FolderBrowser.Localization"
              xmlns:behavior="clr-namespace:WPF.Common.UI.Behaviors;assembly=WPF.Common.UI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/Resources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowser;component/Resources/Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

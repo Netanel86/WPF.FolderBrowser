@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WPF.Common.UI.Converters;
-using WPF.FolderBrowserDialog.ViewModel;
+using WPF.FolderBrowser.ViewModel;
 
-namespace WPF.FolderBrowserDialog.Resources
+namespace WPF.FolderBrowser.Resources
 {
     public class IconAdapter : IResourceAdapter
     {
-        private const string m_ApplicationPath = @"pack://application:,,,/WPF.FolderBrowserDialog;component/Icons/";
+        private const string m_ApplicationPath = @"pack://application:,,,/WPF.FolderBrowser;component/Icons/";
 
         public object GetResource(object i_ResourceName)
         {

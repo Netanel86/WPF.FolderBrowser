@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="WPF.FolderBrowserDialog.View.DirectoryTreeView"
+﻿<UserControl x:Class="WPF.FolderBrowser.View.DirectoryTreeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:rsrc="clr-namespace:WPF.FolderBrowserDialog.Resources"
-             xmlns:str="clr-namespace:WPF.FolderBrowserDialog.Localization"
-             xmlns:vm="clr-namespace:WPF.FolderBrowserDialog.ViewModel"
+             xmlns:rsrc="clr-namespace:WPF.FolderBrowser.Resources"
+             xmlns:str="clr-namespace:WPF.FolderBrowser.Localization"
+             xmlns:vm="clr-namespace:WPF.FolderBrowser.ViewModel"
              xmlns:ctrl="clr-namespace:WPF.Common.UI.Controls;assembly=WPF.Common.UI"
              xmlns:si="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -16,8 +16,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/Resources.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowserDialog;component/Resources/TreeViewItemStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowser;component/Resources/Resources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WPF.FolderBrowser;component/Resources/TreeViewItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <s:Double x:Key="IconSize">24</s:Double>

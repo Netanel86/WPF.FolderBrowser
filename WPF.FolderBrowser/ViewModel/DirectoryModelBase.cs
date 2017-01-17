@@ -2,17 +2,17 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using WPF.FolderBrowserDialog.Localization;
+using WPF.FolderBrowser.Localization;
 using WPF.Common;
 using WPF.Common.Enums;
 using WPF.Common.ViewModel;
-using WPF.FolderBrowserDialog.Resources;
+using WPF.FolderBrowser.Resources;
 using System.Windows.Data;
 using WPF.Common.Messaging;
 using WPF.Common.Input;
 using WPF.Common.UI.Converters;
 
-namespace WPF.FolderBrowserDialog.ViewModel
+namespace WPF.FolderBrowser.ViewModel
 {
 
     public abstract class DirectoryModelBase : TreeViewItemModel

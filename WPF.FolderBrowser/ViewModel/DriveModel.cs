@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using WPF.FolderBrowserDialog.Resources;
+using WPF.FolderBrowser.Resources;
 using System;
-namespace WPF.FolderBrowserDialog.ViewModel
+namespace WPF.FolderBrowser.ViewModel
 {
     public class DriveModel : DirectoryModelBase
     {

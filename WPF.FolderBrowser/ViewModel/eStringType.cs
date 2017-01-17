@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 
-namespace WPF.FolderBrowserDialog.ViewModel
+namespace WPF.FolderBrowser.ViewModel
 {
     public enum eStringType
     {

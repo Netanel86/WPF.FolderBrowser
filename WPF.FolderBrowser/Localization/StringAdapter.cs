@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WPF.Common.UI.Converters;
-using WPF.FolderBrowserDialog.ViewModel;
+using WPF.FolderBrowser.ViewModel;
 
-namespace WPF.FolderBrowserDialog.Localization
+namespace WPF.FolderBrowser.Localization
 {
     public interface IStringAdapter : IResourceAdapter
     {}

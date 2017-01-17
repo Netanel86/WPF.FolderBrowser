@@ -8,12 +8,12 @@ using WPF.Common.ViewModel;
 using WPF.Common.UI.Behaviors;
 using WPF.Common.Services;
 using WPF.Common.Messaging;
-using WPF.FolderBrowserDialog.Resources;
-using WPF.FolderBrowserDialog.Localization;
+using WPF.FolderBrowser.Resources;
+using WPF.FolderBrowser.Localization;
 using WPF.Common.UI.Converters;
 
 
-namespace WPF.FolderBrowserDialog.ViewModel
+namespace WPF.FolderBrowser.ViewModel
 {
     public class FolderBrowserDialogModel : DialogModel, INavigable
     {

@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
-using WPF.FolderBrowserDialog.Localization;
+using WPF.FolderBrowser.Localization;
 using WPF.Common;
 using WPF.Common.ViewModel;
 
-namespace WPF.FolderBrowserDialog.ViewModel
+namespace WPF.FolderBrowser.ViewModel
 {
     public class TreeViewModel : ViewModelBase
     {

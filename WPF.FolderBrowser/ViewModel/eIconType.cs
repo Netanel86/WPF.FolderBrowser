@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Collections;
 using System.Windows;
 
-namespace WPF.FolderBrowserDialog.ViewModel
+namespace WPF.FolderBrowser.ViewModel
 {
     /// <summary>
     /// An Enumeration represnting the types of available icons. 

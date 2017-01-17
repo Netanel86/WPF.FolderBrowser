@@ -1,4 +1,4 @@
-﻿namespace WPF.FolderBrowserDialog
+﻿namespace WPF.FolderBrowser
 {
     public class PathResult
     {
